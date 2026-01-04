@@ -5,11 +5,11 @@ import { OrbitControls, useGLTF, Html } from '@react-three/drei'
 import { Suspense } from 'react'
 
 function EarthModel() {
-  const { scene } = useGLTF('/models/earthnew.glb')
-  return <primitive object={scene} scale={1.5} />
+  const { scene } = useGLTF('/models/moon_planet.glb')
+  return <primitive object={scene} scale={0.9} />
 }
 
-useGLTF.preload('/models/earthnew.glb')
+useGLTF.preload('/models/moon_planet.glb')
 
 export default function Earth() {
   return (

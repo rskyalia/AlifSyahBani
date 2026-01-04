@@ -3,7 +3,7 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useGLTF, Html, useProgress } from '@react-three/drei'
 import { Suspense } from 'react'
-import * as THREE from 'three'
+import * as THREE from 'three'  
 function Loader() {
   const { progress } = useProgress()
 

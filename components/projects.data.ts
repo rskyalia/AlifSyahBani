@@ -1,7 +1,7 @@
 export const projects = [
     {
         title: 'Model United Nation',
-        image: '/projects/IMG_0971.jpg',
+        image: '/projects/mun.jpg',
         description:
             'Me at the MUN Model United Nation as delegation of Sudan in 2025 conference in Univeristy of Jember.',
         tech: ['English', 'Conference', 'MUN', 'Delegate'],
@@ -9,7 +9,7 @@ export const projects = [
     },
     {
         title: 'Being Moderator',
-        image: '/projects/DSC07494.jpg',
+        image: '/projects/seminar.jpg',
         description:
             'Me being moderator at Seminar of Language in Shaping the Future 2024 in Pondok Pesantren Nuris Jember.',
         tech: ['Seminar', 'Language', 'Moderator', 'Public Speaking'],

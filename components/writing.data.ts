@@ -1,0 +1,22 @@
+export const writings = [
+    {
+        title: 'How I Build a Futuristic Portfolio with Next.js',
+        excerpt:
+            'A deep dive into how I designed and engineered a modern portfolio using 3D, glassmorphism, and clean architecture.',
+        date: '2025',
+        category: 'Engineering',
+        cover: '/writing/alif.png',
+        github: 'https://github.com/rskyalia/AliaRiskyFauziah',
+        website : 'https://rskyalia.github.io/AliaRiskyFauziah/',
+    },
+    {
+        title: 'Modern Portfolio Website With React.js',
+        excerpt:
+            'A modern portfolio website built with React.js, Next.js, and Tailwind CSS for a sleek and responsive user experience.',
+        date: '2025',
+        category: 'Website',
+        cover: '/writing/alia.png',
+        github: 'https://github.com/rskyalia/AliaRiskyFauziah',
+        website : 'https://rskyalia.github.io/AliaRiskyFauziah/',
+    },
+]

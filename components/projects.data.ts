@@ -17,7 +17,7 @@ export const projects = [
     },
     {
         title: 'Second Runner Up',
-        image: '/projects/unars.jpg',
+        image: '/projects/unarscompetition.jpg',
         description:
             'Me receiving the Second Runner Up award in Story Telling Competition at E-Fest UNARS 2023 Situbondo.',
         tech: ['Story Telling', 'Competition', 'English'],

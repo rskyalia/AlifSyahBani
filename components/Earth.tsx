@@ -5,11 +5,11 @@ import { OrbitControls, useGLTF, Html } from '@react-three/drei'
 import { Suspense } from 'react'
 
 function EarthModel() {
-  const { scene } = useGLTF('/models/earth.glb')
-  return <primitive object={scene} scale={1} />
+  const { scene } = useGLTF('/models/earthnew.glb')
+  return <primitive object={scene} scale={1.5} />
 }
 
-useGLTF.preload('/models/earth.glb')
+useGLTF.preload('/models/earthnew.glb')
 
 export default function Earth() {
   return (
@@ -21,7 +21,7 @@ export default function Earth() {
         <EarthModel />
       </Suspense>
 
-      <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
+      <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
     </Canvas>
   )
 }

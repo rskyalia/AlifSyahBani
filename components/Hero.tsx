@@ -13,80 +13,84 @@ import Earth from "./Earth";
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex items-center px-6 md:px-20">
-      <div className="max-w-3xl">
-          {/* Social Icons */}
-          <div className="flex gap-5 mb-6 text-white/70">
-            <SocialIcon
-              href="https://github.com/rskyalia"
-              icon={<FaGithub />}
-              glow="hover:drop-shadow-[0_0_10px_rgba(180,180,180,0.8)]"
-            />
-
-            <SocialIcon
-              href="https://www.linkedin.com/in/alif-syahbani-01056b304/"
-              icon={<FaLinkedin />}
-              glow="hover:drop-shadow-[0_0_10px_rgba(10,102,194,0.9)]"
-            />
-
-            <SocialIcon
-              href="https://www.instagram.com/syah.baani/"
-              icon={<FaInstagram />}
-              glow="hover:drop-shadow-[0_0_10px_rgba(225,48,108,0.9)]"
-            />
-
-            <SocialIcon
-              href="https://www.tiktok.com/@syah.baani"
-              icon={<FaTiktok />}
-              glow="hover:drop-shadow-[0_0_10px_rgba(0,255,255,0.8)]"
-            />
-
-            <SocialIcon
-              href="https://x.com"
-              icon={<FaXTwitter />}
-              glow="hover:drop-shadow-[0_0_10px_rgba(255,165,0,0.9)]"
-            />
-
-            <SocialIcon
-              href="mailto:muhammad.alif396177@smk.belajar.id"
-              icon={<MdEmail />}
-              glow="hover:drop-shadow-[0_0_10px_rgba(234,67,53,0.9)]"
-            />
-          </div>
-
-          {/* Heading */}
-          <h1
-            className="
-            font-cabinet
-            text-[60px]
-            leading-[60px]
-            font-bold
-            text-white
-            mb-4
-          "
-          >
-            Hi, I'm Alif Sya'bani
-          </h1>
-
-          {/* Subheading */}
-          <p
-            className="
-            font-cabinet
-            text-[24px]
-            leading-[24px]
-            text-white/80
-            mb-6
-          "
-          >
-            Student Candidate | Computer Engineering @ Brawijaya University
-          </p>
-
-          {/* Typewriter */}
-          <Typewriter />
+    <section
+      id="home"
+      className="
+        min-h-screen
+        flex flex-col-reverse md:flex-row
+        items-center
+        justify-center
+        gap-12
+        px-6
+        md:px-20
+        pt-24 md:pt-0
+      "
+    >
+      {/* LEFT CONTENT */}
+      <div className="w-full max-w-xl text-center md:text-left">
+        {/* Social Icons */}
+        <div className="flex justify-center md:justify-start gap-5 mb-6 text-white/70">
+          <SocialIcon href="https://github.com/rskyalia" icon={<FaGithub />} />
+          <SocialIcon
+            href="https://www.linkedin.com/in/alif-syahbani-01056b304/"
+            icon={<FaLinkedin />}
+          />
+          <SocialIcon
+            href="https://www.instagram.com/syah.baani/"
+            icon={<FaInstagram />}
+          />
+          <SocialIcon
+            href="https://www.tiktok.com/@syah.baani"
+            icon={<FaTiktok />}
+          />
+          <SocialIcon href="https://x.com" icon={<FaXTwitter />} />
+          <SocialIcon
+            href="mailto:muhammad.alif396177@smk.belajar.id"
+            icon={<MdEmail />}
+          />
         </div>
-        <div className="w-full h-[520px] text-white">
-          <Earth />
-        </div>
+
+        {/* Heading */}
+        <h1
+          className="
+            font-cabinet font-bold text-white mb-4
+            text-4xl leading-tight
+            sm:text-5xl
+            md:text-6xl md:leading-[60px]
+          "
+        >
+          Hi, I'm Alif Sya'bani
+        </h1>
+
+        {/* Subheading */}
+        <p
+          className="
+            font-cabinet text-white/80 mb-6
+            text-base
+            sm:text-lg
+            md:text-2xl
+          "
+        >
+          Student Candidate | Computer Engineering @ Brawijaya University
+        </p>
+
+        {/* Typewriter */}
+        <Typewriter />
+      </div>
+
+      {/* RIGHT CONTENT – EARTH */}
+      <div
+        className="
+          w-full
+          max-w-md
+          h-[300px]
+          sm:h-[360px]
+          md:h-[520px]
+          hidden sm:block
+        "
+      >
+        <Earth />
+      </div>
     </section>
   );
 }
@@ -94,23 +98,20 @@ export default function Hero() {
 function SocialIcon({
   href,
   icon,
-  glow,
 }: {
   href: string;
   icon: React.ReactNode;
-  glow: string;
 }) {
   return (
     <a
       href={href}
       target="_blank"
-      className={`
-        text-xl text-white/70
-        transition-all duration-300
+      className="
+        text-lg sm:text-xl
+        text-white/70
+        transition
         hover:text-white
-        hover:scale-110
-        ${glow}
-      `}
+      "
     >
       {icon}
     </a>

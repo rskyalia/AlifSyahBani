@@ -19,4 +19,14 @@ export const writings = [
         github: 'https://github.com/rskyalia/AliaRiskyFauziah',
         website : 'https://rskyalia.github.io/AliaRiskyFauziah/',
     },
+    {
+        title: 'Proxinet Website | First Website Project',
+        excerpt:
+            'My first project when i learning about HTML, CSS, and Java Script.',
+        date: '2025',
+        category: 'Website',
+        cover: '/writing/proxinet.png',
+        github: 'https://github.com/ProxinetJember/proxinet.jember.git',
+        website : 'https://proxinetjember.github.io/proxinet.jember/',
+    },
 ]

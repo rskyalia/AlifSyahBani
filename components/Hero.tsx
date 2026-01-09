@@ -49,6 +49,7 @@ export default function Hero() {
             icon={<MdEmail />}
           />
         </div>
+        
 
         {/* Heading */}
         <h1

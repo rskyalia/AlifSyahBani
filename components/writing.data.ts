@@ -6,8 +6,8 @@ export const writings = [
         date: '2025',
         category: 'Engineering',
         cover: '/writing/aliflagi.png',
-        github: 'https://syahbanialif.vercel.app/',
-        website : 'https://github.com/rskyalia/AlifSyahBani.git',
+        github: 'https://github.com/rskyalia/AlifSyahBani.git',
+        website : 'https://syahbanialif.vercel.app/',
     },
     {
         title: 'Modern Portfolio Website With React.js',

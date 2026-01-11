@@ -28,28 +28,39 @@ export default function Hero() {
     >
       {/* LEFT CONTENT */}
       <div className="w-full max-w-xl text-center md:text-left">
-        {/* Social Icons */}
         <div className="flex justify-center md:justify-start gap-5 mb-6 text-white/70">
-          <SocialIcon href="https://github.com/rskyalia" icon={<FaGithub />} />
+          <SocialIcon
+            href="https://github.com/rskyalia"
+            icon={<FaGithub />}
+            variant="github"
+          />
+
           <SocialIcon
             href="https://www.linkedin.com/in/alif-syahbani-01056b304/"
             icon={<FaLinkedin />}
+            variant="linkedin"
           />
+
           <SocialIcon
             href="https://www.instagram.com/syah.baani/"
             icon={<FaInstagram />}
+            variant="instagram"
           />
+
           <SocialIcon
             href="https://www.tiktok.com/@syah.baani"
             icon={<FaTiktok />}
+            variant="tiktok"
           />
-          <SocialIcon href="https://x.com" icon={<FaXTwitter />} />
+
+          <SocialIcon href="https://x.com" icon={<FaXTwitter />} variant="x" />
+
           <SocialIcon
             href="mailto:muhammad.alif396177@smk.belajar.id"
             icon={<MdEmail />}
+            variant="gmail"
           />
         </div>
-        
 
         {/* Heading */}
         <h1
@@ -72,7 +83,8 @@ export default function Hero() {
             md:text-2xl
           "
         >
-          Student Candidate | Computer Engineering @ Brawijaya University
+          Vocational HighSchool Student | Network Computer Engineer @ SMK
+          Nuris Jember
         </p>
 
         {/* Typewriter */}
@@ -99,22 +111,43 @@ export default function Hero() {
 function SocialIcon({
   href,
   icon,
+  variant,
 }: {
   href: string;
   icon: React.ReactNode;
+  variant: "github" | "linkedin" | "instagram" | "tiktok" | "x" | "gmail";
 }) {
+  const styles: Record<string, string> = {
+    github:
+      "hover:bg-gradient-to-br hover:from-black hover:to-white hover:text-black hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]",
+    linkedin:
+      "hover:bg-gradient-to-br hover:from-sky-400 hover:to-white hover:text-sky-700 hover:shadow-[0_0_25px_rgba(56,189,248,0.6)]",
+    instagram:
+      "hover:bg-gradient-to-br hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white hover:shadow-[0_0_30px_rgba(236,72,153,0.7)]",
+    tiktok:
+      "hover:bg-gradient-to-br hover:from-cyan-400 hover:via-pink-500 hover:to-black hover:text-white hover:shadow-[0_0_30px_rgba(236,72,153,0.6)]",
+    x:
+      "hover:bg-white hover:text-black hover:shadow-[0_0_25px_rgba(255,255,255,0.8)]",
+    gmail:
+      "hover:bg-gradient-to-br hover:from-red-500 hover:via-yellow-400 hover:to-blue-500 hover:text-white hover:shadow-[0_0_30px_rgba(239,68,68,0.6)]",
+  };
+
   return (
     <a
       href={href}
       target="_blank"
-      className="
+      rel="noopener noreferrer"
+      className={`
+        p-3
+        rounded-full
         text-lg sm:text-xl
         text-white/70
-        transition
-        hover:text-white
-      "
+        transition-all duration-300
+        ${styles[variant]}
+      `}
     >
       {icon}
     </a>
   );
 }
+

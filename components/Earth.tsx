@@ -11,17 +11,17 @@ function EarthModel() {
 
 useGLTF.preload('/models/moon_planet.glb')
 
-export default function Earth() {
-  return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-      <ambientLight intensity={1.2} />
-      <directionalLight position={[5, 5, 5]} intensity={2} />
+  export default function Earth() {
+    return (
+      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+        <ambientLight intensity={1.2} />
+        <directionalLight position={[5, 5, 5]} intensity={2} />
 
-      <Suspense fallback={<Html center>Loading planet…</Html>}>
-        <EarthModel />
-      </Suspense>
+        <Suspense fallback={<Html center>Loading planet…</Html>}>
+          <EarthModel />
+        </Suspense>
 
-      <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
-    </Canvas>
-  )
-}
+        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1.5} />
+      </Canvas>
+    )
+  }

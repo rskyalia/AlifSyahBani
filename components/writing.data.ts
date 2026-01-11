@@ -2,7 +2,7 @@ export const writings = [
     {
         title: 'How I Build a Futuristic Portfolio with Next.js',
         excerpt:
-            'A deep dive into how I designed and engineered a modern portfolio using 3D, glassmorphism, and clean architecture.',
+            'A deep dive into how I designed and engineered a modern portfolio using 3D, glassmorphism, and clean architecture. Inspired by Clarissa Aurelia Nahid Saputra',
         date: '2025',
         category: 'Engineering',
         cover: '/writing/aliflagi.png',

@@ -8,7 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-cabinet);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -20,7 +20,50 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    /* ungu tipis – cuma 20% */ radial-gradient(
+      circle at top left,
+      rgba(1, 43, 90, 0.02),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(1, 43, 90, 0.06),
+      transparent 60%
+    ),
+    /* hitam dominan */ linear-gradient(135deg, #000000, #020204, #04030a);
+
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cabinet), system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -30%;
+  background: radial-gradient(
+      circle at 35% 40%,
+      rgba(1, 43, 90, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 65% 60%,
+      rgba(1, 43, 90, 0.15),
+      transparent 60%
+    );
+  filter: blur(180px);
+  z-index: -1;
+  animation: floatGradient 28s ease-in-out infinite alternate;
+}
+
+@keyframes floatGradient {
+  0% {
+    transform: translate(-2%, -2%) scale(1);
+  }
+  50% {
+    transform: translate(2%, 2%) scale(1.03);
+  }
+  100% {
+    transform: translate(-1%, 2%) scale(1);
+  }
 }

@@ -73,10 +73,11 @@ export default function Typewriter() {
     <p
       className="
         font-cabinet
-        text-[26px]
+        text-[22px]
         leading-[24px]
         text-white/100
         flex items-center
+        font-bold
       "
     >
       {TEXTS[textIndex].slice(0, charIndex)}

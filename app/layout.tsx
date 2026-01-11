@@ -23,6 +23,7 @@ const cabinet = localFont({
   variable: "--font-cabinet",
 })
 
+
 export default function RootLayout({
   children,
 }: {
@@ -30,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${cabinet.variable} bg-black text-white font-cabinet`}>
+      <body className={`${cabinet.variable}text-white font-cabinet`}>
         {children}
       </body>
     </html>

@@ -24,53 +24,48 @@ export default function WritingCard({
       relative
       overflow-hidden
       rounded-2xl
-      border border-white/10
-      bg-white/5
-      backdrop-blur-xl
+      border border-white/8
+      bg-white/4
+      backdrop-blur-sm
       transition-all duration-300
-      hover:border-white/20
-      hover:shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+      hover:border-white/15
+      hover:bg-white/6
+      hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)]
     "
     >
-      {/* subtle glass glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-purple-600/10 blur-3xl" />
-        <div className="absolute bottom-[-6rem] right-[-6rem] h-72 w-72 rounded-full bg-fuchsia-600/10 blur-3xl" />
-      </div>
-
-      {/* Cover (NO dimming, NO overlay) */}
-      <div className="h-56 overflow-hidden">
+      {/* Cover */}
+      <div className="h-52 overflow-hidden">
         <img src={cover} alt={title} className="h-full w-full object-cover" />
       </div>
 
       {/* Content */}
-      <div className="relative p-6">
-        <p className="text-xs uppercase tracking-widest text-white/60">
+      <div className="p-5">
+        <p className="text-xs uppercase tracking-widest text-white/35">
           {category} · {date}
         </p>
 
-        <h3 className="mt-3 text-xl font-semibold text-white leading-snug">
+        <h3 className="mt-2.5 text-base font-semibold text-white leading-snug">
           {title}
         </h3>
 
-        <p className="mt-4 text-sm text-white/75 leading-relaxed line-clamp-3">
+        <p className="mt-3 text-xs text-white/50 leading-relaxed line-clamp-3">
           {excerpt}
         </p>
 
         {/* Actions */}
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-5 flex items-center justify-between">
           <a
             href={website}
             target="_blank"
             rel="noopener noreferrer"
             className="
-            inline-flex items-center gap-2
-            text-sm text-white/70
-            hover:text-white
+            inline-flex items-center gap-1.5
+            text-xs text-white/40
+            hover:text-white/80
             transition
           "
           >
-            <ExternalLink size={16} />
+            <ExternalLink size={14} />
             Visit
           </a>
 
@@ -79,20 +74,19 @@ export default function WritingCard({
             target="_blank"
             rel="noopener noreferrer"
             className="
-            inline-flex items-center gap-2
+            inline-flex items-center gap-1.5
             rounded-full
-            border border-white/20
+            border border-white/10
             bg-white/5
-            px-4 py-1.5
-            text-sm text-white/70
-            backdrop-blur-md
-            hover:border-white/40
-            hover:bg-white/10
-            hover:text-white
+            px-3.5 py-1
+            text-xs text-white/45
+            hover:border-white/20
+            hover:bg-white/8
+            hover:text-white/80
             transition
           "
           >
-            <Github className="h-4 w-4" />
+            <Github className="h-3.5 w-3.5" />
             GitHub
           </a>
         </div>

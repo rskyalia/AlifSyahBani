@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${cabinet.variable}text-white font-cabinet`}>
+      <body className={`${cabinet.variable} text-white font-cabinet antialiased`}>
         {children}
       </body>
     </html>

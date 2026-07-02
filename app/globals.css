@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000005;
+  --foreground: #e8f4ff;
 }
 
 @theme inline {
@@ -12,58 +12,112 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background:
-    /* ungu tipis – cuma 20% */ radial-gradient(
-      circle at top left,
-      rgba(1, 43, 90, 0.02),
+    radial-gradient(
+      ellipse at top left,
+      rgba(10, 20, 60, 0.55),
       transparent 60%
     ),
     radial-gradient(
-      circle at bottom right,
-      rgba(1, 43, 90, 0.06),
+      ellipse at bottom right,
+      rgba(5, 10, 40, 0.45),
       transparent 60%
     ),
-    /* hitam dominan */ linear-gradient(135deg, #000000, #020204, #04030a);
+    linear-gradient(160deg, #000005 0%, #00000a 50%, #010008 100%);
 
   color: var(--foreground);
   font-family: var(--font-cabinet), system-ui, sans-serif;
 }
 
+/* Animated deep-space ambient — barely visible */
 body::before {
   content: "";
   position: fixed;
   inset: -30%;
-  background: radial-gradient(
-      circle at 35% 40%,
-      rgba(1, 43, 90, 0.15),
-      transparent 60%
+  background:
+    radial-gradient(
+      circle at 30% 35%,
+      rgba(20, 50, 140, 0.12),
+      transparent 55%
     ),
     radial-gradient(
-      circle at 65% 60%,
-      rgba(1, 43, 90, 0.15),
-      transparent 60%
+      circle at 70% 65%,
+      rgba(10, 30, 90, 0.10),
+      transparent 55%
     );
   filter: blur(180px);
   z-index: -1;
   animation: floatGradient 28s ease-in-out infinite alternate;
 }
 
+/* Subtle star-like noise texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 15%, rgba(147, 197, 253, 0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 30%, rgba(147, 197, 253, 0.20) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 70%, rgba(186, 230, 253, 0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 80%, rgba(147, 197, 253, 0.20) 0%, transparent 100%),
+    radial-gradient(1px 1px at 10% 60%, rgba(186, 230, 253, 0.15) 0%, transparent 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Smooth social icon hover — gradient animates via pseudo opacity */
+.social-icon {
+  position: relative;
+  isolation: isolate;
+}
+
+.social-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  opacity: 0;
+  transition: opacity 0.45s ease-in-out;
+  z-index: -1;
+}
+
+.social-icon:hover::before {
+  opacity: 1;
+}
+
+.social-icon-github::before   { background: linear-gradient(135deg, #1a1a1a, #ffffff); }
+.social-icon-linkedin::before { background: linear-gradient(135deg, #38bdf8, #ffffff); }
+.social-icon-instagram::before{ background: linear-gradient(135deg, #facc15, #ec4899, #9333ea); }
+.social-icon-tiktok::before   { background: linear-gradient(135deg, #22d3ee, #ec4899, #000000); }
+.social-icon-x::before        { background: #ffffff; }
+.social-icon-gmail::before    { background: linear-gradient(135deg, #ef4444, #facc15, #3b82f6); }
+
 @keyframes floatGradient {
-  0% {
-    transform: translate(-2%, -2%) scale(1);
-  }
-  50% {
-    transform: translate(2%, 2%) scale(1.03);
-  }
-  100% {
-    transform: translate(-1%, 2%) scale(1);
-  }
+  0%   { transform: translate(-2%, -2%) scale(1);    }
+  50%  { transform: translate(2%,  2%)  scale(1.04); }
+  100% { transform: translate(-1%, 2%) scale(1);     }
+}
+
+/* Global scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000005; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* Glass card base */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
 }

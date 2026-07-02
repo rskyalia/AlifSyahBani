@@ -28,7 +28,7 @@ export default function Hero() {
     >
       {/* LEFT CONTENT */}
       <div className="w-full max-w-xl text-center md:text-left">
-        <div className="flex justify-center md:justify-start gap-5 mb-6 text-white/70">
+        <div className="flex justify-center md:justify-start gap-5 mb-6 text-blue-200/60">
           <SocialIcon
             href="https://github.com/rskyalia"
             icon={<FaGithub />}
@@ -65,10 +65,13 @@ export default function Hero() {
         {/* Heading */}
         <h1
           className="
-            font-cabinet font-bold text-white mb-4
+            font-cabinet font-bold mb-4
             text-4xl leading-tight
             sm:text-5xl
             md:text-6xl md:leading-[60px]
+            bg-linear-to-br from-white via-blue-100 to-blue-400
+            bg-clip-text text-transparent
+            drop-shadow-[0_0_30px_rgba(59,130,246,0.35)]
           "
         >
           Hi, I'm Alif Sya'bani
@@ -77,7 +80,7 @@ export default function Hero() {
         {/* Subheading */}
         <p
           className="
-            font-cabinet text-white/80 mb-6
+            font-cabinet text-blue-100/70 mb-6
             text-base
             sm:text-lg
             md:text-2xl
@@ -117,19 +120,14 @@ function SocialIcon({
   icon: React.ReactNode;
   variant: "github" | "linkedin" | "instagram" | "tiktok" | "x" | "gmail";
 }) {
-  const styles: Record<string, string> = {
-    github:
-      "hover:bg-gradient-to-br hover:from-black hover:to-white hover:text-black hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]",
-    linkedin:
-      "hover:bg-gradient-to-br hover:from-sky-400 hover:to-white hover:text-sky-700 hover:shadow-[0_0_25px_rgba(56,189,248,0.6)]",
-    instagram:
-      "hover:bg-gradient-to-br hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white hover:shadow-[0_0_30px_rgba(236,72,153,0.7)]",
-    tiktok:
-      "hover:bg-gradient-to-br hover:from-cyan-400 hover:via-pink-500 hover:to-black hover:text-white hover:shadow-[0_0_30px_rgba(236,72,153,0.6)]",
-    x:
-      "hover:bg-white hover:text-black hover:shadow-[0_0_25px_rgba(255,255,255,0.8)]",
-    gmail:
-      "hover:bg-gradient-to-br hover:from-red-500 hover:via-yellow-400 hover:to-blue-500 hover:text-white hover:shadow-[0_0_30px_rgba(239,68,68,0.6)]",
+  // shadow shown on hover per variant
+  const shadows: Record<string, string> = {
+    github:    "hover:shadow-[0_0_22px_rgba(255,255,255,0.55)] hover:text-black",
+    linkedin:  "hover:shadow-[0_0_22px_rgba(56,189,248,0.6)]  hover:text-sky-700",
+    instagram: "hover:shadow-[0_0_26px_rgba(236,72,153,0.65)] hover:text-white",
+    tiktok:    "hover:shadow-[0_0_26px_rgba(236,72,153,0.55)] hover:text-white",
+    x:         "hover:shadow-[0_0_22px_rgba(255,255,255,0.75)] hover:text-black",
+    gmail:     "hover:shadow-[0_0_26px_rgba(239,68,68,0.55)]  hover:text-white",
   };
 
   return (
@@ -138,12 +136,14 @@ function SocialIcon({
       target="_blank"
       rel="noopener noreferrer"
       className={`
+        social-icon social-icon-${variant}
         p-3
         rounded-full
         text-lg sm:text-xl
         text-white/70
-        transition-all duration-300
-        ${styles[variant]}
+        transition-all duration-500 ease-in-out
+        hover:scale-110
+        ${shadows[variant]}
       `}
     >
       {icon}

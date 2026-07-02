@@ -1,4 +1,4 @@
-import { Github, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 type Props = {
   title: string;
@@ -24,21 +24,16 @@ export default function ProjectCard({
       relative
       overflow-hidden
       rounded-2xl
-      border border-white/10
-      bg-white/5
-      backdrop-blur-xl
+      border border-white/8
+      bg-white/4
+      backdrop-blur-sm
       transition-all duration-300
-      hover:border-white/20
-      hover:shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+      hover:border-white/15
+      hover:bg-white/6
+      hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)]
     "
   >
-    {/* subtle glass glow */}
-    <div className="pointer-events-none absolute inset-0 -z-10">
-      <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-purple-600/10 blur-3xl" />
-      <div className="absolute bottom-[-6rem] right-[-6rem] h-72 w-72 rounded-full bg-fuchsia-600/10 blur-3xl" />
-    </div>
-
-    {/* Image (NO dimming) */}
+    {/* Image */}
     <img
       src={image}
       alt={title}
@@ -46,10 +41,10 @@ export default function ProjectCard({
     />
 
     {/* Content */}
-    <div className="relative p-6 flex flex-col gap-4">
+    <div className="p-5 flex flex-col gap-3">
       {/* Title + Visit */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold text-white">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-base font-semibold text-white leading-snug">
           {title}
         </h3>
 
@@ -59,35 +54,36 @@ export default function ProjectCard({
             target="_blank"
             rel="noopener noreferrer"
             className="
-              inline-flex items-center gap-2
-              text-sm text-white/70
-              hover:text-white
+              shrink-0
+              inline-flex items-center gap-1.5
+              text-xs text-white/40
+              hover:text-white/80
               transition
             "
           >
-            <ExternalLink className="w-5 h-5" />
+            <ExternalLink className="w-4 h-4" />
             Visit
           </a>
         )}
       </div>
 
       {/* Description */}
-      <p className="text-sm text-white/75 leading-relaxed">
+      <p className="text-xs text-white/50 leading-relaxed">
         {description}
       </p>
 
       {/* Tech stack */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5 mt-1">
         {tech.map((t) => (
           <span
             key={t}
             className="
-              px-3 py-1
+              px-2.5 py-0.5
               text-xs
               rounded-full
-              bg-white/10
-              text-white/80
-              backdrop-blur-md
+              bg-white/6
+              border border-white/8
+              text-white/50
             "
           >
             {t}

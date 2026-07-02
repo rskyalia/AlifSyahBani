@@ -18,10 +18,10 @@ export default function Navbar() {
         className="
           flex items-center gap-8 px-8 py-3
           rounded-full
-          bg-white/10
+          bg-[rgba(14,42,84,0.35)]
           backdrop-blur-xl
-          border border-white/20
-          shadow-[0_0_30px_rgba(255,255,255,0.08)]
+          border border-blue-500/20
+          shadow-[0_0_30px_rgba(59,130,246,0.12),0_4px_20px_rgba(0,0,0,0.5)]
         "
       >
           {NAV_ITEMS.map((item) => {
@@ -31,9 +31,10 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               className={`
-                text-sm transition-all duration-300
-                ${active ? 'text-white' : 'text-white/70'}
-                hover:text-white
+                text-sm font-medium transition-all duration-300
+                ${active
+                  ? 'text-blue-300 drop-shadow-[0_0_8px_rgba(147,197,253,0.8)]'
+                  : 'text-blue-100/60 hover:text-blue-200'}
               `}
             >
               {item.label}

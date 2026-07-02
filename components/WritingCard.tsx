@@ -33,9 +33,13 @@ export default function WritingCard({
       hover:shadow-[0_16px_48px_rgba(0,0,0,0.7)]
     "
     >
-      {/* Cover */}
-      <div className="h-52 overflow-hidden">
-        <img src={cover} alt={title} className="h-full w-full object-cover" />
+      {/* Cover — full natural size, no crop, no letterbox */}
+      <div className="w-full overflow-hidden rounded-t-2xl">
+        <img
+          src={cover}
+          alt={title}
+          className="w-full h-auto block"
+        />
       </div>
 
       {/* Content */}

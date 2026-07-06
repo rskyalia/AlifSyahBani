@@ -7,8 +7,8 @@ import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Writing", href: "/writing" },
+  { label: "Show", href: "/projects" },
+  { label: "Projects", href: "/writing" },
   { label: "About", href: "/about" },
   { label: "Resume", href: "/resume" },
 ];
@@ -40,8 +40,8 @@ export default function Navbar() {
         {/* Main bar */}
         <div
           className={`
-            relative flex items-center justify-center
-            px-6 py-2
+            relative flex items-center justify-between md:justify-center
+            px-4 md:px-6 py-2
             rounded-2xl
             transition-all duration-500
             ${
@@ -61,6 +61,11 @@ export default function Navbar() {
             }}
             aria-hidden
           />
+
+          {/* Mobile: site name left */}
+          <span className="md:hidden text-sm font-semibold text-white/70 tracking-wide">
+            Menu
+          </span>
 
           {/* Desktop nav items */}
           <div className="hidden md:flex items-center gap-1">

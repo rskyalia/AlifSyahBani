@@ -3,51 +3,55 @@ export default function AboutBio() {
     <div className="text-white max-w-xl">
       <p className="section-label mb-5">About Me</p>
 
-      <h1 className="section-title mb-8">
-        Muhammad Alif Sya&apos;bani
-      </h1>
+      <h1 className="section-title mb-8">Muhammad Alif Sya&apos;bani</h1>
 
-      <div className="space-y-5 text-blue-100/65 leading-relaxed text-sm md:text-base">
+      <div className="space-y-4 text-blue-100/65 leading-relaxed text-sm md:text-base">
         <p>
-          Hello, I&apos;m Alif. With a background in Computer and Network Engineering
-          from vocational high school, I am now heading towards a major in
-          Computer Engineering. I am eager to further deepen my expertise.
+          Hello, I&apos;m Alif. I am currently pursuing a degree in{" "}
+          <span className="font-semibold text-blue-100/90">
+            Informatics Engineering at Politeknik Negeri Malang
+          </span>
+          , where I continue to strengthen
+          my knowledge in software development, computer systems, and emerging
+          technologies. Previously, I graduated from a vocational high school
+          with a background in Computer and Network Engineering, which provided
+          me with a solid technical foundation and sparked my passion for
+          technology.
         </p>
 
         <p>
-          My passion lies at the intersection of hard engineering and
-          user-centric design. I am deeply enthusiastic about the potential of
-          Artificial Intelligence (AI) and Machine Learning (ML) to reshape
-          industries. However, I believe that great code needs a great
-          interface — that is why I dedicate my time to experimenting with modern
-          web interfaces and UI/UX design to ensure that complex technologies
-          remain accessible and intuitive.
+          My interests lie at the intersection of software engineering, artificial
+          intelligence, and user-centered design. I am passionate about exploring
+          the potential of AI and Machine Learning to create innovative solutions
+          for real-world challenges — and I believe powerful technology should
+          always be paired with intuitive, engaging user experiences.
         </p>
 
         <p>
-          My ultimate goal is to bridge the gap between technical innovation and
-          real-world application. I don&apos;t just want to write code — I want to
-          engineer impactful technology products that solve tangible problems
-          for society.
+          Beyond academics, I have experience as a Programmer, Graphic Designer,
+          and Public Speaker, allowing me to blend technical expertise with
+          creativity and effective communication. I enjoy building impactful
+          digital products, designing user-friendly interfaces, and presenting
+          ideas that inspire others.
         </p>
 
         <p>
-          When I am away from the keyboard, you can find me immersing myself in
-          music, exploring new destinations on my bike, or documenting my travel
-          and tech journey on social media.
+          Outside of technology, I enjoy listening to music, cycling to explore
+          new places, and sharing experiences in tech, design, and personal growth
+          through social media.
         </p>
+      </div>
 
-        <div className="glass-card rounded-xl p-4 mt-6">
-          <p className="text-white/80 text-sm">
-            Let&apos;s Connect{" "}
-            <a
-              href="mailto:muhammad.alif396177@smk.belajar.id"
-              className="text-blue-400 hover:text-blue-300 hover:underline transition-colors font-medium"
-            >
-              muhammad.alif396177@smk.belajar.id
-            </a>
-          </p>
-        </div>
+      <div className="glass-card rounded-xl p-4 mt-8">
+        <p className="text-white/70 text-sm">
+          Let&apos;s connect —{" "}
+          <a
+            href="mailto:muhammad.alif396177@smk.belajar.id"
+            className="text-blue-400 hover:text-blue-300 hover:underline transition-colors font-medium"
+          >
+            muhammad.alif396177@smk.belajar.id
+          </a>
+        </p>
       </div>
     </div>
   );

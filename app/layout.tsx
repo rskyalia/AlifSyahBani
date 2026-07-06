@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
+import SpaceBackground from "@/components/SpaceBackground"
 
 export const metadata: Metadata = {
   title: "Alif's Portfolio",
@@ -32,7 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${cabinet.variable} text-white font-cabinet antialiased`}>
-        {children}
+        <SpaceBackground />
+        <div className="relative z-0">{children}</div>
       </body>
     </html>
   )

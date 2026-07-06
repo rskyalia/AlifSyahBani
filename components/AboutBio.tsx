@@ -1,14 +1,13 @@
 export default function AboutBio() {
   return (
     <div className="text-white max-w-xl">
-      <h1 className="
-        text-5xl font-bold mb-8
-        bg-linear-to-br from-white via-blue-100 to-blue-400
-        bg-clip-text text-transparent
-        drop-shadow-[0_0_25px_rgba(59,130,246,0.35)]
-      ">Muhammad Alif Sya&apos;bani</h1>
+      <p className="section-label mb-5">About Me</p>
 
-      <div className="space-y-6 text-blue-100/70 leading-relaxed">
+      <h1 className="section-title mb-8">
+        Muhammad Alif Sya&apos;bani
+      </h1>
+
+      <div className="space-y-5 text-blue-100/65 leading-relaxed text-sm md:text-base">
         <p>
           Hello, I&apos;m Alif. With a background in Computer and Network Engineering
           from vocational high school, I am now heading towards a major in
@@ -20,14 +19,14 @@ export default function AboutBio() {
           user-centric design. I am deeply enthusiastic about the potential of
           Artificial Intelligence (AI) and Machine Learning (ML) to reshape
           industries. However, I believe that great code needs a great
-          interface that is why I dedicate my time to experimenting with modern
+          interface — that is why I dedicate my time to experimenting with modern
           web interfaces and UI/UX design to ensure that complex technologies
           remain accessible and intuitive.
         </p>
 
         <p>
           My ultimate goal is to bridge the gap between technical innovation and
-          real-world application. I don&apos;t just want to write code I want to
+          real-world application. I don&apos;t just want to write code — I want to
           engineer impactful technology products that solve tangible problems
           for society.
         </p>
@@ -38,15 +37,17 @@ export default function AboutBio() {
           and tech journey on social media.
         </p>
 
-        <p className="text-white">
-          Let&apos;s Connect{" "}
-          <a
-            href="mailto:muhammad.alif396177@smk.belajar.id"
-            className="text-blue-400 hover:text-blue-300 hover:underline transition-colors"
-          >
-            muhammad.alif396177@smk.belajar.id
-          </a>
-        </p>
+        <div className="glass-card rounded-xl p-4 mt-6">
+          <p className="text-white/80 text-sm">
+            Let&apos;s Connect{" "}
+            <a
+              href="mailto:muhammad.alif396177@smk.belajar.id"
+              className="text-blue-400 hover:text-blue-300 hover:underline transition-colors font-medium"
+            >
+              muhammad.alif396177@smk.belajar.id
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );

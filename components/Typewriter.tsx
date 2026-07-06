@@ -72,16 +72,22 @@ export default function Typewriter() {
   return (
     <p
       className="
-        font-cabinet
-        text-[22px]
-        leading-[24px]
-        text-white/100
-        flex items-center
-        font-bold
+        font-cabinet font-semibold
+        text-lg sm:text-xl md:text-2xl
+        leading-snug
+        flex items-center justify-center md:justify-start
+        min-h-[2rem]
       "
     >
-      {TEXTS[textIndex].slice(0, charIndex)}
-      <span className="ml-1 animate-pulse">|</span>
+      <span
+        className="
+          bg-linear-to-r from-blue-200 via-white to-blue-300
+          bg-clip-text text-transparent
+        "
+      >
+        {TEXTS[textIndex].slice(0, charIndex)}
+      </span>
+      <span className="ml-0.5 text-blue-400 animate-pulse font-light">|</span>
     </p>
   )
 }

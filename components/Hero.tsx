@@ -69,9 +69,9 @@ export default function Hero() {
             leading-relaxed
           "
         >
-          Vocational High School Student · Network Computer Engineer
+          Bachelor of Applied Science in Informatics Engineering
           <span className="block text-blue-200/45 text-sm md:text-base mt-1">
-            SMK Nuris Jember
+            State Polytechnic of Malang
           </span>
         </p>
 

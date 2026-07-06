@@ -21,7 +21,6 @@ export default function AboutPhoto() {
             rounded-2xl object-cover
             border border-white/15
             shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_40px_rgba(59,130,246,0.15)]
-            transition-transform duration-500 hover:scale-[1.02]
           "
         />
       </div>

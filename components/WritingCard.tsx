@@ -18,13 +18,13 @@ export default function WritingCard({
   website: string;
 }) {
   return (
-    <article className="group glass-card rounded-2xl overflow-hidden hover:-translate-y-1">
+    <article className="group glass-card card-float rounded-2xl overflow-hidden">
       {/* Cover */}
       <div className="relative w-full overflow-hidden">
         <img
           src={cover}
           alt={title}
-          className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
+          className="w-full h-auto block"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>

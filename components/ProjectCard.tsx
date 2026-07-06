@@ -17,13 +17,13 @@ export default function ProjectCard({
   demo,
 }: Props) {
   return (
-    <div className="group glass-card rounded-2xl overflow-hidden hover:-translate-y-1">
+    <div className="group glass-card card-float rounded-2xl overflow-hidden">
       {/* Image with overlay */}
       <div className="relative overflow-hidden h-48">
         <img
           src={image}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-60" />
       </div>

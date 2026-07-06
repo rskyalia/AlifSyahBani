@@ -7,8 +7,8 @@ import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Show", href: "/projects" },
-  { label: "Projects", href: "/writing" },
+  { label: "Projects", href: "/projects" },
+  { label: "Writing", href: "/writing" },
   { label: "About", href: "/about" },
   { label: "Resume", href: "/resume" },
 ];
@@ -31,42 +31,38 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`
+        className="
           fixed top-4 md:top-6 left-1/2 z-50 -translate-x-1/2
-          w-[calc(100%-2rem)] max-w-3xl
+          w-[calc(100%-2rem)] max-w-2xl
           transition-all duration-500
-        `}
+        "
       >
+        {/* Main bar */}
         <div
           className={`
-            flex items-center justify-between
-            px-4 md:px-6 py-2.5 md:py-3
-            rounded-2xl md:rounded-full
-            backdrop-blur-xl
-            border
+            relative flex items-center justify-center
+            px-6 py-2
+            rounded-2xl
             transition-all duration-500
-            ${scrolled
-              ? "bg-[rgba(8,20,50,0.75)] border-blue-500/30 shadow-[0_0_40px_rgba(59,130,246,0.15),0_8px_32px_rgba(0,0,0,0.6)]"
-              : "bg-[rgba(14,42,84,0.35)] border-blue-500/20 shadow-[0_0_30px_rgba(59,130,246,0.12),0_4px_20px_rgba(0,0,0,0.5)]"
+            ${
+              scrolled
+                ? "bg-[rgba(8,14,35,0.82)] shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.07)]"
+                : "bg-[rgba(10,18,45,0.65)] shadow-[0_4px_24px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.06)]"
             }
           `}
+          style={{ backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
         >
-          {/* Logo */}
-          <Link
-            href="/"
-            className="
-              flex items-center justify-center
-              w-8 h-8 rounded-full
-              bg-linear-to-br from-blue-500 to-blue-700
-              text-xs font-bold text-white
-              shadow-[0_0_16px_rgba(59,130,246,0.5)]
-              shrink-0
-            "
-          >
-            AS
-          </Link>
+          {/* Top gloss line */}
+          <div
+            className="pointer-events-none absolute inset-x-6 top-0 h-px"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)",
+            }}
+            aria-hidden
+          />
 
-          {/* Desktop nav */}
+          {/* Desktop nav items */}
           <div className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
@@ -75,15 +71,26 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={`
-                    relative px-4 py-1.5 rounded-full
-                    text-sm font-medium transition-all duration-300
-                    ${active
-                      ? "text-blue-200 bg-blue-500/15 shadow-[0_0_12px_rgba(59,130,246,0.25)]"
-                      : "text-blue-100/55 hover:text-blue-200 hover:bg-white/5"
-                    }
+                    group/item relative px-5 py-2 rounded-full
+                    text-sm font-medium transition-colors duration-200
+                    ${active ? "text-white" : "text-white/45 hover:text-white/80"}
                   `}
                 >
-                  {item.label}
+                  {/* Glossy pill background */}
+                  <span
+                    className={`
+                      absolute inset-0 rounded-full transition-opacity duration-200
+                      ${active ? "opacity-100" : "opacity-0 group-hover/item:opacity-100"}
+                    `}
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)",
+                      boxShadow:
+                        "inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1px rgba(255,255,255,0.08)",
+                    }}
+                    aria-hidden
+                  />
+                  <span className="relative z-10">{item.label}</span>
                 </Link>
               );
             })}
@@ -94,31 +101,35 @@ export default function Navbar() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle menu"
             className="
-              md:hidden p-2 rounded-xl
-              text-blue-200/70 hover:text-blue-200
-              hover:bg-white/5 transition-colors
+              md:hidden p-2 rounded-full
+              text-white/50 hover:text-white/80
+              transition-colors duration-200
             "
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
-
-          {/* Spacer for desktop balance */}
-          <div className="hidden md:block w-8" />
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile dropdown */}
         {menuOpen && (
           <div
-            className="
-              md:hidden mt-2 p-3
-              rounded-2xl
-              bg-[rgba(8,20,50,0.9)]
-              backdrop-blur-xl
-              border border-blue-500/25
-              shadow-[0_8px_32px_rgba(0,0,0,0.6)]
-              animate-fade-in-up
-            "
+            className="md:hidden mt-2 p-2 rounded-2xl animate-fade-in-up"
+            style={{
+              background: "rgba(8,14,35,0.88)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              boxShadow:
+                "0 8px 32px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07)",
+            }}
           >
+            <div
+              className="pointer-events-none absolute inset-x-4 top-2 h-px"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
+              }}
+              aria-hidden
+            />
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
               return (
@@ -126,15 +137,25 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={`
-                    block px-4 py-3 rounded-xl
-                    text-sm font-medium transition-all duration-200
-                    ${active
-                      ? "text-blue-200 bg-blue-500/15"
-                      : "text-blue-100/60 hover:text-blue-200 hover:bg-white/5"
-                    }
+                    group/item relative block px-4 py-3 rounded-xl
+                    text-sm font-medium transition-colors duration-200
+                    ${active ? "text-white" : "text-white/45 hover:text-white/80"}
                   `}
                 >
-                  {item.label}
+                  <span
+                    className={`
+                      absolute inset-0 rounded-xl transition-opacity duration-200
+                      ${active ? "opacity-100" : "opacity-0 group-hover/item:opacity-100"}
+                    `}
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%)",
+                      boxShadow:
+                        "inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 1px rgba(255,255,255,0.07)",
+                    }}
+                    aria-hidden
+                  />
+                  <span className="relative z-10">{item.label}</span>
                 </Link>
               );
             })}

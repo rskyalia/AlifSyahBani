@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowRight, Sparkles } from "lucide-react";
 import {
   FaGithub,
@@ -10,10 +12,76 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import { gsap } from "gsap";
 import Typewriter from "./Typewriter";
 import Earth from "./Earth";
 
 export default function Hero() {
+  const pathname = usePathname();
+
+  const badgeRef   = useRef<HTMLDivElement>(null);
+  const socialsRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const subRef     = useRef<HTMLParagraphElement>(null);
+  const typeRef    = useRef<HTMLDivElement>(null);
+  const btnsRef    = useRef<HTMLDivElement>(null);
+  const earthRef   = useRef<HTMLDivElement>(null);
+  const scrollRef  = useRef<HTMLDivElement>(null);
+
+  // Re-run every time this component mounts (including when navigating back)
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const leftEls = [
+        badgeRef.current,
+        socialsRef.current,
+        headingRef.current,
+        subRef.current,
+        typeRef.current,
+        btnsRef.current,
+      ].filter(Boolean);
+
+      // Reset inline styles so previous GSAP state doesn't linger
+      gsap.set(leftEls, { clearProps: "all" });
+      gsap.set(earthRef.current, { clearProps: "all" });
+      gsap.set(scrollRef.current, { clearProps: "all" });
+
+      // Set invisible
+      gsap.set(leftEls, { autoAlpha: 0, y: 22 });
+      gsap.set(earthRef.current, { autoAlpha: 0, scale: 0.86, filter: "blur(20px)" });
+      gsap.set(scrollRef.current, { autoAlpha: 0 });
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.05 });
+
+      // Left column — stagger per block
+      tl.to(leftEls, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.55,
+        stagger: 0.1,
+      });
+
+      // Earth — starts alongside left column
+      tl.to(
+        earthRef.current,
+        {
+          autoAlpha: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.0,
+          ease: "power2.out",
+        },
+        0.15
+      );
+
+      // Scroll indicator
+      tl.to(scrollRef.current, { autoAlpha: 1, duration: 0.4 }, "-=0.3");
+    });
+
+    return () => ctx.revert();
+  // pathname in deps so animation re-runs when navigating back to "/"
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   return (
     <section
       id="home"
@@ -27,9 +95,10 @@ export default function Hero() {
       "
     >
       {/* LEFT CONTENT */}
-      <div className="w-full max-w-xl text-center md:text-left animate-fade-in-up">
+      <div className="w-full max-w-xl text-center md:text-left">
+
         {/* Status badge */}
-        <div className="flex justify-center md:justify-start mb-5">
+        <div ref={badgeRef} className="flex justify-center md:justify-start mb-5">
           <span className="section-label flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
             Open to opportunities
@@ -37,17 +106,18 @@ export default function Hero() {
         </div>
 
         {/* Social icons */}
-        <div className="flex justify-center md:justify-start gap-3 mb-7 text-blue-200/60">
-          <SocialIcon href="https://github.com/rskyalia" icon={<FaGithub />} variant="github" />
-          <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />} variant="linkedin" />
-          <SocialIcon href="https://www.instagram.com/syah.baani/" icon={<FaInstagram />} variant="instagram" />
-          <SocialIcon href="https://www.tiktok.com/@syah.baani" icon={<FaTiktok />} variant="tiktok" />
-          <SocialIcon href="https://x.com" icon={<FaXTwitter />} variant="x" />
-          <SocialIcon href="mailto:muhammad.alif396177@smk.belajar.id" icon={<MdEmail />} variant="gmail" />
+        <div ref={socialsRef} className="flex justify-center md:justify-start gap-3 mb-7 text-blue-200/60">
+          <SocialIcon href="https://github.com/rskyalia"                          icon={<FaGithub />}    variant="github"    />
+          <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />}  variant="linkedin"  />
+          <SocialIcon href="https://www.instagram.com/syah.baani/"                icon={<FaInstagram />} variant="instagram" />
+          <SocialIcon href="https://www.tiktok.com/@syah.baani"                   icon={<FaTiktok />}    variant="tiktok"    />
+          <SocialIcon href="https://x.com"                                        icon={<FaXTwitter />}  variant="x"         />
+          <SocialIcon href="mailto:muhammad.alif396177@smk.belajar.id"            icon={<MdEmail />}     variant="gmail"     />
         </div>
 
         {/* Heading */}
         <h1
+          ref={headingRef}
           className="
             font-cabinet font-bold mb-4
             text-4xl leading-tight
@@ -63,6 +133,7 @@ export default function Hero() {
 
         {/* Subheading */}
         <p
+          ref={subRef}
           className="
             font-cabinet text-blue-100/65 mb-5
             text-base sm:text-lg md:text-xl
@@ -76,12 +147,12 @@ export default function Hero() {
         </p>
 
         {/* Typewriter */}
-        <div className="mb-8">
+        <div ref={typeRef} className="mb-8">
           <Typewriter />
         </div>
 
         {/* CTA buttons */}
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+        <div ref={btnsRef} className="flex flex-wrap items-center justify-center md:justify-start gap-3">
           <Link href="/writing" className="btn-primary">
             <Sparkles size={15} />
             View Projects
@@ -95,19 +166,22 @@ export default function Hero() {
 
       {/* RIGHT CONTENT – EARTH */}
       <div
+        ref={earthRef}
         className="
           w-full max-w-md
           h-[280px] sm:h-[360px] md:h-[520px]
           hidden sm:block
-          animate-fade-in-up
         "
-        style={{ animationDelay: "0.15s" }}
+        style={{ willChange: "transform, opacity, filter" }}
       >
         <Earth />
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-blue-200/30">
+      <div
+        ref={scrollRef}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-blue-200/30"
+      >
         <span className="text-[10px] uppercase tracking-widest">Scroll</span>
         <div className="w-px h-8 bg-linear-to-b from-blue-400/50 to-transparent animate-bounce-slow" />
       </div>

@@ -2,8 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
 import SpaceBackground from "@/components/SpaceBackground"
-import SmoothScroll from "@/components/SmoothScroll"
-import PageTransition from "@/components/PageTransition"
+import ClientRoot from "@/components/ClientRoot"
 
 export const metadata: Metadata = {
   title: "Alif's Portfolio",
@@ -36,11 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${cabinet.variable} text-white font-cabinet antialiased`}>
         <SpaceBackground />
-        <SmoothScroll>
-          <PageTransition>
-            <div className="relative z-0">{children}</div>
-          </PageTransition>
-        </SmoothScroll>
+        <ClientRoot>{children}</ClientRoot>
       </body>
     </html>
   )

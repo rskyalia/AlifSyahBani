@@ -84,161 +84,130 @@ export default function MagneticCursor() {
 
     gsap.ticker.add(tickerCallback);
 
-    // Task 5.2: Cursor state changes: link, card, idle
-    const handleCursorStateChange = () => {
-      const links = document.querySelectorAll('[data-cursor="link"]');
-      const cards = document.querySelectorAll('[data-cursor="card"]');
-
-      // Handle link hover
-      links.forEach((link) => {
-        link.addEventListener("mouseenter", handleLinkEnter);
-        link.addEventListener("mouseleave", handleLinkLeave);
-      });
-
-      // Handle card hover
-      cards.forEach((card) => {
-        card.addEventListener("mouseenter", handleCardEnter);
-        card.addEventListener("mouseleave", handleCardLeave);
-      });
-    };
-
+    // ── Cursor state handlers ────────────────────────────────────────────────
     const handleLinkEnter = () => {
       if (ringRef.current) {
-        gsap.to(ringRef.current, {
-          width: 64,
-          height: 64,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        gsap.to(ringRef.current, { width: 64, height: 64, duration: 0.3, ease: "power2.out" });
         ringRef.current.style.mixBlendMode = "difference";
       }
     };
 
     const handleLinkLeave = () => {
       if (ringRef.current) {
-        gsap.to(ringRef.current, {
-          width: 40,
-          height: 40,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        gsap.to(ringRef.current, { width: 40, height: 40, duration: 0.3, ease: "power2.out" });
         ringRef.current.style.mixBlendMode = "normal";
       }
     };
 
     const handleCardEnter = () => {
       if (ringRef.current && labelRef.current) {
-        gsap.to(ringRef.current, {
-          width: 80,
-          height: 80,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-        gsap.to(labelRef.current, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.2,
-          ease: "power2.out",
-        });
+        gsap.to(ringRef.current, { width: 80, height: 80, duration: 0.3, ease: "power2.out" });
+        gsap.to(labelRef.current, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" });
       }
     };
 
     const handleCardLeave = () => {
       if (ringRef.current && labelRef.current) {
-        gsap.to(ringRef.current, {
-          width: 40,
-          height: 40,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-        gsap.to(labelRef.current, {
-          opacity: 0,
-          scale: 0.8,
-          duration: 0.2,
-          ease: "power2.out",
-        });
+        gsap.to(ringRef.current, { width: 40, height: 40, duration: 0.3, ease: "power2.out" });
+        gsap.to(labelRef.current, { opacity: 0, scale: 0.8, duration: 0.2, ease: "power2.out" });
       }
     };
 
-    // Task 5.3: Magnetic effect on data-magnetic elements
-    const setupMagneticElements = () => {
-      const magneticElements = document.querySelectorAll("[data-magnetic]");
+    // ── Per-element attach helpers ───────────────────────────────────────────
+    // Track attached elements to avoid double-binding
+    const attachedLinks = new WeakSet<Element>();
+    const attachedCards = new WeakSet<Element>();
+    const attachedMagnetics = new WeakSet<Element>();
 
-      magneticElements.forEach((elem) => {
-        const element = elem as HTMLElement;
+    // Stores per-element handler references so they can be removed cleanly
+    const magneticHandlers = new WeakMap<
+      Element,
+      { move: (e: MouseEvent) => void; leave: () => void }
+    >();
 
-        const handleMagneticMove = (e: MouseEvent) => {
-          const rect = element.getBoundingClientRect();
-          const elemCenterX = rect.left + rect.width / 2;
-          const elemCenterY = rect.top + rect.height / 2;
-
-          const cursorX = e.clientX;
-          const cursorY = e.clientY;
-
-          const dx = cursorX - elemCenterX;
-          const dy = cursorY - elemCenterY;
-
-          // Calculate 30% offset using extracted pure function
-          const { x: offsetX, y: offsetY } = computeMagneticOffset(dx, dy);
-
-          gsap.to(element, {
-            x: offsetX,
-            y: offsetY,
-            duration: 0.4,
-            ease: "power2.out",
-          });
-        };
-
-        const handleMagneticLeave = () => {
-          gsap.to(element, {
-            x: 0,
-            y: 0,
-            duration: 0.7,
-            ease: "elastic.out(1, 0.3)",
-          });
-        };
-
-        element.addEventListener("mousemove", handleMagneticMove);
-        element.addEventListener("mouseleave", handleMagneticLeave);
-      });
+    const attachLink = (link: Element) => {
+      if (attachedLinks.has(link)) return;
+      link.addEventListener("mouseenter", handleLinkEnter);
+      link.addEventListener("mouseleave", handleLinkLeave);
+      attachedLinks.add(link);
     };
 
-    // Initialize cursor state handlers and magnetic elements
-    // Use a small delay to ensure DOM is ready
-    const initTimer = setTimeout(() => {
-      handleCursorStateChange();
-      setupMagneticElements();
-    }, 100);
+    const attachCard = (card: Element) => {
+      if (attachedCards.has(card)) return;
+      card.addEventListener("mouseenter", handleCardEnter);
+      card.addEventListener("mouseleave", handleCardLeave);
+      attachedCards.add(card);
+    };
 
-    // Cleanup
+    const attachMagnetic = (elem: Element) => {
+      if (attachedMagnetics.has(elem)) return;
+      const element = elem as HTMLElement;
+
+      const handleMagneticMove = (e: MouseEvent) => {
+        const rect = element.getBoundingClientRect();
+        const elemCenterX = rect.left + rect.width / 2;
+        const elemCenterY = rect.top + rect.height / 2;
+        const { x: offsetX, y: offsetY } = computeMagneticOffset(
+          e.clientX - elemCenterX,
+          e.clientY - elemCenterY
+        );
+        gsap.to(element, { x: offsetX, y: offsetY, duration: 0.4, ease: "power2.out" });
+      };
+
+      const handleMagneticLeave = () => {
+        gsap.to(element, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+      };
+
+      element.addEventListener("mousemove", handleMagneticMove);
+      element.addEventListener("mouseleave", handleMagneticLeave);
+      magneticHandlers.set(elem, { move: handleMagneticMove, leave: handleMagneticLeave });
+      attachedMagnetics.add(elem);
+    };
+
+    // ── Full DOM scan ────────────────────────────────────────────────────────
+    const scanDOM = () => {
+      document.querySelectorAll('[data-cursor="link"]').forEach(attachLink);
+      document.querySelectorAll('[data-cursor="card"]').forEach(attachCard);
+      document.querySelectorAll("[data-magnetic]").forEach(attachMagnetic);
+    };
+
+    // Initial scan after a small delay to let the first render settle
+    const initTimer = setTimeout(scanDOM, 100);
+
+    // ── MutationObserver: re-scan whenever DOM changes ───────────────────────
+    // This covers Next.js page transitions which swap page content in place
+    const observer = new MutationObserver(() => {
+      scanDOM();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // ── Cleanup ───────────────────────────────────────────────────────────────
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       gsap.ticker.remove(tickerCallback);
       clearTimeout(initTimer);
+      observer.disconnect();
 
-      // Clean up link/card listeners
-      const links = document.querySelectorAll('[data-cursor="link"]');
-      const cards = document.querySelectorAll('[data-cursor="card"]');
-
-      links.forEach((link) => {
+      // Remove link/card listeners
+      document.querySelectorAll('[data-cursor="link"]').forEach((link) => {
         link.removeEventListener("mouseenter", handleLinkEnter);
         link.removeEventListener("mouseleave", handleLinkLeave);
       });
-
-      cards.forEach((card) => {
+      document.querySelectorAll('[data-cursor="card"]').forEach((card) => {
         card.removeEventListener("mouseenter", handleCardEnter);
         card.removeEventListener("mouseleave", handleCardLeave);
       });
 
-      // Clean up magnetic element listeners
-      const magneticElements = document.querySelectorAll("[data-magnetic]");
-      magneticElements.forEach((elem) => {
-        const element = elem as HTMLElement;
-        const clonedElement = element.cloneNode(true);
-        element.parentNode?.replaceChild(clonedElement, element);
+      // Remove magnetic listeners using stored references
+      document.querySelectorAll("[data-magnetic]").forEach((elem) => {
+        const handlers = magneticHandlers.get(elem);
+        if (handlers) {
+          (elem as HTMLElement).removeEventListener("mousemove", handlers.move);
+          (elem as HTMLElement).removeEventListener("mouseleave", handlers.leave);
+        }
       });
 
-      // Kill all tweens
       gsap.killTweensOf([dotRef.current, ringRef.current, labelRef.current]);
     };
   }, []);

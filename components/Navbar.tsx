@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { gsap } from "gsap";
 import ThemeToggle from "./ThemeToggle";
@@ -22,21 +22,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-  const indicatorRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  // Map from href → <a> element so we can read their bounding rects
-  const linkRefsMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   const isDark = theme === "dark";
-
-  // Callback ref helper to register each desktop nav link
-  const setLinkRef = useCallback((href: string) => (el: HTMLAnchorElement | null) => {
-    if (el) {
-      linkRefsMap.current.set(href, el);
-    } else {
-      linkRefsMap.current.delete(href);
-    }
-  }, []);
 
   // Scroll-aware hide/show via GSAP
   useEffect(() => {
@@ -101,32 +89,7 @@ export default function Navbar() {
     }
   }, [menuOpen]);
 
-  // Active indicator: animate position/width to the active nav link on route change
-  useEffect(() => {
-    const indicator = indicatorRef.current;
-    const navEl = navRef.current;
-    if (!indicator || !navEl) return;
 
-    const activeLink = linkRefsMap.current.get(pathname);
-    if (!activeLink) {
-      // No matching link — hide indicator
-      gsap.to(indicator, { width: 0, duration: 0.3, ease: "power2.inOut" });
-      return;
-    }
-
-    const navRect = navEl.getBoundingClientRect();
-    const linkRect = activeLink.getBoundingClientRect();
-
-    // x relative to the nav element
-    const relativeX = linkRect.left - navRect.left;
-
-    gsap.to(indicator, {
-      x: relativeX,
-      width: linkRect.width,
-      duration: 0.3,
-      ease: "power2.inOut",
-    });
-  }, [pathname]);
 
   const navBgScrolled = isDark
     ? "bg-[rgba(8,14,35,0.85)] shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.07)]"
@@ -177,20 +140,12 @@ export default function Navbar() {
 
           {/* Desktop nav items — centered */}
           <div className="hidden md:flex items-center gap-1 mx-auto relative">
-            {/* Active route indicator — 2px bar slides under active nav item */}
-            <div
-              ref={indicatorRef}
-              className="absolute bottom-0 left-0 h-0.5 bg-blue-400 rounded-full pointer-events-none"
-              style={{ width: 0, transform: "translateX(0px)" }}
-              aria-hidden
-            />
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  ref={setLinkRef(item.href)}
                   data-magnetic
                   data-cursor="link"
                   className={`

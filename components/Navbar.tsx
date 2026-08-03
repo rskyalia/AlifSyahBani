@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { gsap } from "gsap";
 import ThemeToggle from "./ThemeToggle";
@@ -22,8 +22,21 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  // Map from href → <a> element so we can read their bounding rects
+  const linkRefsMap = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   const isDark = theme === "dark";
+
+  // Callback ref helper to register each desktop nav link
+  const setLinkRef = useCallback((href: string) => (el: HTMLAnchorElement | null) => {
+    if (el) {
+      linkRefsMap.current.set(href, el);
+    } else {
+      linkRefsMap.current.delete(href);
+    }
+  }, []);
 
   // Scroll-aware hide/show via GSAP
   useEffect(() => {
@@ -62,6 +75,57 @@ export default function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
+  }, [pathname]);
+
+  // Mobile menu clip-path animation
+  useEffect(() => {
+    if (!menuRef.current) return;
+    if (menuOpen) {
+      // Animate open: reveal from top downward
+      gsap.to(menuRef.current, {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 0.5,
+        ease: 'power4.inOut',
+        pointerEvents: 'auto',
+      });
+    } else {
+      // Animate close: collapse upward
+      gsap.to(menuRef.current, {
+        clipPath: 'inset(0% 0% 100% 0%)',
+        duration: 0.5,
+        ease: 'power4.inOut',
+        onComplete: () => {
+          if (menuRef.current) menuRef.current.style.pointerEvents = 'none';
+        },
+      });
+    }
+  }, [menuOpen]);
+
+  // Active indicator: animate position/width to the active nav link on route change
+  useEffect(() => {
+    const indicator = indicatorRef.current;
+    const navEl = navRef.current;
+    if (!indicator || !navEl) return;
+
+    const activeLink = linkRefsMap.current.get(pathname);
+    if (!activeLink) {
+      // No matching link — hide indicator
+      gsap.to(indicator, { width: 0, duration: 0.3, ease: "power2.inOut" });
+      return;
+    }
+
+    const navRect = navEl.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    // x relative to the nav element
+    const relativeX = linkRect.left - navRect.left;
+
+    gsap.to(indicator, {
+      x: relativeX,
+      width: linkRect.width,
+      duration: 0.3,
+      ease: "power2.inOut",
+    });
   }, [pathname]);
 
   const navBgScrolled = isDark
@@ -112,13 +176,23 @@ export default function Navbar() {
           </span>
 
           {/* Desktop nav items — centered */}
-          <div className="hidden md:flex items-center gap-1 mx-auto">
+          <div className="hidden md:flex items-center gap-1 mx-auto relative">
+            {/* Active route indicator — 2px bar slides under active nav item */}
+            <div
+              ref={indicatorRef}
+              className="absolute bottom-0 left-0 h-0.5 bg-blue-400 rounded-full pointer-events-none"
+              style={{ width: 0, transform: "translateX(0px)" }}
+              aria-hidden
+            />
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  ref={setLinkRef(item.href)}
+                  data-magnetic
+                  data-cursor="link"
                   className={`
                     group/item relative px-5 py-2 rounded-full
                     text-sm font-medium transition-colors duration-200
@@ -176,35 +250,39 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile dropdown */}
-        {menuOpen && (
+        {/* Mobile dropdown — always rendered, visibility controlled by clip-path */}
+        <div
+          ref={menuRef}
+          className="md:hidden mt-2 p-2 rounded-2xl"
+          style={{
+            background: isDark ? "rgba(8,14,35,0.90)" : "rgba(255,255,255,0.94)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            boxShadow: isDark
+              ? "0 8px 32px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07)"
+              : "0 8px 32px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.07)",
+            clipPath: "inset(0% 0% 100% 0%)",
+            pointerEvents: "none",
+          }}
+        >
           <div
-            className="md:hidden mt-2 p-2 rounded-2xl animate-fade-in-up"
+            className="pointer-events-none absolute inset-x-4 top-2 h-px"
             style={{
-              background: isDark ? "rgba(8,14,35,0.90)" : "rgba(255,255,255,0.94)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              boxShadow: isDark
-                ? "0 8px 32px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07)"
-                : "0 8px 32px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.07)",
+              background: isDark
+                ? "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)"
+                : "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.1) 50%, transparent 100%)",
             }}
-          >
-            <div
-              className="pointer-events-none absolute inset-x-4 top-2 h-px"
-              style={{
-                background: isDark
-                  ? "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)"
-                  : "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.1) 50%, transparent 100%)",
-              }}
-              aria-hidden
-            />
-            {NAV_ITEMS.map((item) => {
-              const active = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`
+            aria-hidden
+          />
+          {NAV_ITEMS.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                data-magnetic
+                data-cursor="link"
+                className={`
                     group/item relative block px-4 py-3 rounded-xl
                     text-sm font-medium transition-colors duration-200
                     ${
@@ -217,28 +295,27 @@ export default function Navbar() {
                         : "text-slate-500 hover:text-slate-800"
                     }
                   `}
-                >
-                  <span
-                    className={`
+              >
+                <span
+                  className={`
                       absolute inset-0 rounded-xl transition-opacity duration-200
                       ${active ? "opacity-100" : "opacity-0 group-hover/item:opacity-100"}
                     `}
-                    style={{
-                      background: isDark
-                        ? "linear-gradient(180deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%)"
-                        : "linear-gradient(180deg, rgba(15,23,42,0.06) 0%, rgba(15,23,42,0.02) 100%)",
-                      boxShadow: isDark
-                        ? "inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 1px rgba(255,255,255,0.07)"
-                        : "inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(15,23,42,0.06)",
-                    }}
-                    aria-hidden
-                  />
-                  <span className="relative z-10">{item.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+                  style={{
+                    background: isDark
+                      ? "linear-gradient(180deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%)"
+                      : "linear-gradient(180deg, rgba(15,23,42,0.06) 0%, rgba(15,23,42,0.02) 100%)",
+                    boxShadow: isDark
+                      ? "inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 1px rgba(255,255,255,0.07)"
+                      : "inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(15,23,42,0.06)",
+                  }}
+                  aria-hidden
+                />
+                <span className="relative z-10">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
       </nav>
       </div>
     </>

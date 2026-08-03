@@ -84,16 +84,16 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - `mouseleave`: `gsap.to(elem, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' })`
     - _Requirements: 2.2, 2.3_
 
-  - [ ] 5.4 Write property test: cursor tidak render pada coarse pointer (Property 2)
+  - [-] 5.4 Write property test: cursor tidak render pada coarse pointer (Property 2)
     - **Property 2: Cursor never renders on touch/coarse-pointer devices**
     - **Validates: Requirements 2.6, 12.2**
 
-  - [ ] 5.5 Write property test: magnetic attraction bounded 30% (Property 3)
+  - [-] 5.5 Write property test: magnetic attraction bounded 30% (Property 3)
     - Ekstrak `computeMagneticOffset(dx, dy)` sebagai pure function untuk testability
     - **Property 3: Magnetic attraction is bounded**
     - **Validates: Requirements 2.2**
 
-  - [ ] 5.6 Write property test: magnetic element always returns to origin (Property 4)
+  - [-] 5.6 Write property test: magnetic element always returns to origin (Property 4)
     - **Property 4: Magnetic element always returns to origin**
     - **Validates: Requirements 2.3**
 
@@ -109,11 +109,11 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Guard `prefers-reduced-motion`: tampilkan nilai akhir langsung
     - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-  - [ ] 6.2 Write property test: counter animates from 0 and displays integers (Property 10)
+  - [x] 6.2 Write property test: counter animates from 0 and displays integers (Property 10)
     - **Property 10: Counter animates from 0 and displays rounded integers**
     - **Validates: Requirements 8.1, 8.2**
 
-  - [ ] 6.3 Write property test: counter fires exactly once per session (Property 11)
+  - [x] 6.3 Write property test: counter fires exactly once per session (Property 11)
     - **Property 11: Counter animation fires exactly once per session**
     - **Validates: Requirements 8.4**
 
@@ -136,7 +136,7 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Panggil `onComplete` saat timeline selesai
     - _Requirements: 1.2, 1.5, 1.7_
 
-  - [ ] 8.3 Write property test: onComplete dipanggil tepat satu kali (Property 1)
+  - [x] 8.3 Write property test: onComplete dipanggil tepat satu kali (Property 1)
     - **Property 1: Preloader onComplete is always called exactly once**
     - **Validates: Requirements 1.5**
 
@@ -149,23 +149,23 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Entry animation on `isReady` (dari `ReadyContext`): `gsap.fromTo(navRef, { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' })`
     - _Requirements: 4.1, 4.2, 4.3_
 
-  - [ ] 9.2 Implementasi active indicator dengan GSAP dan tambahkan data attributes
+  - [x] 9.2 Implementasi active indicator dengan GSAP dan tambahkan data attributes
     - Tambahkan `indicatorRef` — `<div>` absolut 2px tall, background `blue-400`, di bawah nav items
     - Pada route change: baca `getBoundingClientRect()` dari active link, `gsap.to(indicatorRef, { x: ..., width: ..., duration: 0.3, ease: 'power2.inOut' })`
     - Tambahkan `data-magnetic` dan `data-cursor="link"` pada setiap nav item `<Link>`
     - _Requirements: 4.4, 4.5, 4.6_
 
-  - [ ] 9.3 Implementasi mobile menu clip-path animation
+  - [-] 9.3 Implementasi mobile menu clip-path animation
     - Ganti `{menuOpen && ...}` dengan elemen yang selalu render tapi dikontrol clip-path
     - Open: `gsap.to(menuRef, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.5, ease: 'power4.inOut' })`
     - Close: `gsap.to(menuRef, { clipPath: 'inset(0% 0% 100% 0%)', duration: 0.5, ease: 'power4.inOut' })`
     - _Requirements: 4.7_
 
-  - [ ] 9.4 Write property test: navbar scroll visibility invariant (Property 14)
+  - [-] 9.4 Write property test: navbar scroll visibility invariant (Property 14)
     - **Property 14: Navbar scroll visibility follows direction invariant**
     - **Validates: Requirements 4.1, 4.2**
 
-  - [ ] 9.5 Write unit test: data-magnetic dan data-cursor="link" ada di semua nav items
+  - [-] 9.5 Write unit test: data-magnetic dan data-cursor="link" ada di semua nav items
     - Test bahwa setiap NAV_ITEMS memiliki `data-magnetic` dan `data-cursor="link"`
     - **Validates: Requirements 4.6**
 
@@ -178,7 +178,7 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Trigger animasi dari `isReady` (ReadyContext), bukan langsung mount
     - _Requirements: 3.1, 3.2_
 
-  - [ ] 10.2 Integrasikan `StatsCounter` dan tambahkan parallax ScrollTrigger
+  - [x] 10.2 Integrasikan `StatsCounter` dan tambahkan parallax ScrollTrigger
     - Mount `StatsCounter` dengan stats: `[{ value: 3, suffix: '+', label: 'Years Coding' }, { value: 10, suffix: '+', label: 'Projects Built' }, { value: 5, suffix: '+', label: 'Awards Won' }]`
     - Stats muncul dengan StaggerAnimation 0.15s setelah TextReveal selesai
     - ScrollTrigger parallax pada heading: `scrub: 1`, `y: '-20%'`
@@ -187,7 +187,7 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Tambahkan `aria-label="Animated 3D planet decoration"` dan `aria-hidden="true"` pada PlanetModel wrapper
     - _Requirements: 3.3, 3.4, 3.5, 3.6, 3.7, 12.6_
 
-  - [ ] 10.3 Write unit test: Hero menampilkan minimal 3 statistik
+  - [-] 10.3 Write unit test: Hero menampilkan minimal 3 statistik
     - Test bahwa StatsCounter menerima array 3+ stats
     - _Requirements: 8.5_
 
@@ -201,7 +201,7 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Update heading ke `var(--text-h2)` dengan `letterSpacing: 'var(--ls-h2)'`
     - _Requirements: 6.1, 10.2, 10.3, 10.5_
 
-  - [ ] 11.2 Write unit test: SectionHeader merender nomor section dengan benar
+  - [x] 11.2 Write unit test: SectionHeader merender nomor section dengan benar
     - Test bahwa number label render saat prop `number` diberikan
     - _Requirements: 10.5_
 
@@ -216,26 +216,26 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Hapus class `card-float` CSS hover transitions
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6_
 
-  - [ ] 12.2 Tambahkan scroll-reveal via useScrollReveal
+  - [x] 12.2 Tambahkan scroll-reveal via useScrollReveal
     - Terapkan `useScrollReveal(cardRef, { preset: 'fade-up', start: 'top 85%' })` untuk scroll entry
     - _Requirements: 6.2_
 
-  - [ ] 12.3 Write property test: tilt bounded ±8 degrees (Property 7)
+  - [-] 12.3 Write property test: tilt bounded ±8 degrees (Property 7)
     - Ekstrak `computeTiltValues(rx, ry)` sebagai pure function
     - **Property 7: ProjectCard tilt is bounded within ±8 degrees**
     - **Validates: Requirements 7.2**
 
-  - [ ] 12.4 Write property test: ProjectCard resets on mouse leave (Property 8)
+  - [x] 12.4 Write property test: ProjectCard resets on mouse leave (Property 8)
     - **Property 8: ProjectCard always resets on mouse leave**
     - **Validates: Requirements 7.4**
 
-  - [ ] 12.5 Write property test: data-attribute contracts satisfied (Property 9, card portion)
+  - [x] 12.5 Write property test: data-attribute contracts satisfied (Property 9, card portion)
     - Test bahwa `data-cursor="card"` ada pada setiap ProjectCard yang dirender
     - **Property 9: All data-attribute contracts are satisfied**
     - **Validates: Requirements 7.5**
 
 
-- [ ] 13. Upgrade `ExperienceAwards` (`components/ExperienceAwards.tsx`)
+- [x] 13. Upgrade `ExperienceAwards` (`components/ExperienceAwards.tsx`)
   - [x] 13.1 Ganti IntersectionObserver dengan useScrollReveal stagger
     - Hapus `useState(visible)` dan `useEffect` IntersectionObserver
     - Terapkan `useScrollReveal(ref, { preset: 'stagger', staggerTargets: '.timeline-item', staggerDelay: 0.08, start: 'top 85%' })`
@@ -243,62 +243,62 @@ Upgrade portfolio Alif Sya'bani ke level creative-agency/Awwwards menggunakan in
     - Hapus class `transition-all opacity-0 translate-y-10` yang sebelumnya dipakai untuk CSS transition
     - _Requirements: 6.3_
 
-  - [ ] 13.2 Write unit test: ExperienceAwards menggunakan useScrollReveal stagger
+  - [x] 13.2 Write unit test: ExperienceAwards menggunakan useScrollReveal stagger
     - Test bahwa timeline items muncul dengan stagger animation
     - _Requirements: 6.3_
 
-- [ ] 14. Upgrade `Footer` (`components/Footer.tsx`)
-  - [ ] 14.1 Tambahkan large name heading dengan TextReveal dan marquee
+- [x] 14. Upgrade `Footer` (`components/Footer.tsx`)
+  - [x] 14.1 Tambahkan large name heading dengan TextReveal dan marquee
     - Tambahkan `<h2>` "ALIF SYA'BANI" dengan `fontSize: 'clamp(3rem, 8vw, 6rem)'`, `fontWeight: 800`, `letterSpacing: '-0.02em'`
     - Terapkan `useScrollReveal(headingRef, { preset: 'clip-reveal', duration: 0.9, ease: 'power4.out' })`
     - Tambahkan marquee: duplikat tech-stack text, `gsap.to(marqueeRef, { x: '-50%', duration: 20, ease: 'none', repeat: -1 })`
     - Guard: `ResizeObserver` trigger `gsap.invalidate()` + restart jika marquee width = 0
     - _Requirements: 11.1, 11.2_
 
-  - [ ] 14.2 Tambahkan "AVAILABLE FOR WORK" link magnetic dan social link underline
+  - [x] 14.2 Tambahkan "AVAILABLE FOR WORK" link magnetic dan social link underline
     - Tambahkan link "AVAILABLE FOR WORK" dengan `data-magnetic` dan `data-cursor="link"`
     - Social links: wrap `<span>` underline dengan `scaleX: 0` → `scaleX: 1` on hover, `transformOrigin: 'left'`
     - Pastikan `background: transparent` dipertahankan
     - _Requirements: 11.3, 11.4, 11.5_
 
-  - [ ] 14.3 Write unit test: Footer memiliki data-magnetic pada "AVAILABLE FOR WORK"
+  - [x] 14.3 Write unit test: Footer memiliki data-magnetic pada "AVAILABLE FOR WORK"
     - Test bahwa link "AVAILABLE FOR WORK" memiliki `data-magnetic` dan `data-cursor="link"`
     - Test bahwa `background: transparent` diterapkan
     - **Property 9 (footer portion): data-attribute contracts**
     - **Validates: Requirements 11.3**
 
-  - [ ] 14.4 Write property test: marquee maintains constant velocity (Property 15)
+  - [x] 14.4 Write property test: marquee maintains constant velocity (Property 15)
     - **Property 15: Marquee maintains constant velocity**
     - **Validates: Requirements 11.2**
 
 
-- [ ] 15. Update `ClientRoot` untuk merender `MagneticCursor`
+- [x] 15. Update `ClientRoot` untuk merender `MagneticCursor`
   - Tambahkan `<MagneticCursor />` di dalam `<SmoothScroll>`, sebelum `<PageTransition>`
   - Pastikan posisi di luar page content agar tidak terpengaruh layout
   - _Requirements: 2.1, 2.7_
 
-- [ ] 16. Panggil `ScrollTrigger.refresh()` setelah Preloader selesai
+- [x] 16. Panggil `ScrollTrigger.refresh()` setelah Preloader selesai
   - Di `ClientRoot`, tambahkan `ScrollTrigger.refresh()` di dalam callback `onComplete` Preloader
   - Ini memastikan semua ScrollTrigger positions dihitung ulang setelah DOM shift
   - _Requirements: 5.2_
 
-- [ ] 17. Accessibility final pass
-  - [ ] 17.1 Pastikan semua images memiliki `alt` yang deskriptif
+- [x] 17. Accessibility final pass
+  - [x] 17.1 Pastikan semua images memiliki `alt` yang deskriptif
     - Audit semua `<img>` tag di ProjectCard, AboutPhoto, dan halaman lain
     - Tambahkan `alt` jika belum ada
     - _Requirements: 12.6_
 
-  - [ ] 17.2 Tambahkan `aria-label` dan `aria-hidden` pada PlanetModel
+  - [x] 17.2 Tambahkan `aria-label` dan `aria-hidden` pada PlanetModel
     - Tambahkan `aria-label="Animated 3D planet decoration"` pada wrapper `<div>` PlanetModel
     - Tambahkan `aria-hidden="true"` karena bersifat dekoratif
     - Pastikan semua `<button>` memiliki `aria-label` yang deskriptif
     - _Requirements: 12.3, 12.6_
 
-  - [ ] 17.3 Write unit test: PlanetModel wrapper memiliki aria-label dan aria-hidden
+  - [x] 17.3 Write unit test: PlanetModel wrapper memiliki aria-label dan aria-hidden
     - Test bahwa wrapper PlanetModel memiliki `aria-label="Animated 3D planet decoration"` dan `aria-hidden="true"`
     - _Requirements: 12.6_
 
-- [ ] 18. Checkpoint final — semua tests pass dan feature siap
+- [x] 18. Checkpoint final — semua tests pass dan feature siap
   - Pastikan semua tests pass, build TypeScript sukses tanpa error, dan tanyakan kepada user jika ada pertanyaan.
 
 

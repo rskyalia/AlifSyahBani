@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ExternalLink } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 type Props = {
   title: string;
@@ -30,6 +31,8 @@ export function computeTiltValues(rx: number, ry: number) {
 export default function ProjectCard({ title, image, description, tech, demo }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imgRef  = useRef<HTMLImageElement>(null);
+
+  useScrollReveal(cardRef, { preset: 'fade-up', start: 'top 85%' });
 
   const handleMouseEnter = () => {
     gsap.to(imgRef.current, { scale: 1.08, duration: 0.6, ease: "power2.out" });

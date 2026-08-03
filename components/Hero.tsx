@@ -13,24 +13,42 @@ import {
 } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Typewriter from "./Typewriter";
 import PlanetModel from "./PlanetModel";
+import StatsCounter from "./StatsCounter";
 import { useTheme } from "./ThemeContext";
+
+// Register ScrollTrigger plugin at module level — safe to call multiple times
+gsap.registerPlugin(ScrollTrigger);
+
+// Stats data as required by the spec
+const HERO_STATS = [
+  { value: 3,  suffix: "+", label: "Years Coding"    },
+  { value: 10, suffix: "+", label: "Projects Built"  },
+  { value: 5,  suffix: "+", label: "Awards Won"      },
+];
 
 export default function Hero() {
   const pathname = usePathname();
   const { theme } = useTheme();
 
-  const badgeRef   = useRef<HTMLDivElement>(null);
-  const socialsRef = useRef<HTMLDivElement>(null);
+  const sectionRef  = useRef<HTMLElement>(null);
+  const badgeRef    = useRef<HTMLDivElement>(null);
+  const socialsRef  = useRef<HTMLDivElement>(null);
   // Heading text-reveal refs (task 10.1)
-  const line1Ref   = useRef<HTMLSpanElement>(null);
-  const line2Ref   = useRef<HTMLSpanElement>(null);
-  const subRef     = useRef<HTMLParagraphElement>(null);
-  const typeRef    = useRef<HTMLDivElement>(null);
-  const btnsRef    = useRef<HTMLDivElement>(null);
-  const earthRef   = useRef<HTMLDivElement>(null);
-  const scrollRef  = useRef<HTMLDivElement>(null);
+  const headingRef  = useRef<HTMLHeadingElement>(null);
+  const line1Ref    = useRef<HTMLSpanElement>(null);
+  const line2Ref    = useRef<HTMLSpanElement>(null);
+  const subRef      = useRef<HTMLParagraphElement>(null);
+  const typeRef     = useRef<HTMLDivElement>(null);
+  const btnsRef     = useRef<HTMLDivElement>(null);
+  const statsRef    = useRef<HTMLDivElement>(null);
+  // Planet wrapper ref — used for parallax ScrollTrigger
+  const earthRef    = useRef<HTMLDivElement>(null);
+  const scrollRef   = useRef<HTMLDivElement>(null);
+  // Left text column ref — used for fade-out ScrollTrigger
+  const leftColRef  = useRef<HTMLDivElement>(null);
 
   // TextReveal animation — runs after mount with small delay
   useEffect(() => {
@@ -42,17 +60,42 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       if (prefersReduced) {
         gsap.set([line1Ref.current, line2Ref.current], { y: "0%" });
+        // Stats: show immediately at final state
+        if (statsRef.current) {
+          gsap.set(statsRef.current, { autoAlpha: 1, y: 0 });
+        }
         return;
       }
 
       gsap.set([line1Ref.current, line2Ref.current], { y: "110%" });
-      gsap.to([line1Ref.current, line2Ref.current], {
+      // Stats hidden initially — will stagger in after text reveal
+      if (statsRef.current) {
+        gsap.set(statsRef.current, { autoAlpha: 0, y: 18 });
+      }
+
+      const tl = gsap.timeline();
+
+      tl.to([line1Ref.current, line2Ref.current], {
         y: "0%",
         duration: 1.0,
         ease: "power4.out",
         stagger: 0.12,
         delay: 0.3,
       });
+
+      // StatsCounter stagger in 0.15s after TextReveal completes
+      if (statsRef.current) {
+        tl.to(
+          statsRef.current,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "power3.out",
+          },
+          "-=0.15"
+        );
+      }
     });
 
     return () => ctx.revert();
@@ -112,8 +155,77 @@ export default function Hero() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  // ScrollTrigger parallax + fade-out animations
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Guard: skip all parallax/scroll animations under prefers-reduced-motion
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReduced) {
+        // Show everything at final state immediately — no parallax motion
+        if (headingRef.current)  gsap.set(headingRef.current,  { y: 0, opacity: 1 });
+        if (earthRef.current)    gsap.set(earthRef.current,    { y: 0, rotate: 0 });
+        if (leftColRef.current)  gsap.set(leftColRef.current,  { opacity: 1, y: 0 });
+        return;
+      }
+
+      // --- Parallax: heading scrolls up at -20% ---
+      if (headingRef.current) {
+        gsap.to(headingRef.current, {
+          y: "-20%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+
+      // --- Parallax: PlanetModel container scrolls up faster + slight rotate ---
+      if (earthRef.current) {
+        gsap.to(earthRef.current, {
+          y: "-35%",
+          rotate: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5,
+          },
+        });
+      }
+
+      // --- Fade-out: when scroll > 80% of viewport height, text fades out ---
+      if (leftColRef.current) {
+        gsap.to(leftColRef.current, {
+          opacity: 0,
+          y: -30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            // Start fading at 80% vh scrolled, finish at bottom of section
+            start: `${window.innerHeight * 0.8}px top`,
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="
         relative min-h-screen
@@ -125,7 +237,7 @@ export default function Hero() {
       "
     >
       {/* LEFT CONTENT */}
-      <div className="w-full max-w-xl text-center md:text-left">
+      <div ref={leftColRef} className="w-full max-w-xl text-center md:text-left">
 
         {/* Status badge */}
         <div ref={badgeRef} className="flex justify-center md:justify-start mb-5">
@@ -147,12 +259,14 @@ export default function Hero() {
 
         {/* Heading */}
         <h1
+          ref={headingRef}
           className={`font-cabinet font-bold mb-4 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
           style={{
             fontSize: "var(--text-hero)",
             fontWeight: 800,
             letterSpacing: "var(--ls-hero)",
             lineHeight: "var(--lh-display)",
+            willChange: "transform",
           }}
         >
           <div style={{ overflow: "hidden", paddingBottom: "0.15em" }}>
@@ -199,6 +313,11 @@ export default function Hero() {
             About Me
           </Link>
         </div>
+
+        {/* Stats Counter — appears after TextReveal completes */}
+        <div ref={statsRef} className="mt-10 flex justify-center md:justify-start">
+          <StatsCounter stats={HERO_STATS} />
+        </div>
       </div>
 
       {/* RIGHT CONTENT – EARTH/PLANET */}
@@ -211,6 +330,8 @@ export default function Hero() {
           relative
         "
         style={{ willChange: "transform, opacity, filter" }}
+        aria-label="Animated 3D planet decoration"
+        aria-hidden="true"
       >
         {/* Dimming overlay — redup agar heading lebih menonjol */}
         <div

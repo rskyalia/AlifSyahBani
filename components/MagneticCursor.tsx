@@ -3,6 +3,24 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
+/**
+ * Computes the magnetic offset for a data-magnetic element.
+ * Pure function extracted for testability.
+ *
+ * @param dx - Horizontal distance: cursorX - elemCenterX
+ * @param dy - Vertical distance: cursorY - elemCenterY
+ * @returns { x, y } offset values (30% of the input deltas)
+ */
+export function computeMagneticOffset(
+  dx: number,
+  dy: number
+): { x: number; y: number } {
+  return {
+    x: dx * 0.3,
+    y: dy * 0.3,
+  };
+}
+
 export default function MagneticCursor() {
   const [isTouch, setIsTouch] = useState(false);
   const dotRef = useRef<HTMLDivElement>(null);
@@ -160,9 +178,8 @@ export default function MagneticCursor() {
           const dx = cursorX - elemCenterX;
           const dy = cursorY - elemCenterY;
 
-          // Calculate 30% offset
-          const offsetX = dx * 0.3;
-          const offsetY = dy * 0.3;
+          // Calculate 30% offset using extracted pure function
+          const { x: offsetX, y: offsetY } = computeMagneticOffset(dx, dy);
 
           gsap.to(element, {
             x: offsetX,

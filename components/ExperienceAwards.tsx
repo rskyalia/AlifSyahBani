@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Briefcase } from "lucide-react";
 import SectionHeader from "./SectionHeader";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const EXPERIENCES = [
   {
@@ -48,27 +49,17 @@ const AWARDS = [
 
 export default function ExperienceAwards() {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  useScrollReveal(ref, {
+    preset: "stagger",
+    staggerTargets: ".timeline-item",
+    staggerDelay: 0.08,
+    start: "top 85%",
+  });
 
   return (
     <section
       id="experience"
-      ref={ref}
       className="px-6 md:px-20 py-24 md:py-32"
     >
       <SectionHeader
@@ -79,12 +70,8 @@ export default function ExperienceAwards() {
       />
 
       <div
-        className={`
-          max-w-5xl mx-auto
-          grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8
-          transition-all duration-1000
-          ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
-        `}
+        ref={ref}
+        className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
       >
         {/* Experiences */}
         <div className="p-2 md:p-4">

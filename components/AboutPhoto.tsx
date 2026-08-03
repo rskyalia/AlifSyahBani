@@ -14,7 +14,7 @@ export default function AboutPhoto() {
 
         <img
           src="/about/fotodiri.jpg"
-          alt="Alif portrait"
+          alt="Muhammad Alif Sya'bani — Informatics Engineering student and software developer"
           className="
             relative z-10
             w-[300px] sm:w-[340px] md:w-[360px] h-auto

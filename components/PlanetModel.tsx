@@ -61,7 +61,7 @@ export default function PlanetModel({ theme }: PlanetModelProps) {
         toneMapping: THREE.ACESFilmicToneMapping,
         toneMappingExposure: isDark ? 0.75 : 0.85,
       }}
-      style={{ pointerEvents: "none" }}
+      style={{ pointerEvents: "auto" }}
     >
       <Environment preset={isDark ? "night" : "city"} />
 
@@ -116,7 +116,7 @@ export default function PlanetModel({ theme }: PlanetModelProps) {
       <OrbitControls
         enableZoom={false}
         enablePan={false}
-        enableRotate={false}
+        enableRotate={true}
         autoRotate
         autoRotateSpeed={1.2}
       />

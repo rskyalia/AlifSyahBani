@@ -229,15 +229,14 @@ export default function Hero() {
       id="home"
       className="
         relative min-h-screen
-        flex flex-col-reverse md:flex-row
-        items-center justify-center
-        gap-10 md:gap-16
+        flex items-center
         px-6 md:px-20
         pt-28 md:pt-0
+        overflow-hidden
       "
     >
       {/* LEFT CONTENT */}
-      <div ref={leftColRef} className="w-full max-w-xl text-center md:text-left">
+      <div ref={leftColRef} className="relative z-10 w-full md:max-w-xl text-center md:text-left">
 
         {/* Status badge */}
         <div ref={badgeRef} className="flex justify-center md:justify-start mb-5">
@@ -320,26 +319,26 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* RIGHT CONTENT – EARTH/PLANET */}
+      {/* RIGHT CONTENT – EARTH/PLANET — absolutely positioned on the right half */}
       <div
         ref={earthRef}
         className="
-          w-full max-w-md
-          h-70 sm:h-90 md:h-130
+          absolute top-0 right-0
           hidden sm:block
-          relative
+          w-[55vw] md:w-[52vw] lg:w-[48vw]
+          h-full
         "
         style={{ willChange: "transform, opacity, filter" }}
         aria-label="Animated 3D planet decoration"
         aria-hidden="true"
       >
-        {/* Dimming overlay — redup agar heading lebih menonjol */}
+        {/* Dimming overlay — redup agar heading lebih menonjol, no pointer-events */}
         <div
-          className="absolute inset-0 z-10 rounded-full pointer-events-none"
+          className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background: theme === "dark"
-              ? "radial-gradient(circle, rgba(0,0,5,0.45) 30%, rgba(0,0,10,0.15) 70%, transparent 100%)"
-              : "radial-gradient(circle, rgba(244,247,251,0.55) 30%, rgba(244,247,251,0.2) 70%, transparent 100%)",
+              ? "radial-gradient(circle at 60% 50%, rgba(0,0,5,0.35) 20%, rgba(0,0,10,0.05) 65%, transparent 100%)"
+              : "radial-gradient(circle at 60% 50%, rgba(244,247,251,0.45) 20%, rgba(244,247,251,0.1) 65%, transparent 100%)",
           }}
           aria-hidden
         />

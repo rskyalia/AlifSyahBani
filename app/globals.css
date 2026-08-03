@@ -7,7 +7,7 @@
   --accent-glow: rgba(59, 130, 246, 0.35);
 
   /* ── Typography scale tokens ── */
-  --text-hero:          clamp(3.5rem, 8vw, 7rem);
+  --text-hero:          clamp(2.2rem, 4.5vw, 4rem);
   --text-h2:            clamp(2rem, 4vw, 3.5rem);
   --text-h3:            clamp(1.25rem, 2vw, 1.75rem);
   --text-counter:       clamp(2.5rem, 5vw, 4rem);

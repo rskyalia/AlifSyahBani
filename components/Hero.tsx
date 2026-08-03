@@ -115,12 +115,12 @@ export default function Hero() {
 
       // Reset inline styles so previous GSAP state doesn't linger
       gsap.set(leftEls, { clearProps: "all" });
-      gsap.set(earthRef.current, { clearProps: "all" });
+      gsap.set(earthRef.current, { clearProps: "opacity,visibility" });
       gsap.set(scrollRef.current, { clearProps: "all" });
 
       // Set invisible
       gsap.set(leftEls, { autoAlpha: 0, y: 22 });
-      gsap.set(earthRef.current, { autoAlpha: 0, scale: 0.86, filter: "blur(20px)" });
+      gsap.set(earthRef.current, { autoAlpha: 0 });
       gsap.set(scrollRef.current, { autoAlpha: 0 });
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.05 });
@@ -133,17 +133,15 @@ export default function Hero() {
         stagger: 0.1,
       });
 
-      // Earth — starts alongside left column
+      // Earth wrapper fades in — scale/blur handled inside Three.js Canvas now
       tl.to(
         earthRef.current,
         {
           autoAlpha: 1,
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 1.0,
+          duration: 0.6,
           ease: "power2.out",
         },
-        0.15
+        0.1
       );
 
       // Scroll indicator
@@ -227,19 +225,42 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="
-        relative min-h-screen
-        flex items-center
-        px-6 md:px-20
-        pt-28 md:pt-0
-        overflow-hidden
-      "
+      className="relative min-h-screen overflow-hidden"
+      style={{ paddingTop: 0 }}
     >
-      {/* LEFT CONTENT */}
-      <div ref={leftColRef} className="relative z-10 w-full md:max-w-xl text-center md:text-left">
+      {/* RIGHT CONTENT – planet sits in right half, slightly shifted up */}
+      <div
+        ref={earthRef}
+        className="absolute right-0 hidden md:block"
+        style={{
+          top: "-8%",
+          bottom: "-5%",
+          width: "52vw",
+          willChange: "transform, opacity",
+          zIndex: 0,
+        }}
+        aria-label="Animated 3D planet decoration"
+        aria-hidden="true"
+      >
+        <PlanetModel theme={theme} />
+      </div>
+
+      {/* LEFT CONTENT — sits above planet, takes left ~50% */}
+      <div
+        ref={leftColRef}
+        className="
+          relative z-10
+          flex flex-col justify-center
+          min-h-screen
+          w-full md:w-[52%]
+          px-6 md:pl-20 md:pr-8
+          pt-28 md:pt-0
+          text-center md:text-left
+        "
+      >
 
         {/* Status badge */}
-        <div ref={badgeRef} className="flex justify-center md:justify-start mb-5">
+        <div ref={badgeRef} className="flex justify-center md:justify-start mb-3">
           <span className="section-label flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
             Open to opportunities
@@ -247,7 +268,7 @@ export default function Hero() {
         </div>
 
         {/* Social icons */}
-        <div ref={socialsRef} className="flex justify-center md:justify-start gap-3 mb-7">
+        <div ref={socialsRef} className="flex justify-center md:justify-start gap-3 mb-4">
           <SocialIcon href="https://github.com/rskyalia"                          icon={<FaGithub />}    variant="github"    theme={theme} />
           <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />}  variant="linkedin"  theme={theme} />
           <SocialIcon href="https://www.instagram.com/syah.baani/"                icon={<FaInstagram />} variant="instagram" theme={theme} />
@@ -259,7 +280,7 @@ export default function Hero() {
         {/* Heading */}
         <h1
           ref={headingRef}
-          className={`font-cabinet font-bold mb-4 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
+          className={`font-cabinet font-bold mb-3 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
           style={{
             fontSize: "var(--text-hero)",
             fontWeight: 800,
@@ -284,20 +305,20 @@ export default function Hero() {
         <p
           ref={subRef}
           className={`
-            font-cabinet mb-5
-            text-base sm:text-lg md:text-xl
+            font-cabinet mb-3
+            text-sm sm:text-base md:text-lg
             leading-relaxed
             ${theme === "dark" ? "text-blue-100/65" : "text-slate-600"}
           `}
         >
           Bachelor of Applied Science in Informatics Engineering
-          <span className={`block text-sm md:text-base mt-1 ${theme === "dark" ? "text-blue-200/45" : "text-slate-400"}`}>
+          <span className={`block text-xs md:text-sm mt-0.5 ${theme === "dark" ? "text-blue-200/45" : "text-slate-400"}`}>
             State Polytechnic of Malang
           </span>
         </p>
 
         {/* Typewriter */}
-        <div ref={typeRef} className="mb-8">
+        <div ref={typeRef} className="mb-5">
           <Typewriter />
         </div>
 
@@ -314,35 +335,9 @@ export default function Hero() {
         </div>
 
         {/* Stats Counter — appears after TextReveal completes */}
-        <div ref={statsRef} className="mt-10 flex justify-center md:justify-start">
+        <div ref={statsRef} className="mt-6 flex justify-center md:justify-start">
           <StatsCounter stats={HERO_STATS} />
         </div>
-      </div>
-
-      {/* RIGHT CONTENT – EARTH/PLANET — absolutely positioned on the right half */}
-      <div
-        ref={earthRef}
-        className="
-          absolute top-0 right-0
-          hidden sm:block
-          w-[55vw] md:w-[52vw] lg:w-[48vw]
-          h-full
-        "
-        style={{ willChange: "transform, opacity, filter" }}
-        aria-label="Animated 3D planet decoration"
-        aria-hidden="true"
-      >
-        {/* Dimming overlay — redup agar heading lebih menonjol, no pointer-events */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            background: theme === "dark"
-              ? "radial-gradient(circle at 60% 50%, rgba(0,0,5,0.35) 20%, rgba(0,0,10,0.05) 65%, transparent 100%)"
-              : "radial-gradient(circle at 60% 50%, rgba(244,247,251,0.45) 20%, rgba(244,247,251,0.1) 65%, transparent 100%)",
-          }}
-          aria-hidden
-        />
-        <PlanetModel theme={theme} />
       </div>
 
       {/* Scroll indicator */}

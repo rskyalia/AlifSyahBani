@@ -26,23 +26,23 @@ export default function WritingCard({
           alt={title}
           className="w-full h-auto block"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Content */}
       <div className="p-5 md:p-6">
         <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 text-[10px] uppercase tracking-widest rounded-full bg-blue-500/15 border border-blue-500/25 text-blue-300/80">
+          <span className="px-2 py-0.5 text-[10px] uppercase tracking-widest rounded-full bg-blue-500/15 border border-blue-500/25 text-blue-400">
             {category}
           </span>
-          <span className="text-xs text-white/30">{date}</span>
+          <span className="card-muted text-xs">{date}</span>
         </div>
 
-        <h3 className="mt-3 text-base md:text-lg font-semibold text-white leading-snug group-hover:text-blue-100 transition-colors">
+        <h3 className="card-title mt-3 text-base md:text-lg font-semibold leading-snug transition-colors">
           {title}
         </h3>
 
-        <p className="mt-3 text-xs md:text-sm text-white/50 leading-relaxed line-clamp-3">
+        <p className="card-muted mt-3 text-xs md:text-sm leading-relaxed line-clamp-3">
           {excerpt}
         </p>
 

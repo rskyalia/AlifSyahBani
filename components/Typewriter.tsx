@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTheme } from './ThemeContext'
 
 const TEXTS = [
   'I Love English, Design, ML, AI, and Bike',
@@ -14,6 +15,9 @@ const PAUSE_AFTER_TYPING = 1200
 const PAUSE_AFTER_DELETING = 400
 
 export default function Typewriter() {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
+
   const [textIndex, setTextIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [mode, setMode] = useState<'typing' | 'pauseAfterTyping' | 'deleting' | 'pauseAfterDeleting'>('typing')
@@ -76,18 +80,25 @@ export default function Typewriter() {
         text-lg sm:text-xl md:text-2xl
         leading-snug
         flex items-center justify-center md:justify-start
-        min-h-[2rem]
+        min-h-8
       "
     >
       <span
-        className="
-          bg-linear-to-r from-blue-200 via-white to-blue-300
-          bg-clip-text text-transparent
-        "
+        className={`bg-clip-text text-transparent ${
+          isDark
+            ? 'bg-gradient-to-r from-blue-200 via-white to-blue-300'
+            : 'bg-gradient-to-r from-blue-700 via-slate-800 to-blue-600'
+        }`}
       >
         {TEXTS[textIndex].slice(0, charIndex)}
       </span>
-      <span className="ml-0.5 text-blue-400 animate-pulse font-light">|</span>
+      <span
+        className={`ml-0.5 animate-pulse font-light ${
+          isDark ? 'text-blue-400' : 'text-blue-600'
+        }`}
+      >
+        |
+      </span>
     </p>
   )
 }

@@ -14,27 +14,57 @@ import {
 import { MdEmail } from "react-icons/md";
 import { gsap } from "gsap";
 import Typewriter from "./Typewriter";
-import Earth from "./Earth";
+import PlanetModel from "./PlanetModel";
+import { useTheme } from "./ThemeContext";
 
 export default function Hero() {
   const pathname = usePathname();
+  const { theme } = useTheme();
 
   const badgeRef   = useRef<HTMLDivElement>(null);
   const socialsRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  // Heading text-reveal refs (task 10.1)
+  const line1Ref   = useRef<HTMLSpanElement>(null);
+  const line2Ref   = useRef<HTMLSpanElement>(null);
   const subRef     = useRef<HTMLParagraphElement>(null);
   const typeRef    = useRef<HTMLDivElement>(null);
   const btnsRef    = useRef<HTMLDivElement>(null);
   const earthRef   = useRef<HTMLDivElement>(null);
   const scrollRef  = useRef<HTMLDivElement>(null);
 
-  // Re-run every time this component mounts (including when navigating back)
+  // TextReveal animation — runs after mount with small delay
+  useEffect(() => {
+    // Respect prefers-reduced-motion: skip animation, jump to final state
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReduced) {
+        gsap.set([line1Ref.current, line2Ref.current], { y: "0%" });
+        return;
+      }
+
+      gsap.set([line1Ref.current, line2Ref.current], { y: "110%" });
+      gsap.to([line1Ref.current, line2Ref.current], {
+        y: "0%",
+        duration: 1.0,
+        ease: "power4.out",
+        stagger: 0.12,
+        delay: 0.3,
+      });
+    });
+
+    return () => ctx.revert();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Remaining Hero elements — stagger in on mount (pathname-driven re-run kept)
   useEffect(() => {
     const ctx = gsap.context(() => {
       const leftEls = [
         badgeRef.current,
         socialsRef.current,
-        headingRef.current,
         subRef.current,
         typeRef.current,
         btnsRef.current,
@@ -106,42 +136,49 @@ export default function Hero() {
         </div>
 
         {/* Social icons */}
-        <div ref={socialsRef} className="flex justify-center md:justify-start gap-3 mb-7 text-blue-200/60">
-          <SocialIcon href="https://github.com/rskyalia"                          icon={<FaGithub />}    variant="github"    />
-          <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />}  variant="linkedin"  />
-          <SocialIcon href="https://www.instagram.com/syah.baani/"                icon={<FaInstagram />} variant="instagram" />
-          <SocialIcon href="https://www.tiktok.com/@syah.baani"                   icon={<FaTiktok />}    variant="tiktok"    />
-          <SocialIcon href="https://x.com"                                        icon={<FaXTwitter />}  variant="x"         />
-          <SocialIcon href="mailto:muhammad.alif396177@smk.belajar.id"            icon={<MdEmail />}     variant="gmail"     />
+        <div ref={socialsRef} className="flex justify-center md:justify-start gap-3 mb-7">
+          <SocialIcon href="https://github.com/rskyalia"                          icon={<FaGithub />}    variant="github"    theme={theme} />
+          <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />}  variant="linkedin"  theme={theme} />
+          <SocialIcon href="https://www.instagram.com/syah.baani/"                icon={<FaInstagram />} variant="instagram" theme={theme} />
+          <SocialIcon href="https://www.tiktok.com/@syah.baani"                   icon={<FaTiktok />}    variant="tiktok"    theme={theme} />
+          <SocialIcon href="https://x.com"                                        icon={<FaXTwitter />}  variant="x"         theme={theme} />
+          <SocialIcon href="mailto:muhammad.alif396177@smk.belajar.id"            icon={<MdEmail />}     variant="gmail"     theme={theme} />
         </div>
 
         {/* Heading */}
         <h1
-          ref={headingRef}
-          className="
-            font-cabinet font-bold mb-4
-            text-4xl leading-tight
-            sm:text-5xl
-            md:text-6xl md:leading-[1.1]
-            bg-linear-to-br from-white via-blue-100 to-blue-400
-            bg-clip-text text-transparent
-            drop-shadow-[0_0_30px_rgba(59,130,246,0.35)]
-          "
+          className={`font-cabinet font-bold mb-4 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
+          style={{
+            fontSize: "var(--text-hero)",
+            fontWeight: 800,
+            letterSpacing: "var(--ls-hero)",
+            lineHeight: "var(--lh-display)",
+          }}
         >
-          Hi, I&apos;m Alif Sya&apos;bani
+          <div style={{ overflow: "hidden", paddingBottom: "0.15em" }}>
+            <span ref={line1Ref} style={{ display: "block" }}>
+              Hi, I&apos;m
+            </span>
+          </div>
+          <div style={{ overflow: "hidden", paddingBottom: "0.15em" }}>
+            <span ref={line2Ref} style={{ display: "block" }}>
+              Alif Sya&apos;bani
+            </span>
+          </div>
         </h1>
 
         {/* Subheading */}
         <p
           ref={subRef}
-          className="
-            font-cabinet text-blue-100/65 mb-5
+          className={`
+            font-cabinet mb-5
             text-base sm:text-lg md:text-xl
             leading-relaxed
-          "
+            ${theme === "dark" ? "text-blue-100/65" : "text-slate-600"}
+          `}
         >
           Bachelor of Applied Science in Informatics Engineering
-          <span className="block text-blue-200/45 text-sm md:text-base mt-1">
+          <span className={`block text-sm md:text-base mt-1 ${theme === "dark" ? "text-blue-200/45" : "text-slate-400"}`}>
             State Polytechnic of Malang
           </span>
         </p>
@@ -164,26 +201,37 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* RIGHT CONTENT – EARTH */}
+      {/* RIGHT CONTENT – EARTH/PLANET */}
       <div
         ref={earthRef}
         className="
           w-full max-w-md
-          h-[280px] sm:h-[360px] md:h-[520px]
+          h-70 sm:h-90 md:h-130
           hidden sm:block
+          relative
         "
         style={{ willChange: "transform, opacity, filter" }}
       >
-        <Earth />
+        {/* Dimming overlay — redup agar heading lebih menonjol */}
+        <div
+          className="absolute inset-0 z-10 rounded-full pointer-events-none"
+          style={{
+            background: theme === "dark"
+              ? "radial-gradient(circle, rgba(0,0,5,0.45) 30%, rgba(0,0,10,0.15) 70%, transparent 100%)"
+              : "radial-gradient(circle, rgba(244,247,251,0.55) 30%, rgba(244,247,251,0.2) 70%, transparent 100%)",
+          }}
+          aria-hidden
+        />
+        <PlanetModel theme={theme} />
       </div>
 
       {/* Scroll indicator */}
       <div
         ref={scrollRef}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-blue-200/30"
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 ${theme === "dark" ? "text-blue-200/30" : "text-slate-400/60"}`}
       >
         <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-8 bg-linear-to-b from-blue-400/50 to-transparent animate-bounce-slow" />
+        <div className={`w-px h-8 bg-linear-to-b animate-bounce-slow ${theme === "dark" ? "from-blue-400/50" : "from-slate-400/60"} to-transparent`} />
       </div>
     </section>
   );
@@ -193,10 +241,12 @@ function SocialIcon({
   href,
   icon,
   variant,
+  theme,
 }: {
   href: string;
   icon: React.ReactNode;
   variant: "github" | "linkedin" | "instagram" | "tiktok" | "x" | "gmail";
+  theme: "light" | "dark";
 }) {
   const shadows: Record<string, string> = {
     github:    "hover:shadow-[0_0_22px_rgba(255,255,255,0.55)] hover:text-black",
@@ -205,6 +255,15 @@ function SocialIcon({
     tiktok:    "hover:shadow-[0_0_26px_rgba(236,72,153,0.55)] hover:text-white",
     x:         "hover:shadow-[0_0_22px_rgba(255,255,255,0.75)] hover:text-black",
     gmail:     "hover:shadow-[0_0_26px_rgba(239,68,68,0.55)]  hover:text-white",
+  };
+
+  const lightShadows: Record<string, string> = {
+    github:    "hover:shadow-[0_0_18px_rgba(0,0,0,0.3)] hover:text-black",
+    linkedin:  "hover:shadow-[0_0_18px_rgba(14,118,168,0.5)] hover:text-sky-700",
+    instagram: "hover:shadow-[0_0_22px_rgba(236,72,153,0.5)] hover:text-pink-600",
+    tiktok:    "hover:shadow-[0_0_22px_rgba(236,72,153,0.4)] hover:text-slate-900",
+    x:         "hover:shadow-[0_0_18px_rgba(0,0,0,0.4)] hover:text-black",
+    gmail:     "hover:shadow-[0_0_22px_rgba(220,38,38,0.45)] hover:text-red-600",
   };
 
   return (
@@ -216,12 +275,12 @@ function SocialIcon({
         social-icon social-icon-${variant}
         p-2.5 rounded-full
         text-base sm:text-lg
-        text-white/60
-        border border-white/5
-        bg-white/3
         transition-all duration-500 ease-in-out
-        hover:scale-110 hover:border-white/10
-        ${shadows[variant]}
+        hover:scale-110
+        ${theme === "dark"
+          ? `text-white/60 border border-white/5 bg-white/3 hover:border-white/10 ${shadows[variant]}`
+          : `text-slate-500 border border-slate-200 bg-white/70 hover:border-slate-300 ${lightShadows[variant]}`
+        }
       `}
     >
       {icon}

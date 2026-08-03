@@ -90,18 +90,18 @@ export default function ExperienceAwards() {
         <div className="p-2 md:p-4">
           <div className="flex items-center gap-3 mb-7">
             <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20">
-              <Briefcase size={18} className="text-blue-300" />
+              <Briefcase size={18} className="text-blue-400" />
             </div>
-            <h3 className="text-lg font-semibold text-white/90">Experiences</h3>
+            <h3 className="text-lg font-semibold card-title">Experiences</h3>
           </div>
 
           <ul>
             {EXPERIENCES.map((item) => (
               <li key={item.title} className="timeline-item">
-                <p className="font-medium text-white/85 text-sm md:text-base leading-snug drop-shadow-[0_0_8px_rgba(255,255,255,0.15)]">
+                <p className="font-medium card-title text-sm md:text-base leading-snug">
                   {item.title}
                 </p>
-                <p className="text-xs md:text-sm text-blue-300/50 mt-1.5">
+                <p className="text-xs md:text-sm text-blue-400/60 mt-1.5">
                   {item.period}
                 </p>
               </li>
@@ -119,7 +119,7 @@ export default function ExperienceAwards() {
                 height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="text-amber-300"
+                className="text-amber-400"
                 stroke="currentColor"
                 strokeWidth="1.7"
                 strokeLinecap="round"
@@ -132,16 +132,16 @@ export default function ExperienceAwards() {
                 <path d="M8.21 6.37c.97-.29 2.43-.37 3.79-.37s2.82.08 3.79.37" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-white/90">Awards</h3>
+            <h3 className="text-lg font-semibold card-title">Awards</h3>
           </div>
 
           <ul>
             {AWARDS.map((item) => (
               <li key={item.title} className="timeline-item">
-                <p className="font-medium text-white/85 text-sm md:text-base leading-snug drop-shadow-[0_0_8px_rgba(255,255,255,0.15)]">
+                <p className="font-medium card-title text-sm md:text-base leading-snug">
                   {item.title}
                 </p>
-                <p className="text-xs md:text-sm text-blue-300/50 mt-1.5">
+                <p className="text-xs md:text-sm text-blue-400/60 mt-1.5">
                   {item.period}
                 </p>
               </li>

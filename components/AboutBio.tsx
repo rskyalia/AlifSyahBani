@@ -1,14 +1,14 @@
 export default function AboutBio() {
   return (
-    <div className="text-white max-w-xl">
+    <div className="max-w-xl">
       <p className="section-label mb-5">About Me</p>
 
       <h1 className="section-title mb-8">Muhammad Alif Sya&apos;bani</h1>
 
-      <div className="space-y-4 text-blue-100/65 leading-relaxed text-sm md:text-base">
+      <div className="space-y-4 leading-relaxed text-sm md:text-base description-muted">
         <p>
           Hello, I&apos;m Alif. I am currently pursuing a degree in{" "}
-          <span className="font-semibold text-blue-100/90">
+          <span className="font-semibold text-foreground/80">
             Informatics Engineering at Politeknik Negeri Malang
           </span>
           , where I continue to strengthen
@@ -43,7 +43,7 @@ export default function AboutBio() {
       </div>
 
       <div className="glass-card rounded-xl p-4 mt-8">
-        <p className="text-white/70 text-sm">
+        <p className="text-sm contact-muted">
           Let&apos;s connect —{" "}
           <a
             href="mailto:muhammad.alif396177@smk.belajar.id"

@@ -5,6 +5,22 @@
   --foreground: #e8f4ff;
   --accent: #3b82f6;
   --accent-glow: rgba(59, 130, 246, 0.35);
+
+  /* ── Typography scale tokens ── */
+  --text-hero:          clamp(3.5rem, 8vw, 7rem);
+  --text-h2:            clamp(2rem, 4vw, 3.5rem);
+  --text-h3:            clamp(1.25rem, 2vw, 1.75rem);
+  --text-counter:       clamp(2.5rem, 5vw, 4rem);
+  --text-preloader:     clamp(3rem, 10vw, 7rem);
+  --text-preloader-tagline: clamp(0.75rem, 1.5vw, 1rem);
+  --text-section-label: clamp(0.65rem, 1vw, 0.8rem);
+
+  /* ── Letter-spacing tokens ── */
+  --ls-hero:  -0.03em;
+  --ls-h2:    -0.02em;
+
+  /* ── Line-height tokens ── */
+  --lh-display: 1.05;
 }
 
 @theme inline {
@@ -14,11 +30,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
+[data-theme="light"] {
+  --background: #f4f7fb;
+  --foreground: #0f172a;
+  --accent: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+}
+
 body {
-  background: #000003;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-cabinet), system-ui, sans-serif;
   min-height: 100vh;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 /* ══════════════════════════════════════════
@@ -486,3 +510,328 @@ nav a.nav-link-hover:hover::after {
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR — MagneticCursor component
+   ══════════════════════════════════════════ */
+
+/* Hide the native cursor on desktop (pointer: fine devices only) */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* Cursor dot — follows mouse instantly */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* Cursor ring — follows mouse with lerp delay */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  background: transparent;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  will-change: transform, width, height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+
+/* Ring label text — shown when cursor-ring is in "card" state */
+.cursor-ring__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════
+   MODEL 3D BACKGROUND CONTAINER
+   ══════════════════════════════════════════ */
+.model-bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.model-bg-canvas canvas {
+  transition: opacity 0.6s ease;
+}
+
+/* ══════════════════════════════════════════
+   ROOM BACKGROUND — mode light, ruangan putih futuristik
+   ══════════════════════════════════════════ */
+.room-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, #ffffff 0%, #eef2f8 55%, #e4ecf7 100%);
+}
+
+.room-bg__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.5;
+}
+
+.room-bg__glow--1 {
+  width: 50vw;
+  height: 50vw;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, transparent 70%);
+  animation: nebulaDrift1 30s ease-in-out infinite alternate;
+}
+
+.room-bg__glow--2 {
+  width: 40vw;
+  height: 40vw;
+  bottom: -10%;
+  right: -5%;
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.35) 0%, transparent 70%);
+  animation: nebulaDrift2 25s ease-in-out infinite alternate;
+}
+
+.room-bg__floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(500px) rotateX(60deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black, transparent);
+  -webkit-mask-image: linear-gradient(to top, black, transparent);
+  opacity: 0.6;
+}
+
+.room-bg__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 40%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.4) 80%,
+    rgba(255, 255, 255, 0.75) 100%
+  );
+}
+
+[data-theme="light"] .section-label {
+  color: rgba(37, 99, 235, 0.8);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+[data-theme="light"] .section-title {
+  background: linear-gradient(135deg, #1e293b 0%, #2563eb 50%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.15));
+}
+
+[data-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 30px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .card-float:hover {
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow:
+    0 24px 64px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(15, 23, 42, 0.06),
+    0 0 50px rgba(37, 99, 235, 0.1);
+}
+
+[data-theme="light"] .btn-secondary {
+  color: rgba(30, 41, 59, 0.85);
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.18);
+  background: rgba(15, 23, 42, 0.07);
+}
+
+[data-theme="light"] nav a.nav-link-hover::after {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.06) 0%, rgba(15, 23, 42, 0.02) 100%);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track { background: #f4f7fb; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.15); }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(15, 23, 42, 0.28); }
+
+/* ══════════════════════════════════════════
+   SEMANTIC THEME TOKENS — adaptive text / surface utilities
+   ══════════════════════════════════════════ */
+
+/* Muted body text */
+.description-muted {
+  color: rgba(147, 197, 253, 0.65); /* blue-100/65 in dark */
+}
+[data-theme="light"] .description-muted {
+  color: #475569; /* slate-600 */
+}
+
+/* Contact / subtle text */
+.contact-muted {
+  color: rgba(255, 255, 255, 0.7);
+}
+[data-theme="light"] .contact-muted {
+  color: #64748b; /* slate-500 */
+}
+
+/* Card heading text */
+.card-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+.group:hover .card-title {
+  color: rgba(191, 219, 254, 1); /* blue-100 */
+}
+[data-theme="light"] .card-title {
+  color: #1e293b; /* slate-800 */
+}
+[data-theme="light"] .group:hover .card-title {
+  color: #1d4ed8; /* blue-700 */
+}
+
+/* Card body / meta text */
+.card-muted {
+  color: rgba(255, 255, 255, 0.5);
+}
+[data-theme="light"] .card-muted {
+  color: #64748b; /* slate-500 */
+}
+
+/* Card external link */
+.card-link {
+  color: rgba(255, 255, 255, 0.4);
+}
+.card-link:hover {
+  color: #93c5fd; /* blue-300 */
+}
+[data-theme="light"] .card-link {
+  color: #94a3b8; /* slate-400 */
+}
+[data-theme="light"] .card-link:hover {
+  color: #2563eb; /* blue-600 */
+}
+
+/* ══════════════════════════════════════════
+   HERO HEADING — gradient text (dark & light)
+   ══════════════════════════════════════════ */
+.hero-heading--dark {
+  background: linear-gradient(135deg, #ffffff 0%, #bfdbfe 50%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.35));
+}
+
+.hero-heading--light {
+  background: linear-gradient(135deg, #0f172a 0%, #1e40af 60%, #2563eb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.2));
+}
+
+/* ══════════════════════════════════════════
+   ROOM PARTICLES — light mode floating dust
+   ══════════════════════════════════════════ */
+.room-bg__particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.room-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(99, 132, 200, 0.55);
+  animation: particleFloat linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) translateX(0px);
+    opacity: 0;
+  }
+  5% { opacity: 1; }
+  90% { opacity: 0.6; }
+  100% {
+    transform: translateY(-10vh) translateX(var(--drift-x, 20px));
+    opacity: 0;
+  }
+}
+
+/* Individual particle sizes & timings */
+.room-particle:nth-child(1)  { width: 3px;  height: 3px;  left: 8%;  animation-duration: 18s; animation-delay: 0s;    --drift-x: 30px;  }
+.room-particle:nth-child(2)  { width: 2px;  height: 2px;  left: 15%; animation-duration: 22s; animation-delay: 3s;    --drift-x: -20px; }
+.room-particle:nth-child(3)  { width: 4px;  height: 4px;  left: 24%; animation-duration: 16s; animation-delay: 7s;    --drift-x: 40px;  }
+.room-particle:nth-child(4)  { width: 2px;  height: 2px;  left: 33%; animation-duration: 25s; animation-delay: 1s;    --drift-x: -30px; }
+.room-particle:nth-child(5)  { width: 3px;  height: 3px;  left: 42%; animation-duration: 20s; animation-delay: 5s;    --drift-x: 25px;  }
+.room-particle:nth-child(6)  { width: 2px;  height: 2px;  left: 51%; animation-duration: 28s; animation-delay: 9s;    --drift-x: -15px; }
+.room-particle:nth-child(7)  { width: 4px;  height: 4px;  left: 60%; animation-duration: 15s; animation-delay: 2s;    --drift-x: 35px;  }
+.room-particle:nth-child(8)  { width: 2px;  height: 2px;  left: 69%; animation-duration: 23s; animation-delay: 6s;    --drift-x: -25px; }
+.room-particle:nth-child(9)  { width: 3px;  height: 3px;  left: 78%; animation-duration: 19s; animation-delay: 4s;    --drift-x: 20px;  }
+.room-particle:nth-child(10) { width: 2px;  height: 2px;  left: 87%; animation-duration: 26s; animation-delay: 8s;    --drift-x: -35px; }
+.room-particle:nth-child(11) { width: 3px;  height: 3px;  left: 93%; animation-duration: 21s; animation-delay: 11s;   --drift-x: 15px;  }
+.room-particle:nth-child(12) { width: 2px;  height: 2px;  left: 5%;  animation-duration: 17s; animation-delay: 13s;   --drift-x: 40px;  }
+.room-particle:nth-child(13) { width: 4px;  height: 4px;  left: 20%; animation-duration: 24s; animation-delay: 15s;   --drift-x: -20px; }
+.room-particle:nth-child(14) { width: 2px;  height: 2px;  left: 46%; animation-duration: 29s; animation-delay: 10s;   --drift-x: 30px;  }
+.room-particle:nth-child(15) { width: 3px;  height: 3px;  left: 72%; animation-duration: 18s; animation-delay: 16s;   --drift-x: -40px; }
+.room-particle:nth-child(16) { width: 2px;  height: 2px;  left: 55%; animation-duration: 22s; animation-delay: 12s;   --drift-x: 20px;  }
+.room-particle:nth-child(17) { width: 3px;  height: 3px;  left: 38%; animation-duration: 20s; animation-delay: 14s;   --drift-x: -25px; }
+.room-particle:nth-child(18) { width: 2px;  height: 2px;  left: 82%; animation-duration: 27s; animation-delay: 17s;   --drift-x: 35px;  }
+.room-particle:nth-child(19) { width: 4px;  height: 4px;  left: 12%; animation-duration: 16s; animation-delay: 19s;   --drift-x: -30px; }
+.room-particle:nth-child(20) { width: 2px;  height: 2px;  left: 65%; animation-duration: 23s; animation-delay: 20s;   --drift-x: 25px;  }
+
+/* Larger soft bokeh orbs */
+.room-particle:nth-child(n+21) {
+  background: rgba(147, 197, 253, 0.25);
+  filter: blur(3px);
+}
+.room-particle:nth-child(21) { width: 8px;  height: 8px;  left: 18%; animation-duration: 35s; animation-delay: 0s;  --drift-x: 50px;  }
+.room-particle:nth-child(22) { width: 6px;  height: 6px;  left: 44%; animation-duration: 40s; animation-delay: 5s;  --drift-x: -45px; }
+.room-particle:nth-child(23) { width: 10px; height: 10px; left: 70%; animation-duration: 32s; animation-delay: 12s; --drift-x: 40px;  }
+.room-particle:nth-child(24) { width: 7px;  height: 7px;  left: 85%; animation-duration: 38s; animation-delay: 8s;  --drift-x: -30px; }
+.room-particle:nth-child(25) { width: 9px;  height: 9px;  left: 30%; animation-duration: 36s; animation-delay: 18s; --drift-x: 35px;  }

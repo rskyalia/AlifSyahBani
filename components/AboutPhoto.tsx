@@ -6,7 +6,7 @@ export default function AboutPhoto() {
         <div
           className="
             absolute -inset-4 rounded-3xl
-            bg-linear-to-br from-blue-600/30 via-blue-500/10 to-transparent
+            bg-gradient-to-br from-blue-600/30 via-blue-500/10 to-transparent
             blur-2xl
           "
           aria-hidden

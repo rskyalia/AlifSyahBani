@@ -4,6 +4,7 @@ import { useState } from "react";
 import Preloader from "./Preloader";
 import PageTransition from "./PageTransition";
 import SmoothScroll from "./SmoothScroll";
+import MagneticCursor from "./MagneticCursor";
 import { ReadyContext } from "./ReadyContext";
 
 export default function ClientRoot({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export default function ClientRoot({ children }: { children: React.ReactNode }) 
         <Preloader onComplete={() => setPreloaderDone(true)} />
       )}
       <SmoothScroll>
+        <MagneticCursor />
         <PageTransition isReady={preloaderDone}>
           <div className="relative z-0">{children}</div>
         </PageTransition>

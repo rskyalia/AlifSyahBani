@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import localFont from "next/font/local"
-import SpaceBackground from "@/components/SpaceBackground"
+import { ThemeProvider } from "@/components/ThemeContext"
+import BackgroundScene from "@/components/BackgroundScene"
 import ClientRoot from "@/components/ClientRoot"
 
 export const metadata: Metadata = {
@@ -25,6 +26,14 @@ const cabinet = localFont({
   variable: "--font-cabinet",
 })
 
+const themeInitScript = `
+(function() {
+  try {
+    var theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+`
 
 export default function RootLayout({
   children,
@@ -32,10 +41,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${cabinet.variable} text-white font-cabinet antialiased`}>
-        <SpaceBackground />
-        <ClientRoot>{children}</ClientRoot>
+    <html lang="en" data-theme="dark">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className={`${cabinet.variable} font-cabinet antialiased`}>
+        <ThemeProvider>
+          <BackgroundScene />
+          <ClientRoot>{children}</ClientRoot>
+        </ThemeProvider>
       </body>
     </html>
   )

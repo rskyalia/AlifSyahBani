@@ -9,22 +9,32 @@ interface PreloaderProps {
 
 export default function Preloader({ onComplete }: PreloaderProps) {
   const wrapperRef  = useRef<HTMLDivElement>(null);
+  const nameRef     = useRef<HTMLHeadingElement>(null);
+  const taglineRef  = useRef<HTMLDivElement>(null);
   const counterRef  = useRef<HTMLDivElement>(null);
-  const descRef     = useRef<HTMLDivElement>(null);
 
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const tl = gsap.timeline();
+    // Lock scroll while preloader is visible
+    document.body.style.overflow = "hidden";
 
-    // Init
-    gsap.set(counterRef.current, { autoAlpha: 0 });
-    gsap.set(descRef.current, { autoAlpha: 0 });
+    const tl = gsap.timeline({
+      onComplete: () => {
+        document.body.style.overflow = "";
+        onComplete();
+      },
+    });
 
-    // Fade in
+    // Init — all hidden, wrapper fully visible via clip-path
+    gsap.set([nameRef.current, taglineRef.current, counterRef.current], { autoAlpha: 0 });
+    gsap.set(wrapperRef.current, { clipPath: "inset(0% 0% 0% 0%)" });
+
+    // Fade in: name → tagline → counter
     tl
-      .to(counterRef.current, { autoAlpha: 1, duration: 0.3, ease: "power2.out" })
-      .to(descRef.current, { autoAlpha: 1, duration: 0.4, ease: "power2.out" }, "-=0.2");
+      .to(nameRef.current,    { autoAlpha: 1, duration: 0.4, ease: "power2.out" })
+      .to(taglineRef.current, { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, "-=0.15")
+      .to(counterRef.current, { autoAlpha: 1, duration: 0.3,  ease: "power2.out" }, "-=0.1");
 
     // Count 0 → 100
     const obj = { val: 0 };
@@ -40,17 +50,18 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     // Hold
     tl.to({}, { duration: 0.25 });
 
-    // Fade out
-    tl
-      .to([counterRef.current, descRef.current], {
-        autoAlpha: 0,
-        filter: "blur(8px)",
-        duration: 0.35,
-        ease: "power2.in",
-      })
-      .call(onComplete);
+    // Cinematic clip-path exit — collapses from top AND bottom simultaneously to center
+    tl.to(wrapperRef.current, {
+      clipPath: "inset(50% 0% 50% 0%)",
+      duration: 1.2,
+      ease: "power4.inOut",
+    });
 
-    return () => { tl.kill(); };
+    return () => {
+      tl.kill();
+      // Restore scroll on unmount (covers cases where component is removed before onComplete)
+      document.body.style.overflow = "";
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -61,6 +72,33 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       style={{ background: "#000000" }}
       aria-hidden
     >
+      {/* Name heading */}
+      <h1
+        ref={nameRef}
+        className="relative select-none text-center leading-none"
+        style={{
+          fontSize: "var(--text-preloader)",
+          fontWeight: 800,
+          letterSpacing: "-0.04em",
+          color: "#ffffff",
+        }}
+      >
+        ALIF SYA&apos;BANI
+      </h1>
+
+      {/* Tagline */}
+      <div
+        ref={taglineRef}
+        className="relative text-center select-none"
+        style={{
+          fontSize: "var(--text-preloader-tagline)",
+          color: "rgba(255,255,255,0.55)",
+          marginTop: "0.75rem",
+          letterSpacing: "0.05em",
+        }}
+      >
+        Informatics Engineer &amp; Creative Developer
+      </div>
 
       {/* Counter */}
       <div
@@ -70,25 +108,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           fontSize: "clamp(6rem, 22vw, 14rem)",
           letterSpacing: "-0.04em",
           color: "#ffffff",
+          marginTop: "2rem",
         }}
       >
         {count}%
-      </div>
-
-      {/* Description */}
-      <div
-        ref={descRef}
-        className="relative text-center select-none"
-        style={{
-          color: "rgba(255,255,255,0.65)",
-          fontSize: "clamp(0.75rem, 1.5vw, 0.95rem)",
-          maxWidth: "480px",
-          lineHeight: 1.6,
-          marginTop: "1.5rem",
-          padding: "0 1.5rem",
-        }}
-      >
-        Hi, I&apos;m Alif Sya&apos;bani. An Informatics Engineering graduate from State Polytechnic of Malang who is passionate about technology, digital innovation, and problem-solving. I love turning ideas into practical solutions through software and continuously exploring new opportunities to grow as a tech professional.
       </div>
     </div>
   );

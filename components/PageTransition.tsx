@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
+import { useTheme } from "./ThemeContext";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -29,6 +30,8 @@ function getRouteMeta(pathname: string): RouteMeta {
 
 export default function PageTransition({ children, isReady = false }: PageTransitionProps) {
   const pathname   = usePathname();
+  const { theme }  = useTheme();
+  const isDark     = theme === "dark";
   const prevPath   = useRef<string | null>(null);
   const isReadyRef = useRef(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -138,28 +141,32 @@ export default function PageTransition({ children, isReady = false }: PageTransi
         {children}
       </div>
 
-      {/* Layer 1 — blue accent (expands first, resets instantly) */}
+      {/* Layer 1 — accent (expands first, resets instantly) */}
       <div
         ref={frameBlueRef}
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 9998,
-          background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #1d4ed8 100%)",
+          background: isDark
+            ? "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #1d4ed8 100%)"
+            : "linear-gradient(135deg, #bfdbfe 0%, #93c5fd 50%, #60a5fa 100%)",
           transformOrigin: "left",
           transform: "scaleX(0)",
           pointerEvents: "none",
         }}
       />
 
-      {/* Layer 2 — black (expands second, collapses to reveal page) */}
+      {/* Layer 2 — base (expands second, collapses to reveal page) */}
       <div
         ref={frameBlackRef}
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 9999,
-          background: "linear-gradient(135deg, #000000 0%, #0a0a1a 70%, #0f172a 100%)",
+          background: isDark
+            ? "linear-gradient(135deg, #000000 0%, #0a0a1a 70%, #0f172a 100%)"
+            : "linear-gradient(135deg, #f8faff 0%, #eef2fb 60%, #e4ecf7 100%)",
           transformOrigin: "left",
           transform: "scaleX(0)",
           pointerEvents: "none",
@@ -179,7 +186,7 @@ export default function PageTransition({ children, isReady = false }: PageTransi
         >
           <h2
             style={{
-              color: "#ffffff",
+              color: isDark ? "#ffffff" : "#0f172a",
               fontSize: "clamp(3rem, 10vw, 7rem)",
               fontWeight: 700,
               letterSpacing: "-0.03em",
@@ -192,7 +199,7 @@ export default function PageTransition({ children, isReady = false }: PageTransi
           </h2>
           <p
             style={{
-              color: "rgba(255,255,255,0.65)",
+              color: isDark ? "rgba(255,255,255,0.65)" : "rgba(15,23,42,0.5)",
               fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
               margin: "0.75rem 0 0",
             }}

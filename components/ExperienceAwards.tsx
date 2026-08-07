@@ -60,7 +60,7 @@ export default function ExperienceAwards() {
   return (
     <section
       id="experience"
-      className="px-6 md:px-20 py-24 md:py-32"
+      className="px-4 sm:px-8 md:px-20 py-20 md:py-32"
     >
       <SectionHeader
         label="Background"
@@ -76,8 +76,8 @@ export default function ExperienceAwards() {
         {/* Experiences */}
         <div className="p-2 md:p-4">
           <div className="flex items-center gap-3 mb-7">
-            <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20">
-              <Briefcase size={18} className="text-blue-400" />
+            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
+              <Briefcase size={18} className="text-amber-400" />
             </div>
             <h3 className="text-lg font-semibold card-title">Experiences</h3>
           </div>
@@ -88,7 +88,7 @@ export default function ExperienceAwards() {
                 <p className="font-medium card-title text-sm md:text-base leading-snug">
                   {item.title}
                 </p>
-                <p className="text-xs md:text-sm text-blue-400/60 mt-1.5">
+                <p className="text-xs md:text-sm text-amber-400/60 mt-1.5">
                   {item.period}
                 </p>
               </li>
@@ -128,7 +128,7 @@ export default function ExperienceAwards() {
                 <p className="font-medium card-title text-sm md:text-base leading-snug">
                   {item.title}
                 </p>
-                <p className="text-xs md:text-sm text-blue-400/60 mt-1.5">
+                <p className="text-xs md:text-sm text-amber-400/60 mt-1.5">
                   {item.period}
                 </p>
               </li>

@@ -92,11 +92,11 @@ export default function Navbar() {
 
 
   const navBgScrolled = isDark
-    ? "bg-[rgba(8,14,35,0.85)] shadow-[0_8px_32px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.07)]"
+    ? "bg-[rgba(0,0,0,0.88)] shadow-[0_8px_32px_rgba(0,0,0,0.8),0_0_0_1px_rgba(251,191,36,0.12)]"
     : "bg-[rgba(255,255,255,0.92)] shadow-[0_8px_32px_rgba(15,23,42,0.14),0_0_0_1px_rgba(15,23,42,0.09)]";
 
   const navBgDefault = isDark
-    ? "bg-[rgba(10,18,45,0.65)] shadow-[0_4px_24px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.06)]"
+    ? "bg-[rgba(0,0,0,0.65)] shadow-[0_4px_24px_rgba(0,0,0,0.6),0_0_0_1px_rgba(251,191,36,0.08)]"
     : "bg-[rgba(255,255,255,0.75)] shadow-[0_4px_24px_rgba(15,23,42,0.08),0_0_0_1px_rgba(15,23,42,0.06)]";
 
   const glossLineStyle = isDark
@@ -210,11 +210,11 @@ export default function Navbar() {
           ref={menuRef}
           className="md:hidden mt-2 p-2 rounded-2xl"
           style={{
-            background: isDark ? "rgba(8,14,35,0.90)" : "rgba(255,255,255,0.94)",
+            background: isDark ? "rgba(0,0,0,0.90)" : "rgba(255,255,255,0.94)",
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
             boxShadow: isDark
-              ? "0 8px 32px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07)"
+              ? "0 8px 32px rgba(0,0,0,0.8), 0 0 0 1px rgba(251,191,36,0.12)"
               : "0 8px 32px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.07)",
             clipPath: "inset(0% 0% 100% 0%)",
             pointerEvents: "none",

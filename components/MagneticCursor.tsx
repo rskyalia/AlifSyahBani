@@ -220,25 +220,28 @@ export default function MagneticCursor() {
       {/* Dot - 8px, follows instantly */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-2 h-2 bg-blue-400 rounded-full pointer-events-none"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none"
         style={{
           zIndex: 99999,
+          background: "linear-gradient(135deg, #F59E0B, #FDE68A)",
         }}
       />
 
       {/* Ring - 40px, follows with lerp */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 w-10 h-10 border-2 border-blue-400 rounded-full pointer-events-none flex items-center justify-center"
+        className="fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none flex items-center justify-center"
         style={{
           zIndex: 99999,
+          border: "2px solid rgba(245,158,11,0.7)",
         }}
       >
         {/* VIEW label for card hover */}
         <span
           ref={labelRef}
-          className="text-xs font-bold text-blue-400 opacity-0"
+          className="text-xs font-bold opacity-0"
           style={{
+            color: "#F59E0B",
             transform: "scale(0.8)",
           }}
         >

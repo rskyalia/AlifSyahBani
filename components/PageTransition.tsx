@@ -35,7 +35,7 @@ export default function PageTransition({ children, isReady = false }: PageTransi
   const prevPath   = useRef<string | null>(null);
   const isReadyRef = useRef(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  // Two overlay layers (accent blue first, then black on top)
+  // Two overlay layers (golden accent first, then dark on top)
   const frameBlueRef  = useRef<HTMLDivElement>(null);
   const frameBlackRef = useRef<HTMLDivElement>(null);
   const textRef       = useRef<HTMLDivElement>(null);
@@ -141,7 +141,7 @@ export default function PageTransition({ children, isReady = false }: PageTransi
         {children}
       </div>
 
-      {/* Layer 1 — accent (expands first, resets instantly) */}
+      {/* Layer 1 — golden accent (expands first, resets instantly) */}
       <div
         ref={frameBlueRef}
         style={{
@@ -149,8 +149,8 @@ export default function PageTransition({ children, isReady = false }: PageTransi
           inset: 0,
           zIndex: 9998,
           background: isDark
-            ? "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #1d4ed8 100%)"
-            : "linear-gradient(135deg, #bfdbfe 0%, #93c5fd 50%, #60a5fa 100%)",
+            ? "linear-gradient(135deg, #78350f 0%, #D97706 50%, #F59E0B 100%)"
+            : "linear-gradient(135deg, #FDE68A 0%, #FBBF24 50%, #F59E0B 100%)",
           transformOrigin: "left",
           transform: "scaleX(0)",
           pointerEvents: "none",
@@ -165,8 +165,8 @@ export default function PageTransition({ children, isReady = false }: PageTransi
           inset: 0,
           zIndex: 9999,
           background: isDark
-            ? "linear-gradient(135deg, #000000 0%, #0a0a1a 70%, #0f172a 100%)"
-            : "linear-gradient(135deg, #f8faff 0%, #eef2fb 60%, #e4ecf7 100%)",
+            ? "linear-gradient(135deg, #000000 0%, #0a0800 70%, #120a00 100%)"
+            : "linear-gradient(135deg, #fffbf0 0%, #fef3c7 60%, #fde68a 100%)",
           transformOrigin: "left",
           transform: "scaleX(0)",
           pointerEvents: "none",
@@ -186,7 +186,7 @@ export default function PageTransition({ children, isReady = false }: PageTransi
         >
           <h2
             style={{
-              color: isDark ? "#ffffff" : "#0f172a",
+              color: isDark ? "#FDE68A" : "#78350f",
               fontSize: "clamp(3rem, 10vw, 7rem)",
               fontWeight: 700,
               letterSpacing: "-0.03em",
@@ -199,7 +199,7 @@ export default function PageTransition({ children, isReady = false }: PageTransi
           </h2>
           <p
             style={{
-              color: isDark ? "rgba(255,255,255,0.65)" : "rgba(15,23,42,0.5)",
+              color: isDark ? "rgba(253,230,138,0.6)" : "rgba(120,53,15,0.55)",
               fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
               margin: "0.75rem 0 0",
             }}

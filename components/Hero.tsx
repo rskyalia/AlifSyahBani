@@ -15,7 +15,6 @@ import { MdEmail } from "react-icons/md";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Typewriter from "./Typewriter";
-import PlanetModel from "./PlanetModel";
 import StatsCounter from "./StatsCounter";
 import { useTheme } from "./ThemeContext";
 
@@ -36,7 +35,6 @@ export default function Hero() {
   const sectionRef  = useRef<HTMLElement>(null);
   const badgeRef    = useRef<HTMLDivElement>(null);
   const socialsRef  = useRef<HTMLDivElement>(null);
-  // Heading text-reveal refs (task 10.1)
   const headingRef  = useRef<HTMLHeadingElement>(null);
   const line1Ref    = useRef<HTMLSpanElement>(null);
   const line2Ref    = useRef<HTMLSpanElement>(null);
@@ -44,15 +42,11 @@ export default function Hero() {
   const typeRef     = useRef<HTMLDivElement>(null);
   const btnsRef     = useRef<HTMLDivElement>(null);
   const statsRef    = useRef<HTMLDivElement>(null);
-  // Planet wrapper ref — used for parallax ScrollTrigger
-  const earthRef    = useRef<HTMLDivElement>(null);
   const scrollRef   = useRef<HTMLDivElement>(null);
-  // Left text column ref — used for fade-out ScrollTrigger
   const leftColRef  = useRef<HTMLDivElement>(null);
 
-  // TextReveal animation — runs after mount with small delay
+  // TextReveal animation
   useEffect(() => {
-    // Respect prefers-reduced-motion: skip animation, jump to final state
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -60,21 +54,14 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       if (prefersReduced) {
         gsap.set([line1Ref.current, line2Ref.current], { y: "0%" });
-        // Stats: show immediately at final state
-        if (statsRef.current) {
-          gsap.set(statsRef.current, { autoAlpha: 1, y: 0 });
-        }
+        if (statsRef.current) gsap.set(statsRef.current, { autoAlpha: 1, y: 0 });
         return;
       }
 
       gsap.set([line1Ref.current, line2Ref.current], { y: "110%" });
-      // Stats hidden initially — will stagger in after text reveal
-      if (statsRef.current) {
-        gsap.set(statsRef.current, { autoAlpha: 0, y: 18 });
-      }
+      if (statsRef.current) gsap.set(statsRef.current, { autoAlpha: 0, y: 18 });
 
       const tl = gsap.timeline();
-
       tl.to([line1Ref.current, line2Ref.current], {
         y: "0%",
         duration: 1.0,
@@ -82,19 +69,8 @@ export default function Hero() {
         stagger: 0.12,
         delay: 0.3,
       });
-
-      // StatsCounter stagger in 0.15s after TextReveal completes
       if (statsRef.current) {
-        tl.to(
-          statsRef.current,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.55,
-            ease: "power3.out",
-          },
-          "-=0.15"
-        );
+        tl.to(statsRef.current, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, "-=0.15");
       }
     });
 
@@ -102,7 +78,7 @@ export default function Hero() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Remaining Hero elements — stagger in on mount (pathname-driven re-run kept)
+  // Left column stagger entry
   useEffect(() => {
     const ctx = gsap.context(() => {
       const leftEls = [
@@ -113,65 +89,32 @@ export default function Hero() {
         btnsRef.current,
       ].filter(Boolean);
 
-      // Reset inline styles so previous GSAP state doesn't linger
       gsap.set(leftEls, { clearProps: "all" });
-      gsap.set(earthRef.current, { clearProps: "opacity,visibility" });
       gsap.set(scrollRef.current, { clearProps: "all" });
-
-      // Set invisible
       gsap.set(leftEls, { autoAlpha: 0, y: 22 });
-      gsap.set(earthRef.current, { autoAlpha: 0 });
       gsap.set(scrollRef.current, { autoAlpha: 0 });
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.05 });
-
-      // Left column — stagger per block
-      tl.to(leftEls, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.55,
-        stagger: 0.1,
-      });
-
-      // Earth wrapper fades in — scale/blur handled inside Three.js Canvas now
-      tl.to(
-        earthRef.current,
-        {
-          autoAlpha: 1,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        0.1
-      );
-
-      // Scroll indicator
+      tl.to(leftEls, { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.1 });
       tl.to(scrollRef.current, { autoAlpha: 1, duration: 0.4 }, "-=0.3");
     });
 
     return () => ctx.revert();
-  // pathname in deps so animation re-runs when navigating back to "/"
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // ScrollTrigger parallax + fade-out animations
+  // ScrollTrigger parallax — only on heading and leftCol, NOT on earthRef
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    // Guard: skip all parallax/scroll animations under prefers-reduced-motion
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
       if (prefersReduced) {
-        // Show everything at final state immediately — no parallax motion
-        if (headingRef.current)  gsap.set(headingRef.current,  { y: 0, opacity: 1 });
-        if (earthRef.current)    gsap.set(earthRef.current,    { y: 0, rotate: 0 });
-        if (leftColRef.current)  gsap.set(leftColRef.current,  { opacity: 1, y: 0 });
+        if (headingRef.current) gsap.set(headingRef.current, { y: 0, opacity: 1 });
+        if (leftColRef.current) gsap.set(leftColRef.current, { opacity: 1, y: 0 });
         return;
       }
 
-      // --- Parallax: heading scrolls up at -20% ---
       if (headingRef.current) {
         gsap.to(headingRef.current, {
           y: "-20%",
@@ -185,22 +128,6 @@ export default function Hero() {
         });
       }
 
-      // --- Parallax: PlanetModel container scrolls up faster + slight rotate ---
-      if (earthRef.current) {
-        gsap.to(earthRef.current, {
-          y: "-35%",
-          rotate: 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        });
-      }
-
-      // --- Fade-out: when scroll > 80% of viewport height, text fades out ---
       if (leftColRef.current) {
         gsap.to(leftColRef.current, {
           opacity: 0,
@@ -208,7 +135,6 @@ export default function Hero() {
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
-            // Start fading at 80% vh scrolled, finish at bottom of section
             start: `${window.innerHeight * 0.8}px top`,
             end: "bottom top",
             scrub: 1,
@@ -228,59 +154,31 @@ export default function Hero() {
       className="relative min-h-screen overflow-hidden"
       style={{ paddingTop: 0 }}
     >
-      {/* RIGHT CONTENT – planet sits in right half, slightly shifted up */}
-      <div
-        ref={earthRef}
-        className="absolute right-0 hidden md:block"
-        style={{
-          top: "-8%",
-          bottom: "-5%",
-          width: "52vw",
-          willChange: "transform, opacity",
-          zIndex: 0,
-        }}
-        aria-label="Animated 3D planet decoration"
-        aria-hidden="true"
-      >
-        <PlanetModel theme={theme} />
-      </div>
-
-      {/* LEFT CONTENT — sits above planet, takes left ~50% */}
+      {/* MAIN CONTENT — vertically + horizontally centered */}
       <div
         ref={leftColRef}
         className="
           relative z-10
-          flex flex-col justify-center
+          flex flex-col justify-center items-center
           min-h-screen
-          w-full md:w-[52%]
-          px-6 md:pl-20 md:pr-8
-          pt-28 md:pt-0
-          text-center md:text-left
+          w-full max-w-3xl mx-auto
+          px-5 sm:px-8 md:px-8
+          pt-24 pb-28 md:pt-0 md:pb-24
+          text-center
         "
       >
-
         {/* Status badge */}
-        <div ref={badgeRef} className="flex justify-center md:justify-start mb-3">
+        <div ref={badgeRef} className="flex justify-center mb-5">
           <span className="section-label flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
             Open to opportunities
           </span>
         </div>
 
-        {/* Social icons */}
-        <div ref={socialsRef} className="flex justify-center md:justify-start gap-3 mb-4">
-          <SocialIcon href="https://github.com/rskyalia"                          icon={<FaGithub />}    variant="github"    theme={theme} />
-          <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />}  variant="linkedin"  theme={theme} />
-          <SocialIcon href="https://www.instagram.com/syah.baani/"                icon={<FaInstagram />} variant="instagram" theme={theme} />
-          <SocialIcon href="https://www.tiktok.com/@syah.baani"                   icon={<FaTiktok />}    variant="tiktok"    theme={theme} />
-          <SocialIcon href="https://x.com"                                        icon={<FaXTwitter />}  variant="x"         theme={theme} />
-          <SocialIcon href="mailto:muhammad.alif396177@smk.belajar.id"            icon={<MdEmail />}     variant="gmail"     theme={theme} />
-        </div>
-
         {/* Heading */}
         <h1
           ref={headingRef}
-          className={`font-cabinet font-bold mb-3 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
+          className={`font-cabinet font-bold mb-4 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
           style={{
             fontSize: "var(--text-hero)",
             fontWeight: 800,
@@ -289,12 +187,12 @@ export default function Hero() {
             willChange: "transform",
           }}
         >
-          <div style={{ overflow: "hidden", paddingBottom: "0.15em" }}>
+          <div style={{ overflow: "hidden", paddingBottom: "0.12em" }}>
             <span ref={line1Ref} style={{ display: "block" }}>
               Hi, I&apos;m
             </span>
           </div>
-          <div style={{ overflow: "hidden", paddingBottom: "0.15em" }}>
+          <div style={{ overflow: "hidden", paddingBottom: "0.12em" }}>
             <span ref={line2Ref} style={{ display: "block" }}>
               Alif Sya&apos;bani
             </span>
@@ -305,26 +203,26 @@ export default function Hero() {
         <p
           ref={subRef}
           className={`
-            font-cabinet mb-3
+            font-cabinet mb-1
             text-sm sm:text-base md:text-lg
             leading-relaxed
-            ${theme === "dark" ? "text-blue-100/65" : "text-slate-600"}
+            ${theme === "dark" ? "text-amber-100/65" : "text-slate-600"}
           `}
         >
           Bachelor of Applied Science in Informatics Engineering
-          <span className={`block text-xs md:text-sm mt-0.5 ${theme === "dark" ? "text-blue-200/45" : "text-slate-400"}`}>
-            State Polytechnic of Malang
-          </span>
+        </p>
+        <p className={`text-xs md:text-sm mb-5 ${theme === "dark" ? "text-amber-200/45" : "text-slate-400"}`}>
+          State Polytechnic of Malang
         </p>
 
         {/* Typewriter */}
-        <div ref={typeRef} className="mb-5">
+        <div ref={typeRef} className="mb-7">
           <Typewriter />
         </div>
 
         {/* CTA buttons */}
-        <div ref={btnsRef} className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-          <Link href="/writing" className="btn-primary">
+        <div ref={btnsRef} className="flex flex-wrap items-center justify-center gap-3 mb-8">
+          <Link href="/projects" className="btn-primary">
             <Sparkles size={15} />
             View Projects
             <ArrowRight size={15} />
@@ -334,19 +232,29 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Stats Counter — appears after TextReveal completes */}
-        <div ref={statsRef} className="mt-6 flex justify-center md:justify-start">
+        {/* Social icons */}
+        <div ref={socialsRef} className="flex justify-center gap-3 mb-8">
+          <SocialIcon href="https://github.com/rskyalia"                          icon={<FaGithub />}    variant="github"    theme={theme} />
+          <SocialIcon href="https://www.linkedin.com/in/alif-syahbani-01056b304/" icon={<FaLinkedin />}  variant="linkedin"  theme={theme} />
+          <SocialIcon href="https://www.instagram.com/syah.baani/"                icon={<FaInstagram />} variant="instagram" theme={theme} />
+          <SocialIcon href="https://www.tiktok.com/@syah.baani"                   icon={<FaTiktok />}    variant="tiktok"    theme={theme} />
+          <SocialIcon href="https://x.com"                                        icon={<FaXTwitter />}  variant="x"         theme={theme} />
+          <SocialIcon href="mailto:muhammad.alif396177@smk.belajar.id"            icon={<MdEmail />}     variant="gmail"     theme={theme} />
+        </div>
+
+        {/* Stats Counter */}
+        <div ref={statsRef}>
           <StatsCounter stats={HERO_STATS} />
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — fixed above all content */}
       <div
         ref={scrollRef}
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 ${theme === "dark" ? "text-blue-200/30" : "text-slate-400/60"}`}
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 ${theme === "dark" ? "text-amber-300/30" : "text-slate-400/60"}`}
       >
         <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <div className={`w-px h-8 bg-linear-to-b animate-bounce-slow ${theme === "dark" ? "from-blue-400/50" : "from-slate-400/60"} to-transparent`} />
+        <div className={`w-px h-8 bg-linear-to-b animate-bounce-slow ${theme === "dark" ? "from-amber-400/50" : "from-slate-400/60"} to-transparent`} />
       </div>
     </section>
   );

@@ -292,8 +292,8 @@ export default function Footer() {
               data-cursor="link"
               className={`text-xs transition-colors ${
                 isDark
-                  ? "text-blue-300/60 hover:text-blue-300"
-                  : "text-blue-500/70 hover:text-blue-600"
+                  ? "text-amber-400/60 hover:text-amber-300"
+                  : "text-amber-600/70 hover:text-amber-700"
               }`}
             >
               Resume →

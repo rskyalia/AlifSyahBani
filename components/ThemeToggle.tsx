@@ -15,7 +15,7 @@ export default function ThemeToggle() {
         flex items-center justify-center w-10 h-10 rounded-full
         transition-all duration-300
         ${isDark
-          ? "border border-white/10 bg-white/5 hover:bg-white/12 text-blue-200"
+          ? "border border-amber-400/20 bg-white/5 hover:bg-amber-400/10 text-amber-300"
           : "border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-600"
         }
       `}

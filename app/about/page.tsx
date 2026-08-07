@@ -11,20 +11,23 @@ export default function AboutPage() {
       <Navbar />
       <section className="min-h-screen px-4 sm:px-8 py-24 md:py-28">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Bio first on mobile, photo second; side-by-side on desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             <AboutBio />
-            <AboutPhoto />
+            <div className="order-first md:order-last">
+              <AboutPhoto />
+            </div>
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto mt-20 md:mt-28">
+        <div className="max-w-5xl mx-auto mt-16 md:mt-28">
           <SectionHeader
             label="Music"
             title="My Favorite Songs"
             description="A few tracks I keep on repeat while coding and designing."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
             <SpotifyCard embedId="spotify:track:0otRX6Z89qKkHkQ9OqJpKt" />
             <SpotifyCard embedId="spotify:track:04S1pkp1VaIqjg8zZqknR5" />
             <SpotifyCard embedId="spotify:track:4aT6vP9y2eDjxmRGm5ZqSC" />

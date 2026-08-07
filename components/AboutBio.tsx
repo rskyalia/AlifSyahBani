@@ -1,6 +1,6 @@
 export default function AboutBio() {
   return (
-    <div className="max-w-xl">
+    <div className="w-full max-w-xl">
       <p className="section-label mb-5">About Me</p>
 
       <h1 className="section-title mb-8">Muhammad Alif Sya&apos;bani</h1>
@@ -47,7 +47,7 @@ export default function AboutBio() {
           Let&apos;s connect —{" "}
           <a
             href="mailto:muhammad.alif396177@smk.belajar.id"
-            className="text-blue-400 hover:text-blue-300 hover:underline transition-colors font-medium"
+            className="text-amber-400 hover:text-amber-300 hover:underline transition-colors font-medium"
           >
             muhammad.alif396177@smk.belajar.id
           </a>

@@ -15,7 +15,7 @@ export default function SectionHeader({
   label,
   title,
   description,
-  align = "left",
+  align = "center",
   number,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);

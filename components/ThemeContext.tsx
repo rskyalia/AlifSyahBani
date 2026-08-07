@@ -12,14 +12,17 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark')
+  // Read localStorage synchronously so the initial render already has the
+  // correct theme — prevents the white-flash / wrong-background flicker on reload.
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return 'dark'
+    return (localStorage.getItem('theme') as Theme | null) || 'dark'
+  })
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null
-    const initial = stored || 'dark'
-    setTheme(initial)
-    document.documentElement.setAttribute('data-theme', initial)
-  }, [])
+    // Keep the <html data-theme> attribute in sync on mount
+    document.documentElement.setAttribute('data-theme', theme)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleTheme = () => {
     setTheme((prev) => {

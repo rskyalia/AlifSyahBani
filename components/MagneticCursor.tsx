@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { useTheme } from "./ThemeContext";
 
 /**
  * Computes the magnetic offset for a data-magnetic element.
@@ -22,6 +23,8 @@ export function computeMagneticOffset(
 }
 
 export default function MagneticCursor() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [isTouch, setIsTouch] = useState(false);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -223,7 +226,9 @@ export default function MagneticCursor() {
         className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none"
         style={{
           zIndex: 99999,
-          background: "linear-gradient(135deg, #F59E0B, #FDE68A)",
+          background: isDark
+            ? "linear-gradient(135deg, #F59E0B, #FDE68A)"
+            : "linear-gradient(135deg, #3b82f6, #93c5fd)",
         }}
       />
 
@@ -233,7 +238,9 @@ export default function MagneticCursor() {
         className="fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none flex items-center justify-center"
         style={{
           zIndex: 99999,
-          border: "2px solid rgba(245,158,11,0.7)",
+          border: isDark
+            ? "2px solid rgba(245,158,11,0.7)"
+            : "2px solid rgba(59,130,246,0.7)",
         }}
       >
         {/* VIEW label for card hover */}
@@ -241,7 +248,7 @@ export default function MagneticCursor() {
           ref={labelRef}
           className="text-xs font-bold opacity-0"
           style={{
-            color: "#F59E0B",
+            color: isDark ? "#F59E0B" : "#3b82f6",
             transform: "scale(0.8)",
           }}
         >

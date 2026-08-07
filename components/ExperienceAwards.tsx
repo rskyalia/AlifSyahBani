@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { Briefcase } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useTheme } from "./ThemeContext";
 
 const EXPERIENCES = [
   {
@@ -49,6 +50,8 @@ const AWARDS = [
 
 export default function ExperienceAwards() {
   const ref = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   useScrollReveal(ref, {
     preset: "stagger",
@@ -76,8 +79,8 @@ export default function ExperienceAwards() {
         {/* Experiences */}
         <div className="p-2 md:p-4">
           <div className="flex items-center gap-3 mb-7">
-            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
-              <Briefcase size={18} className="text-amber-400" />
+            <div className={`p-2.5 rounded-xl ${isDark ? "bg-amber-500/10 border border-amber-500/20" : "bg-blue-500/10 border border-blue-500/20"}`}>
+              <Briefcase size={18} className={isDark ? "text-amber-400" : "text-blue-400"} />
             </div>
             <h3 className="text-lg font-semibold card-title">Experiences</h3>
           </div>
@@ -88,7 +91,7 @@ export default function ExperienceAwards() {
                 <p className="font-medium card-title text-sm md:text-base leading-snug">
                   {item.title}
                 </p>
-                <p className="text-xs md:text-sm text-amber-400/60 mt-1.5">
+                <p className={`text-xs md:text-sm mt-1.5 ${isDark ? "text-amber-400/60" : "text-blue-500/70"}`}>
                   {item.period}
                 </p>
               </li>
@@ -99,14 +102,13 @@ export default function ExperienceAwards() {
         {/* Awards */}
         <div className="p-2 md:p-4">
           <div className="flex items-center gap-3 mb-7">
-            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
-              {/* Modern medal/award icon */}
+            <div className={`p-2.5 rounded-xl ${isDark ? "bg-amber-500/10 border border-amber-500/20" : "bg-blue-500/10 border border-blue-500/20"}`}>
               <svg
                 width="18"
                 height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="text-amber-400"
+                className={isDark ? "text-amber-400" : "text-blue-400"}
                 stroke="currentColor"
                 strokeWidth="1.7"
                 strokeLinecap="round"
@@ -128,7 +130,7 @@ export default function ExperienceAwards() {
                 <p className="font-medium card-title text-sm md:text-base leading-snug">
                   {item.title}
                 </p>
-                <p className="text-xs md:text-sm text-amber-400/60 mt-1.5">
+                <p className={`text-xs md:text-sm mt-1.5 ${isDark ? "text-amber-400/60" : "text-blue-500/70"}`}>
                   {item.period}
                 </p>
               </li>

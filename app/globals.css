@@ -33,8 +33,8 @@
 [data-theme="light"] {
   --background: #f4f7fb;
   --foreground: #0f172a;
-  --accent: #D97706;
-  --accent-glow: rgba(217, 119, 6, 0.25);
+  --accent: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.25);
 }
 
 body {
@@ -290,6 +290,17 @@ body {
   background: linear-gradient(135deg, #B45309, #D97706);
   box-shadow: 0 0 36px rgba(245, 158, 11, 0.5), 0 6px 20px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
+}
+
+[data-theme="light"] .btn-primary {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  box-shadow: 0 0 24px rgba(37, 99, 235, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 0 36px rgba(37, 99, 235, 0.35), 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
@@ -607,7 +618,7 @@ nav a.nav-link-hover:hover::after {
   height: 50vw;
   top: -10%;
   left: -10%;
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, transparent 70%);
   animation: nebulaDrift1 30s ease-in-out infinite alternate;
 }
 
@@ -616,7 +627,7 @@ nav a.nav-link-hover:hover::after {
   height: 40vw;
   bottom: -10%;
   right: -5%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.35) 0%, transparent 70%);
   animation: nebulaDrift2 25s ease-in-out infinite alternate;
 }
 
@@ -649,17 +660,17 @@ nav a.nav-link-hover:hover::after {
 }
 
 [data-theme="light"] .section-label {
-  color: rgba(180, 83, 9, 0.85);
-  border: 1px solid rgba(217, 119, 6, 0.2);
-  background: rgba(245, 158, 11, 0.07);
+  color: rgba(37, 99, 235, 0.8);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  background: rgba(37, 99, 235, 0.06);
 }
 
 [data-theme="light"] .section-title {
-  background: linear-gradient(135deg, #1e293b 0%, #D97706 50%, #B45309 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #2563eb 50%, #1d4ed8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 12px rgba(217, 119, 6, 0.15));
+  filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.15));
 }
 
 [data-theme="light"] .glass-card {
@@ -673,7 +684,7 @@ nav a.nav-link-hover:hover::after {
   box-shadow:
     0 24px 64px rgba(15, 23, 42, 0.12),
     0 0 0 1px rgba(15, 23, 42, 0.06),
-    0 0 50px rgba(217, 119, 6, 0.12);
+    0 0 50px rgba(37, 99, 235, 0.1);
 }
 
 [data-theme="light"] .btn-secondary {
@@ -725,10 +736,10 @@ nav a.nav-link-hover:hover::after {
   color: #FDE68A; /* amber-200 */
 }
 [data-theme="light"] .card-title {
-  color: #1e293b; /* slate-800 */
+  color: #1e293b;
 }
 [data-theme="light"] .group:hover .card-title {
-  color: #B45309; /* amber-700 */
+  color: #1d4ed8; /* blue-700 */
 }
 
 /* Card body / meta text */
@@ -744,13 +755,13 @@ nav a.nav-link-hover:hover::after {
   color: rgba(255, 255, 255, 0.4);
 }
 .card-link:hover {
-  color: #FDE68A; /* amber-200 */
+  color: #FDE68A; /* amber-200 — dark mode */
 }
 [data-theme="light"] .card-link {
-  color: #94a3b8; /* slate-400 */
+  color: #94a3b8;
 }
 [data-theme="light"] .card-link:hover {
-  color: #D97706; /* amber-600 */
+  color: #2563eb; /* blue-600 */
 }
 
 /* ══════════════════════════════════════════
@@ -765,11 +776,11 @@ nav a.nav-link-hover:hover::after {
 }
 
 .hero-heading--light {
-  background: linear-gradient(135deg, #1e293b 0%, #D97706 60%, #F59E0B 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e40af 60%, #2563eb 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 20px rgba(217, 119, 6, 0.25));
+  filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.2));
 }
 
 /* ══════════════════════════════════════════

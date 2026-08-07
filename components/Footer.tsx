@@ -293,7 +293,7 @@ export default function Footer() {
               className={`text-xs transition-colors ${
                 isDark
                   ? "text-amber-400/60 hover:text-amber-300"
-                  : "text-amber-600/70 hover:text-amber-700"
+                  : "text-blue-500/70 hover:text-blue-600"
               }`}
             >
               Resume →

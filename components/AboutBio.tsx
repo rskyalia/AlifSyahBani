@@ -1,4 +1,11 @@
+"use client";
+
+import { useTheme } from "./ThemeContext";
+
 export default function AboutBio() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <div className="w-full max-w-xl">
       <p className="section-label mb-5">About Me</p>
@@ -47,7 +54,11 @@ export default function AboutBio() {
           Let&apos;s connect —{" "}
           <a
             href="mailto:muhammad.alif396177@smk.belajar.id"
-            className="text-amber-400 hover:text-amber-300 hover:underline transition-colors font-medium"
+            className={`hover:underline transition-colors font-medium ${
+              isDark
+                ? "text-amber-400 hover:text-amber-300"
+                : "text-blue-500 hover:text-blue-600"
+            }`}
           >
             muhammad.alif396177@smk.belajar.id
           </a>

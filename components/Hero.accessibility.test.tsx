@@ -102,10 +102,10 @@ vi.mock('next/link', () => ({
   ),
 }))
 
-// ─── Mock PlanetModel (react-three-fiber / WebGL) ────────────────────────────
-// PlanetModel relies on WebGL/Canvas which is unavailable in jsdom.
+// ─── Mock HantavirusModel (react-three-fiber / WebGL) ───────────────────────
+// HantavirusModel relies on WebGL/Canvas which is unavailable in jsdom.
 // We stub it with a simple div so the rest of Hero renders normally.
-vi.mock('./PlanetModel', () => ({
+vi.mock('./HantavirusModel', () => ({
   default: () => <div data-testid="planet-model-stub" />,
 }))
 

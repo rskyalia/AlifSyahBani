@@ -73,8 +73,9 @@ function createMagneticElement(
  * We do this by replaying the logic from MagneticCursor.tsx's
  * handleMagneticLeave closure inline, so the test stays pure and fast.
  */
+import { gsap } from 'gsap'
+
 function buildMouseleaveHandler(element: HTMLElement) {
-  const { gsap } = await import('gsap') as { gsap: typeof import('gsap').gsap }
   return () => {
     gsap.to(element, {
       x: 0,
@@ -301,8 +302,8 @@ describe('MagneticCursor - Property 4: Magnetic element always returns to origin
             expect(resetCall).toBeDefined()
             expect(resetCall!.vars.x).toBe(0)
             expect(resetCall!.vars.y).toBe(0)
-            expect(resetCall!.vars.x).not.toBe(-offsetX)
-            expect(resetCall!.vars.y).not.toBe(-offsetY)
+            if (offsetX !== 0) expect(resetCall!.vars.x).not.toBe(-offsetX)
+            if (offsetY !== 0) expect(resetCall!.vars.y).not.toBe(-offsetY)
           }
         ),
         { numRuns: 100 }

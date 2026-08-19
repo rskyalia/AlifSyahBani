@@ -1,6 +1,18 @@
 "use client";
 
 import { useTheme } from "./ThemeContext";
+import { Mail, ArrowUpRight } from "lucide-react";
+
+const SKILLS = [
+  { name: "Next.js", category: "core" },
+  { name: "React", category: "core" },
+  { name: "TypeScript", category: "core" },
+  { name: "Three.js / 3D", category: "visual" },
+  { name: "GSAP Motion", category: "visual" },
+  { name: "Tailwind CSS", category: "visual" },
+  { name: "Python / AI", category: "core" },
+  { name: "Public Speaking", category: "extra" },
+];
 
 export default function AboutBio() {
   const { theme } = useTheme();
@@ -8,14 +20,18 @@ export default function AboutBio() {
 
   return (
     <div className="w-full max-w-xl">
-      <p className="section-label mb-5">About Me</p>
+      <div className="mb-4">
+        <span className="badge-3d">
+          About Me
+        </span>
+      </div>
 
-      <h1 className="section-title mb-8">Muhammad Alif Sya&apos;bani</h1>
+      <h1 className="section-title mb-6">Muhammad Alif Sya&apos;bani</h1>
 
       <div className="space-y-4 leading-relaxed text-sm md:text-base description-muted">
         <p>
           Hello, I&apos;m Alif. I am currently pursuing a degree in{" "}
-          <span className="font-semibold text-foreground/80">
+          <span className="font-semibold text-foreground/90 underline decoration-amber-400/40 underline-offset-4">
             Informatics Engineering at Politeknik Negeri Malang
           </span>
           , where I continue to strengthen
@@ -28,42 +44,58 @@ export default function AboutBio() {
 
         <p>
           My interests lie at the intersection of software engineering, artificial
-          intelligence, and user-centered design. I am passionate about exploring
-          the potential of AI and Machine Learning to create innovative solutions
-          for real-world challenges — and I believe powerful technology should
-          always be paired with intuitive, engaging user experiences.
+          intelligence, and user-centered 3D design. I am passionate about exploring
+          the potential of AI and modern web architectures to build innovative solutions
+          for real-world challenges.
         </p>
 
         <p>
           Beyond academics, I have experience as a Programmer, Graphic Designer,
           and Public Speaker, allowing me to blend technical expertise with
-          creativity and effective communication. I enjoy building impactful
-          digital products, designing user-friendly interfaces, and presenting
-          ideas that inspire others.
-        </p>
-
-        <p>
-          Outside of technology, I enjoy listening to music, cycling to explore
-          new places, and sharing experiences in tech, design, and personal growth
-          through social media.
+          creativity and effective communication.
         </p>
       </div>
 
-      <div className="glass-card rounded-xl p-4 mt-8">
-        <p className="text-sm contact-muted">
-          Let&apos;s connect —{" "}
+      {/* 3D Skills Showcase */}
+      <div className="mt-7">
+        <p className="text-xs uppercase tracking-widest font-semibold text-amber-300/70 mb-3">
+          Technologies &amp; Expertise
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {SKILLS.map((skill) => (
+            <span
+              key={skill.name}
+              className="badge-3d"
+            >
+              {skill.name}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* 3D Holographic Contact Card */}
+      <div className="glass-card-3d rounded-2xl p-5 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-wider text-amber-400 font-semibold mb-1">
+            Let&apos;s Connect &amp; Collaborate
+          </p>
           <a
             href="mailto:muhammad.alif396177@smk.belajar.id"
-            className={`hover:underline transition-colors font-medium ${
-              isDark
-                ? "text-amber-400 hover:text-amber-300"
-                : "text-blue-500 hover:text-blue-600"
-            }`}
+            className="text-sm font-medium text-foreground hover:text-amber-300 transition-colors flex items-center gap-1.5 break-all"
           >
+            <Mail size={14} className="text-amber-400 shrink-0" />
             muhammad.alif396177@smk.belajar.id
           </a>
-        </p>
+        </div>
+        <a
+          href="mailto:muhammad.alif396177@smk.belajar.id"
+          className="btn-3d text-xs py-2 px-4 shrink-0"
+        >
+          Send Email
+          <ArrowUpRight size={13} />
+        </a>
       </div>
     </div>
   );
 }
+

@@ -6,10 +6,10 @@ export default function SpotifyCard({ embedId }: Props) {
   return (
     <div
       className="
-        rounded-xl overflow-hidden
-        glass-card
-        transition-transform duration-300
-        hover:-translate-y-0.5
+        rounded-2xl overflow-hidden
+        glass-card-3d
+        transition-all duration-300
+        hover:-translate-y-1.5
       "
     >
       <iframe

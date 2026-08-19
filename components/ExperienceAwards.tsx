@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Trophy } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useTheme } from "./ThemeContext";
@@ -60,10 +60,14 @@ export default function ExperienceAwards() {
     start: "top 85%",
   });
 
+  const accentColor = isDark ? "text-amber-400" : "text-blue-500";
+  const mutedColor = isDark ? "text-amber-400/60" : "text-blue-500/60";
+  const dotColor = isDark ? "bg-amber-400" : "bg-blue-500";
+
   return (
     <section
       id="experience"
-      className="px-4 sm:px-8 md:px-20 py-20 md:py-32"
+      className="px-4 sm:px-8 md:px-20 py-20 md:py-32 relative z-10"
     >
       <SectionHeader
         label="Background"
@@ -74,24 +78,24 @@ export default function ExperienceAwards() {
 
       <div
         ref={ref}
-        className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+        className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16"
       >
-        {/* Experiences */}
-        <div className="p-2 md:p-4">
-          <div className="flex items-center gap-3 mb-7">
-            <div className={`p-2.5 rounded-xl ${isDark ? "bg-amber-500/10 border border-amber-500/20" : "bg-blue-500/10 border border-blue-500/20"}`}>
-              <Briefcase size={18} className={isDark ? "text-amber-400" : "text-blue-400"} />
-            </div>
-            <h3 className="text-lg font-semibold card-title">Experiences</h3>
+        {/* ── Experiences ───────────────────────────────────────────────────── */}
+        <div>
+          <div className="flex items-center gap-2.5 mb-6">
+            <Briefcase size={17} className={accentColor} />
+            <h3 className={`text-base font-semibold uppercase tracking-widest ${accentColor}`}>
+              Experiences
+            </h3>
           </div>
 
-          <ul>
+          <ul className="space-y-6 list-none">
             {EXPERIENCES.map((item) => (
               <li key={item.title} className="timeline-item">
-                <p className="font-medium card-title text-sm md:text-base leading-snug">
+                <p className="font-semibold card-title text-sm md:text-[15px] leading-snug">
                   {item.title}
                 </p>
-                <p className={`text-xs md:text-sm mt-1.5 ${isDark ? "text-amber-400/60" : "text-blue-500/70"}`}>
+                <p className={`text-xs mt-1.5 font-medium ${mutedColor}`}>
                   {item.period}
                 </p>
               </li>
@@ -99,38 +103,22 @@ export default function ExperienceAwards() {
           </ul>
         </div>
 
-        {/* Awards */}
-        <div className="p-2 md:p-4">
-          <div className="flex items-center gap-3 mb-7">
-            <div className={`p-2.5 rounded-xl ${isDark ? "bg-amber-500/10 border border-amber-500/20" : "bg-blue-500/10 border border-blue-500/20"}`}>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                className={isDark ? "text-amber-400" : "text-blue-400"}
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="14" r="6" />
-                <path d="M9 14l1.5 1.5L13.5 13" />
-                <path d="M8.21 6.37 7 2l3.45 1.03" />
-                <path d="M15.79 6.37 17 2l-3.45 1.03" />
-                <path d="M8.21 6.37c.97-.29 2.43-.37 3.79-.37s2.82.08 3.79.37" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold card-title">Awards</h3>
+        {/* ── Awards ────────────────────────────────────────────────────────── */}
+        <div>
+          <div className="flex items-center gap-2.5 mb-6">
+            <Trophy size={17} className={accentColor} />
+            <h3 className={`text-base font-semibold uppercase tracking-widest ${accentColor}`}>
+              Awards
+            </h3>
           </div>
 
-          <ul>
+          <ul className="space-y-6 list-none">
             {AWARDS.map((item) => (
               <li key={item.title} className="timeline-item">
-                <p className="font-medium card-title text-sm md:text-base leading-snug">
+                <p className="font-semibold card-title text-sm md:text-[15px] leading-snug">
                   {item.title}
                 </p>
-                <p className={`text-xs md:text-sm mt-1.5 ${isDark ? "text-amber-400/60" : "text-blue-500/70"}`}>
+                <p className={`text-xs mt-1.5 font-medium ${mutedColor}`}>
                   {item.period}
                 </p>
               </li>

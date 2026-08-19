@@ -846,3 +846,240 @@ nav a.nav-link-hover:hover::after {
 .room-particle:nth-child(23) { width: 10px; height: 10px; left: 70%; animation-duration: 32s; animation-delay: 12s; --drift-x: 40px;  }
 .room-particle:nth-child(24) { width: 7px;  height: 7px;  left: 85%; animation-duration: 38s; animation-delay: 8s;  --drift-x: -30px; }
 .room-particle:nth-child(25) { width: 9px;  height: 9px;  left: 30%; animation-duration: 36s; animation-delay: 18s; --drift-x: 35px;  }
+
+/* ══════════════════════════════════════════
+   3D SPATIAL & HOLOGRAPHIC DESIGN UTILITIES
+   ══════════════════════════════════════════ */
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+
+.translate-z-20 {
+  transform: translateZ(20px);
+}
+
+.translate-z-30 {
+  transform: translateZ(30px);
+}
+
+.translate-z-40 {
+  transform: translateZ(40px);
+}
+
+/* 3D Glass Card with Specular Sheen */
+.glass-card-3d {
+  position: relative;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 0 1px rgba(245, 158, 11, 0.08);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.glass-card-3d:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 35px rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="light"] .glass-card-3d {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow:
+    0 16px 40px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(37, 99, 235, 0.08);
+}
+
+[data-theme="light"] .glass-card-3d:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 35px rgba(37, 99, 235, 0.2);
+}
+
+/* 3D Tactile Buttons */
+.btn-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.65rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
+  border: 1px solid rgba(253, 230, 138, 0.5);
+  box-shadow:
+    0 8px 24px rgba(217, 119, 6, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(180, 83, 9, 0.6);
+  transform: translateY(0);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, #FBBF24 0%, #EA580C 100%);
+  box-shadow:
+    0 12px 32px rgba(245, 158, 11, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -2px 0 rgba(154, 52, 18, 0.7);
+}
+
+.btn-3d:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 4px 12px rgba(217, 119, 6, 0.3),
+    inset 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .btn-3d {
+  background: linear-gradient(180deg, #3B82F6 0%, #1D4ED8 100%);
+  border: 1px solid rgba(191, 219, 254, 0.5);
+  box-shadow:
+    0 8px 24px rgba(29, 78, 216, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(30, 58, 138, 0.6);
+}
+
+[data-theme="light"] .btn-3d:hover {
+  background: linear-gradient(180deg, #60A5FA 0%, #2563EB 100%);
+  box-shadow:
+    0 12px 32px rgba(37, 99, 235, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -2px 0 rgba(29, 78, 216, 0.7);
+}
+
+/* 3D Floating Tech Badges / Hologram Pills */
+.badge-3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.badge-3d:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="light"] .badge-3d {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  color: #1e293b;
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .badge-3d:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.08),
+    0 0 15px rgba(37, 99, 235, 0.25);
+}
+
+/* 3D Pedestal for Stats Counters */
+.stat-pedestal-3d {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  padding: 1rem 1.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.stat-pedestal-3d:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(245, 158, 11, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="light"] .stat-pedestal-3d {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .stat-pedestal-3d:hover {
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.1),
+    0 0 25px rgba(37, 99, 235, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Audio Wave Visualizer Bars */
+.equalizer-bar {
+  width: 3px;
+  border-radius: 9999px;
+  background: #F59E0B;
+  animation: equalize 1.2s ease-in-out infinite alternate;
+}
+
+[data-theme="light"] .equalizer-bar {
+  background: #2563EB;
+}
+
+@keyframes equalize {
+  0%   { height: 4px; }
+  50%  { height: 18px; }
+  100% { height: 8px; }
+}
+
+.equalizer-bar:nth-child(1) { animation-delay: 0.1s; }
+.equalizer-bar:nth-child(2) { animation-delay: 0.4s; }
+.equalizer-bar:nth-child(3) { animation-delay: 0.2s; }
+.equalizer-bar:nth-child(4) { animation-delay: 0.6s; }
+.equalizer-bar:nth-child(5) { animation-delay: 0.3s; }
+

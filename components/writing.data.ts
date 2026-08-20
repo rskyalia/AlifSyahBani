@@ -1,3 +1,7 @@
+import { date } from "fast-check";
+import { title } from "process";
+import { cover } from "three/src/extras/TextureUtils.js";
+
 export const writings = [
     {
         title: 'How I Build a Futuristic Portfolio with Next.js',
@@ -19,4 +23,13 @@ export const writings = [
         github: 'https://github.com/rskyalia/Portfolio-sAliaV2',
         website : 'https://portfolioalris.vercel.app/',
     },
+    {
+        title:'AI Resume Builder',
+        excerpt: 'AI-powered resume & cover letter builder yang membantu fresh graduate dan mahasiswa membuat CV profesional dan lolos ATS (Applicant Tracking System).',
+        date: '2026',
+        category: 'Web Project',
+        cover: '/writing/alresume-builder.png',
+        github: 'https://github.com/rskyalia/alresume-builder.git'
+    },
+
 ]

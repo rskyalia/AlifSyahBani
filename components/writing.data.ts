@@ -5,7 +5,7 @@ export const writings = [
             'A deep dive into how I designed and engineered a modern portfolio using 3D, glassmorphism, and clean architecture. Inspired by Clarissa Aurelia Nahid Saputra',
         date: '2025',
         category: 'Engineering',
-        cover: '/writing/aliflagi.png',
+        cover: '/writing/alifportfolio.png',
         github: 'https://github.com/rskyalia/AlifSyahBani.git',
         website : 'https://syahbanialif.vercel.app/',
     },
@@ -15,7 +15,7 @@ export const writings = [
             'A modern portfolio website built with React.js, Next.js, and Tailwind CSS for a sleek and responsive user experience.',
         date: '2025',
         category: 'Website',
-        cover: '/writing/alialagi.png',
+        cover: '/writing/aliaportfolio.png',
         github: 'https://github.com/rskyalia/Portfolio-sAliaV2',
         website : 'https://portfolioalris.vercel.app/',
     },
@@ -26,6 +26,7 @@ export const writings = [
         category: 'Web Project',
         cover: '/writing/Alresumebuilder.png',
         github: 'https://github.com/rskyalia/alresume-builder.git'
+        // website : 'https://syahbanialif.vercel.app/',
     },
 
 ]

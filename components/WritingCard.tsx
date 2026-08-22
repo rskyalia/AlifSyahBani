@@ -19,7 +19,7 @@ export default function WritingCard({
   category: string;
   cover: string;
   github: string;
-  website: string;
+  website?: string;
 }) {
   const cardRef = useRef<HTMLElement>(null);
   const glareRef = useRef<HTMLDivElement>(null);
@@ -108,15 +108,17 @@ export default function WritingCard({
 
         {/* Actions */}
         <div className="mt-5 flex items-center gap-3">
-          <a
-            href={website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-3d text-xs py-2 px-4 shadow-[0_0_18px_rgba(245,158,11,0.3)]"
-          >
-            <ExternalLink size={13} />
-            Visit Site
-          </a>
+          {website && (
+            <a
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-3d text-xs py-2 px-4 shadow-[0_0_18px_rgba(245,158,11,0.3)]"
+            >
+              <ExternalLink size={13} />
+              Visit Site
+            </a>
+          )}
 
           <a
             href={github}

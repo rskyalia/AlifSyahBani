@@ -1,7 +1,3 @@
-import { date } from "fast-check";
-import { title } from "process";
-import { cover } from "three/src/extras/TextureUtils.js";
-
 export const writings = [
     {
         title: 'How I Build a Futuristic Portfolio with Next.js',

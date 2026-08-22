@@ -28,7 +28,7 @@ export const writings = [
         excerpt: 'AI-powered resume & cover letter builder yang membantu fresh graduate dan mahasiswa membuat CV profesional dan lolos ATS (Applicant Tracking System).',
         date: '2026',
         category: 'Web Project',
-        cover: '/writing/alresume-builder.png',
+        cover: '/writing/Alresumebuilder.png',
         github: 'https://github.com/rskyalia/alresume-builder.git'
     },
 

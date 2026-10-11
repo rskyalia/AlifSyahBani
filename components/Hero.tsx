@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Sparkles } from "lucide-react";
 import {
@@ -17,6 +17,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Typewriter from "./Typewriter";
 import StatsCounter from "./StatsCounter";
 import HantavirusModel from "./HantavirusModel";
+import SplitText from "./SplitText";
+import ShinyText from "./ShinyText";
 import { useTheme } from "./ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,12 +33,16 @@ export default function Hero() {
   const pathname = usePathname();
   const { theme } = useTheme();
 
+  const [reduceMotion] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
   const sectionRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const socialsRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const line1Ref = useRef<HTMLSpanElement>(null);
-  const line2Ref = useRef<HTMLSpanElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const typeRef = useRef<HTMLDivElement>(null);
   const btnsRef = useRef<HTMLDivElement>(null);
@@ -45,38 +51,25 @@ export default function Hero() {
   const leftColRef = useRef<HTMLDivElement>(null);
   const modelRef = useRef<HTMLDivElement>(null);
 
-  // TextReveal animation
+  // Stats reveal animation (heading handled by ReactBits SplitText)
   useEffect(() => {
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     const ctx = gsap.context(() => {
-      if (prefersReduced) {
-        gsap.set([line1Ref.current, line2Ref.current], { y: "0%" });
+      if (reduceMotion) {
         if (statsRef.current) gsap.set(statsRef.current, { autoAlpha: 1, y: 0 });
         return;
       }
 
-      gsap.set([line1Ref.current, line2Ref.current], { y: "110%" });
       if (statsRef.current) gsap.set(statsRef.current, { autoAlpha: 0, y: 18 });
 
       const tl = gsap.timeline();
-      tl.to([line1Ref.current, line2Ref.current], {
-        y: "0%",
-        duration: 1.0,
-        ease: "power4.out",
-        stagger: 0.12,
-        delay: 0.3,
-      });
       if (statsRef.current) {
-        tl.to(statsRef.current, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, "-=0.15");
+        tl.to(statsRef.current, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.5);
       }
     });
 
     return () => ctx.revert();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reduceMotion]);
 
   // Left column stagger entry
   useEffect(() => {
@@ -192,10 +185,10 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Heading */}
+          {/* Heading — ReactBits SplitText entrance */}
           <h1
             ref={headingRef}
-            className={`font-cabinet font-bold mb-3 hero-heading ${theme === "dark" ? "hero-heading--dark" : "hero-heading--light"}`}
+            className="font-cabinet font-bold mb-3 hero-split-glow"
             style={{
               fontSize: "var(--text-hero)",
               fontWeight: 800,
@@ -204,29 +197,50 @@ export default function Hero() {
               willChange: "transform",
             }}
           >
-            <div style={{ overflow: "hidden", paddingBottom: "0.08em" }}>
-              <span ref={line1Ref} style={{ display: "block" }}>
-                Hi, I&apos;m
-              </span>
+            <div style={{ paddingBottom: "0.08em" }}>
+              <SplitText
+                text="Hi, I'm"
+                tag="span"
+                splitType="chars"
+                delay={40}
+                duration={0.9}
+                ease="power4.out"
+                from={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 60 }}
+                to={{ opacity: 1, y: 0 }}
+                textAlign="inherit"
+                className="hero-split"
+              />
             </div>
-            <div style={{ overflow: "hidden", paddingBottom: "0.08em" }}>
-              <span ref={line2Ref} style={{ display: "block" }}>
-                Alif Sya&apos;bani
-              </span>
+            <div style={{ paddingBottom: "0.08em" }}>
+              <SplitText
+                text="Alif Sya'bani"
+                tag="span"
+                splitType="chars"
+                delay={40}
+                duration={0.9}
+                ease="power4.out"
+                from={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 60 }}
+                to={{ opacity: 1, y: 0 }}
+                textAlign="inherit"
+                className="hero-split"
+              />
             </div>
           </h1>
 
-          {/* Subheading */}
+          {/* Subheading — ReactBits ShinyText */}
           <p
             ref={subRef}
-            className={`
-              font-cabinet mb-1
-              text-sm sm:text-base md:text-lg
-              leading-relaxed
-              ${theme === "dark" ? "text-amber-100/75" : "text-slate-600"}
-            `}
+            className="font-cabinet mb-1 text-sm sm:text-base md:text-lg leading-relaxed"
           >
-            Bachelor of Applied Science in Informatics Engineering
+            <ShinyText
+              text="Bachelor of Applied Science in Informatics Engineering"
+              color={theme === "dark" ? "rgba(253,230,138,0.8)" : "#475569"}
+              shineColor={theme === "dark" ? "#ffffff" : "#2563eb"}
+              speed={3}
+              delay={1.5}
+              shineWidth={30}
+              softness={0.9}
+            />
           </p>
           <p className={`text-xs md:text-sm mb-6 ${theme === "dark" ? "text-amber-200/50" : "text-slate-400"}`}>
             State Polytechnic of Malang

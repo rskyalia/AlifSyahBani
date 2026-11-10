@@ -131,7 +131,7 @@ export default function Footer() {
     <footer
       style={{ background: "transparent" }}
       className={`overflow-hidden ${
-        isDark ? "border-t border-white/6" : "border-t border-slate-200/80"
+        isDark ? "border-t border-[rgba(179,143,111,0.15)]" : "border-t border-slate-200/80"
       }`}
     >
       {/* Large Name Heading with TextReveal */}
@@ -156,7 +156,7 @@ export default function Footer() {
       <div
         ref={marqueeWrapRef}
         className={`overflow-hidden py-4 border-y ${
-          isDark ? "border-white/8" : "border-slate-200/60"
+          isDark ? "border-[rgba(179,143,111,0.15)]" : "border-slate-200/60"
         }`}
         aria-hidden="true"
       >
@@ -170,7 +170,7 @@ export default function Footer() {
             <span
               key={i}
               className={`inline-flex items-center gap-4 px-6 text-sm font-semibold uppercase tracking-widest ${
-                isDark ? "text-white/40" : "text-slate-400"
+                isDark ? "text-[rgba(179,143,111,0.5)]" : "text-slate-400"
               }`}
             >
               {item}
@@ -232,7 +232,7 @@ export default function Footer() {
               <span
                 ref={githubUnderlineRef}
                 className={`absolute bottom-0 left-0 right-0 h-px origin-left ${
-                  isDark ? "bg-white/60" : "bg-slate-600"
+                  isDark ? "bg-[rgba(179,143,111,0.7)]" : "bg-slate-600"
                 }`}
                 style={{ transform: "scaleX(0)" }}
               />
@@ -292,7 +292,7 @@ export default function Footer() {
               data-cursor="link"
               className={`text-xs transition-colors ${
                 isDark
-                  ? "text-amber-400/60 hover:text-amber-300"
+                  ? "text-[rgba(179,143,111,0.75)] hover:text-[#B38F6F]"
                   : "text-blue-500/70 hover:text-blue-600"
               }`}
             >

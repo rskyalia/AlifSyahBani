@@ -56,7 +56,7 @@ export default function AboutPhoto() {
           className={`
             absolute -inset-6 rounded-3xl blur-3xl pointer-events-none
             ${isDark
-              ? "bg-gradient-to-br from-amber-500/35 via-amber-400/15 to-transparent"
+              ? "bg-gradient-to-br from-[rgba(113,0,20,0.4)] via-[rgba(179,143,111,0.2)] to-transparent"
               : "bg-gradient-to-br from-blue-400/30 via-blue-300/15 to-transparent"
             }
           `}
@@ -68,7 +68,7 @@ export default function AboutPhoto() {
           className="relative z-10 rounded-3xl overflow-hidden p-2.5 glass-card-3d"
           style={{
             boxShadow: isDark
-              ? "0 25px 70px rgba(0,0,0,0.8), 0 0 50px rgba(245,158,11,0.25)"
+              ? "0 25px 70px rgba(0,0,0,0.8), 0 0 50px rgba(113,0,20,0.3)"
               : "0 25px 70px rgba(15,23,42,0.18), 0 0 50px rgba(37,99,235,0.2)",
           }}
         >
@@ -94,7 +94,7 @@ export default function AboutPhoto() {
             animationDuration: "3.5s",
           }}
         >
-          <Code size={14} className={isDark ? "text-amber-400" : "text-blue-500"} />
+          <Code size={14} className={isDark ? "text-[#B38F6F]" : "text-blue-500"} />
           <span>Full-Stack Dev</span>
         </div>
 
@@ -107,7 +107,7 @@ export default function AboutPhoto() {
             animationDelay: "0.5s",
           }}
         >
-          <Mic size={14} className={isDark ? "text-amber-400" : "text-blue-500"} />
+          <Mic size={14} className={isDark ? "text-[#B38F6F]" : "text-blue-500"} />
           <span>Public Speaker</span>
         </div>
 
@@ -120,7 +120,7 @@ export default function AboutPhoto() {
             animationDelay: "1s",
           }}
         >
-          <Sparkles size={13} className={isDark ? "text-amber-400" : "text-blue-500"} />
+          <Sparkles size={13} className={isDark ? "text-[#B38F6F]" : "text-blue-500"} />
           <span>AI / ML</span>
         </div>
       </div>

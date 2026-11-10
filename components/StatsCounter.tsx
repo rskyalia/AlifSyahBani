@@ -128,7 +128,7 @@ export default function StatsCounter({
             style={{
               fontSize: "0.85rem",
               fontWeight: 500,
-              color: "rgba(147, 197, 253, 0.75)",
+              color: "rgba(179, 143, 111, 0.8)",
               marginTop: "0.25rem",
               letterSpacing: "0.06em",
               textTransform: "uppercase",

@@ -92,15 +92,15 @@ export default function Navbar() {
 
 
   const navBgScrolled = isDark
-    ? "bg-[rgba(0,0,0,0.88)] shadow-[0_8px_32px_rgba(0,0,0,0.8),0_0_0_1px_rgba(251,191,36,0.12)]"
+    ? "bg-[rgba(22,22,22,0.85)] shadow-[0_8px_32px_rgba(0,0,0,0.8),0_0_0_1px_rgba(179,143,111,0.2)]"
     : "bg-[rgba(255,255,255,0.92)] shadow-[0_8px_32px_rgba(15,23,42,0.14),0_0_0_1px_rgba(15,23,42,0.09)]";
 
   const navBgDefault = isDark
-    ? "bg-[rgba(0,0,0,0.65)] shadow-[0_4px_24px_rgba(0,0,0,0.6),0_0_0_1px_rgba(251,191,36,0.08)]"
+    ? "bg-[rgba(22,22,22,0.65)] shadow-[0_4px_24px_rgba(0,0,0,0.6),0_0_0_1px_rgba(179,143,111,0.12)]"
     : "bg-[rgba(255,255,255,0.75)] shadow-[0_4px_24px_rgba(15,23,42,0.08),0_0_0_1px_rgba(15,23,42,0.06)]";
 
   const glossLineStyle = isDark
-    ? "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)"
+    ? "linear-gradient(90deg, transparent 0%, rgba(179,143,111,0.25) 30%, rgba(179,143,111,0.35) 50%, rgba(179,143,111,0.25) 70%, transparent 100%)"
     : "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.07) 30%, rgba(15,23,42,0.12) 50%, rgba(15,23,42,0.07) 70%, transparent 100%)";
 
   return (
@@ -170,10 +170,10 @@ export default function Navbar() {
                     `}
                     style={{
                       background: isDark
-                        ? "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)"
+                        ? "linear-gradient(180deg, rgba(113,0,20,0.15) 0%, rgba(113,0,20,0.08) 100%)"
                         : "linear-gradient(180deg, rgba(15,23,42,0.07) 0%, rgba(15,23,42,0.02) 100%)",
                       boxShadow: isDark
-                        ? "inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1px rgba(255,255,255,0.08)"
+                        ? "inset 0 1px 0 rgba(179,143,111,0.2), 0 0 0 1px rgba(179,143,111,0.12)"
                         : "inset 0 1px 0 rgba(255,255,255,0.9), 0 0 0 1px rgba(15,23,42,0.07)",
                     }}
                     aria-hidden
@@ -210,11 +210,11 @@ export default function Navbar() {
           ref={menuRef}
           className="md:hidden mt-2 p-2 rounded-2xl"
           style={{
-            background: isDark ? "rgba(0,0,0,0.90)" : "rgba(255,255,255,0.94)",
+            background: isDark ? "rgba(22,22,22,0.90)" : "rgba(255,255,255,0.94)",
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
             boxShadow: isDark
-              ? "0 8px 32px rgba(0,0,0,0.8), 0 0 0 1px rgba(251,191,36,0.12)"
+              ? "0 8px 32px rgba(0,0,0,0.8), 0 0 0 1px rgba(179,143,111,0.18)"
               : "0 8px 32px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.07)",
             clipPath: "inset(0% 0% 100% 0%)",
             pointerEvents: "none",
@@ -224,7 +224,7 @@ export default function Navbar() {
             className="pointer-events-none absolute inset-x-4 top-2 h-px"
             style={{
               background: isDark
-                ? "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)"
+                ? "linear-gradient(90deg, transparent 0%, rgba(179,143,111,0.2) 50%, transparent 100%)"
                 : "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.1) 50%, transparent 100%)",
             }}
             aria-hidden
@@ -258,10 +258,10 @@ export default function Navbar() {
                     `}
                   style={{
                     background: isDark
-                      ? "linear-gradient(180deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%)"
+                      ? "linear-gradient(180deg, rgba(113,0,20,0.12) 0%, rgba(113,0,20,0.06) 100%)"
                       : "linear-gradient(180deg, rgba(15,23,42,0.06) 0%, rgba(15,23,42,0.02) 100%)",
                     boxShadow: isDark
-                      ? "inset 0 1px 0 rgba(255,255,255,0.15), 0 0 0 1px rgba(255,255,255,0.07)"
+                      ? "inset 0 1px 0 rgba(179,143,111,0.18), 0 0 0 1px rgba(179,143,111,0.1)"
                       : "inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(15,23,42,0.06)",
                   }}
                   aria-hidden

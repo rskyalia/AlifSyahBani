@@ -31,7 +31,7 @@ export default function AboutBio() {
       <div className="space-y-4 leading-relaxed text-sm md:text-base description-muted">
         <p>
           Hello, I&apos;m Alif. I am currently pursuing a degree in{" "}
-          <span className="font-semibold text-foreground/90 underline decoration-amber-400/40 underline-offset-4">
+          <span className="font-semibold text-foreground/90 underline decoration-[rgba(179,143,111,0.5)] underline-offset-4">
             Informatics Engineering at Politeknik Negeri Malang
           </span>
           , where I continue to strengthen
@@ -58,7 +58,7 @@ export default function AboutBio() {
 
       {/* 3D Skills Showcase */}
       <div className="mt-7">
-        <p className="text-xs uppercase tracking-widest font-semibold text-amber-300/70 mb-3">
+        <p className="text-xs uppercase tracking-widest font-semibold text-[rgba(179,143,111,0.8)] mb-3">
           Technologies &amp; Expertise
         </p>
         <div className="flex flex-wrap gap-2">
@@ -76,14 +76,14 @@ export default function AboutBio() {
       {/* 3D Holographic Contact Card */}
       <div className="glass-card-3d rounded-2xl p-5 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-wider text-amber-400 font-semibold mb-1">
+          <p className="text-xs uppercase tracking-wider text-[rgba(179,143,111,0.95)] font-semibold mb-1">
             Let&apos;s Connect &amp; Collaborate
           </p>
           <a
             href="mailto:muhammad.alif396177@smk.belajar.id"
-            className="text-sm font-medium text-foreground hover:text-amber-300 transition-colors flex items-center gap-1.5 break-all"
+            className="text-sm font-medium text-foreground hover:text-[#B38F6F] transition-colors flex items-center gap-1.5 break-all"
           >
-            <Mail size={14} className="text-amber-400 shrink-0" />
+            <Mail size={14} className="text-[#B38F6F] shrink-0" />
             muhammad.alif396177@smk.belajar.id
           </a>
         </div>

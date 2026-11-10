@@ -102,7 +102,7 @@ export default function ProjectCard({ title, image, description, tech, demo }: P
               href={demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-all shadow-[0_0_12px_rgba(245,158,11,0.2)]"
+              className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[rgba(113,0,20,0.18)] text-[#B38F6F] border border-[rgba(179,143,111,0.3)] hover:bg-[rgba(113,0,20,0.3)] transition-all shadow-[0_0_12px_rgba(113,0,20,0.25)]"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               Visit
@@ -114,7 +114,7 @@ export default function ProjectCard({ title, image, description, tech, demo }: P
           {tech.map((t) => (
             <span
               key={t}
-              className="px-2.5 py-0.5 text-xs rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300/90 group-hover:border-amber-500/40 group-hover:text-amber-200 transition-colors"
+              className="px-2.5 py-0.5 text-xs rounded-full bg-[rgba(113,0,20,0.15)] border border-[rgba(179,143,111,0.2)] text-[rgba(179,143,111,0.95)] group-hover:border-[rgba(179,143,111,0.4)] group-hover:text-[#B38F6F] transition-colors"
             >
               {t}
             </span>

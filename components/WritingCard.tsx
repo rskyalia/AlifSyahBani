@@ -92,13 +92,13 @@ export default function WritingCard({
       {/* Content */}
       <div className="p-5 md:p-6 relative z-10 flex flex-col">
         <div className="flex items-center justify-between gap-2">
-          <span className="px-2.5 py-0.5 text-[11px] uppercase tracking-widest font-semibold rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+          <span className="px-2.5 py-0.5 text-[11px] uppercase tracking-widest font-semibold rounded-full bg-[rgba(113,0,20,0.18)] border border-[rgba(179,143,111,0.3)] text-[rgba(179,143,111,0.95)] shadow-[0_0_12px_rgba(113,0,20,0.25)]">
             {category}
           </span>
           <span className="card-muted text-xs">{date}</span>
         </div>
 
-        <h3 className="card-title mt-3 text-base md:text-lg font-bold leading-snug transition-colors group-hover:text-amber-300">
+        <h3 className="card-title mt-3 text-base md:text-lg font-bold leading-snug transition-colors group-hover:text-[#B38F6F]">
           {title}
         </h3>
 
@@ -113,7 +113,7 @@ export default function WritingCard({
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-3d text-xs py-2 px-4 shadow-[0_0_18px_rgba(245,158,11,0.3)]"
+              className="btn-3d text-xs py-2 px-4 shadow-[0_0_18px_rgba(113,0,20,0.4)]"
             >
               <ExternalLink size={13} />
               Visit Site

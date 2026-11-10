@@ -121,7 +121,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       className="fixed inset-0 flex flex-col items-center justify-center select-none"
       style={{
         zIndex: 99999,
-        background: "#000000",
+        background: "#161616",
         clipPath: "inset(0% 0% 0% 0%)",
       }}
       aria-hidden
@@ -272,8 +272,8 @@ export default function Preloader({ onComplete }: PreloaderProps) {
               left: 0,
               height: "100%",
               width: "0%",
-              background: "linear-gradient(90deg, rgba(59,130,246,0.8), rgba(147,197,253,1))",
-              boxShadow: "0 0 12px rgba(59,130,246,0.6)",
+              background: "linear-gradient(90deg, rgba(113,0,20,0.7), rgba(179,143,111,0.9))",
+              boxShadow: "0 0 12px rgba(113,0,20,0.5)",
             }}
           />
         </div>

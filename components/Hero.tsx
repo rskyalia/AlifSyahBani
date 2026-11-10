@@ -234,7 +234,7 @@ export default function Hero() {
           >
             <ShinyText
               text="Bachelor of Applied Science in Informatics Engineering"
-              color={theme === "dark" ? "rgba(253,230,138,0.8)" : "#475569"}
+              color={theme === "dark" ? "rgba(179,143,111,0.85)" : "#475569"}
               shineColor={theme === "dark" ? "#ffffff" : "#2563eb"}
               speed={3}
               delay={1.5}
@@ -242,7 +242,7 @@ export default function Hero() {
               softness={0.9}
             />
           </p>
-          <p className={`text-xs md:text-sm mb-6 ${theme === "dark" ? "text-amber-200/50" : "text-slate-400"}`}>
+          <p className={`text-xs md:text-sm mb-6 ${theme === "dark" ? "text-[rgba(179,143,111,0.6)]" : "text-slate-400"}`}>
             State Polytechnic of Malang
           </p>
 
@@ -298,12 +298,12 @@ export default function Hero() {
           {/* Radial ambient glow behind the model */}
           <div
             className={`absolute inset-0 rounded-full blur-3xl opacity-30 pointer-events-none ${theme === "dark"
-                ? "bg-radial-gradient from-amber-400/40 to-transparent"
+                ? "bg-radial-gradient from-maroon-400/40 to-transparent"
                 : "bg-radial-gradient from-blue-400/30 to-transparent"
               }`}
             style={{
               background: theme === "dark"
-                ? "radial-gradient(circle, rgba(245,158,11,0.35) 0%, transparent 70%)"
+                ? "radial-gradient(circle, rgba(113,0,20,0.4) 0%, transparent 70%)"
                 : "radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 70%)",
             }}
             aria-hidden
@@ -315,10 +315,10 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         ref={scrollRef}
-        className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 ${theme === "dark" ? "text-amber-300/40" : "text-slate-400/60"}`}
+        className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 ${theme === "dark" ? "text-[rgba(179,143,111,0.5)]" : "text-slate-400/60"}`}
       >
         <span className="text-[10px] uppercase tracking-widest font-semibold">Scroll</span>
-        <div className={`w-px h-8 bg-linear-to-b animate-bounce-slow ${theme === "dark" ? "from-amber-400/60" : "from-slate-400/60"} to-transparent`} />
+        <div className={`w-px h-8 bg-linear-to-b animate-bounce-slow ${theme === "dark" ? "from-[rgba(179,143,111,0.6)]" : "from-slate-400/60"} to-transparent`} />
       </div>
     </section>
   );
@@ -336,12 +336,12 @@ function SocialIcon({
   theme: "light" | "dark";
 }) {
   const shadows: Record<string, string> = {
-    github: "hover:shadow-[0_0_22px_rgba(255,255,255,0.55)] hover:text-black",
-    linkedin: "hover:shadow-[0_0_22px_rgba(56,189,248,0.6)]  hover:text-sky-700",
-    instagram: "hover:shadow-[0_0_26px_rgba(236,72,153,0.65)] hover:text-white",
-    tiktok: "hover:shadow-[0_0_26px_rgba(236,72,153,0.55)] hover:text-white",
-    x: "hover:shadow-[0_0_22px_rgba(255,255,255,0.75)] hover:text-black",
-    gmail: "hover:shadow-[0_0_26px_rgba(239,68,68,0.55)]  hover:text-white",
+    github: "hover:shadow-[0_0_22px_rgba(255,255,255,0.55)] hover:text-white",
+    linkedin: "hover:shadow-[0_0_22px_rgba(56,189,248,0.6)]  hover:text-sky-400",
+    instagram: "hover:shadow-[0_0_26px_rgba(236,72,153,0.65)] hover:text-pink-400",
+    tiktok: "hover:shadow-[0_0_26px_rgba(236,72,153,0.55)] hover:text-pink-300",
+    x: "hover:shadow-[0_0_22px_rgba(255,255,255,0.75)] hover:text-white",
+    gmail: "hover:shadow-[0_0_26px_rgba(239,68,68,0.55)]  hover:text-red-400",
   };
 
   const lightShadows: Record<string, string> = {
@@ -365,7 +365,7 @@ function SocialIcon({
         transition-all duration-500 ease-in-out
         hover:scale-110
         ${theme === "dark"
-          ? `text-white/60 border border-white/5 bg-white/3 hover:border-white/10 ${shadows[variant]}`
+          ? `text-white/60 border border-[rgba(179,143,111,0.12)] bg-[rgba(113,0,20,0.08)] hover:border-[rgba(179,143,111,0.3)] ${shadows[variant]}`
           : `text-slate-500 border border-slate-200 bg-white/70 hover:border-slate-300 ${lightShadows[variant]}`
         }
       `}

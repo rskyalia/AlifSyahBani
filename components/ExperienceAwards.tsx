@@ -60,9 +60,9 @@ export default function ExperienceAwards() {
     start: "top 85%",
   });
 
-  const accentColor = isDark ? "text-amber-400" : "text-blue-500";
-  const mutedColor = isDark ? "text-amber-400/60" : "text-blue-500/60";
-  const dotColor = isDark ? "bg-amber-400" : "bg-blue-500";
+  const accentColor = isDark ? "text-[#B38F6F]" : "text-blue-500";
+  const mutedColor = isDark ? "text-[rgba(179,143,111,0.7)]" : "text-blue-500/60";
+  const dotColor = isDark ? "bg-[#B38F6F]" : "bg-blue-500";
 
   return (
     <section
